@@ -53,9 +53,9 @@ export const lightTheme = {
       disabled: "210 6% 55%",
     },
     outline: {
-      main: "210 4% 47%",
-      variant: "210 100% 92%",
-      onVariant: "210 7% 29%",
+      main: "210 4% 55%",
+      variant: "210 4% 75%",
+      onVariant: "210 7% 50%",
     },
   },
 };
