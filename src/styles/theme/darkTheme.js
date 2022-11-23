@@ -53,7 +53,7 @@ export const darkTheme = {
       disabled: "207 8% 50%",
     },
     outline: {
-      main: "264 5% 58%",
+      main: "264 5% 48%",
       variant: "264 7% 29%",
       onVariant: "270 11% 79%",
     },

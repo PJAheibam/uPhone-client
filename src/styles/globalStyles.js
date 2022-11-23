@@ -92,12 +92,18 @@ export const GlobalStyles = createGlobalStyle`
     :root{
         // color palette
         ${rootVariables} 
+        --gip: 2rem; //global inline padding
     }
     
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+    }
+
+    *:focus-visible{
+      outline: 2px solid hsl(var(--info-main));
+      outline-offset: 2px;
     }
     
     html{
