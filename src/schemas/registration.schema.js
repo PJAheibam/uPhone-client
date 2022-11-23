@@ -11,3 +11,5 @@ export const RegistrationFormSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match")
     .required(REQUIRED),
 });
+
+// role undefined means he/she is a normal user;

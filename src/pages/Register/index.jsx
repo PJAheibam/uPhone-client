@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   HelperText,
   Input,
@@ -18,6 +18,7 @@ import OrDevider from "../../components/OrDevider";
 import LoginWithGoogle from "../../components/LoginWithGoogle";
 import { useFormik } from "formik";
 import { RegistrationFormSchema } from "../../schemas/registration.schema";
+import { ToggleButton, ToggleButtonGroup } from "../../components/ToggleButton";
 
 function Register() {
   const {
@@ -29,6 +30,7 @@ function Register() {
     handleSubmit,
     isSubmitting,
     setSubmitting,
+    setFieldValue,
   } = useFormik({
     initialValues: {
       fullName: "",
@@ -47,7 +49,7 @@ function Register() {
   return (
     <Container>
       <Box>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Heading>Register</Heading>
           {/********** Full Name **********/}
           <InputWrapper>
@@ -55,6 +57,7 @@ function Register() {
             <Input
               name="fullName"
               placeholder="Full Name"
+              value={values.fullName}
               onChange={handleChange}
               onBlur={handleBlur}
               error={errors.fullName && touched.fullName ? "true" : undefined}
@@ -70,6 +73,7 @@ function Register() {
               name="email"
               type="email"
               placeholder="someone@example.domain"
+              value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
               error={errors.email && touched.email ? "true" : undefined}
@@ -86,6 +90,7 @@ function Register() {
               name="password"
               type="password"
               placeholder="strongPassword"
+              value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
               error={errors.password && touched.password ? "true" : undefined}
@@ -101,6 +106,7 @@ function Register() {
               name="confirmPassword"
               type="password"
               placeholder="strongPassword"
+              value={values.confirmPassword}
               onChange={handleChange}
               onBlur={handleBlur}
               error={
@@ -113,6 +119,11 @@ function Register() {
               <HelperText type="error">{errors.confirmPassword}</HelperText>
             )}
           </InputWrapper>
+
+          <ToggleButtonGroup>
+            <ToggleButton active>Buyer</ToggleButton>
+            <ToggleButton>Seller</ToggleButton>
+          </ToggleButtonGroup>
 
           <GradientButton type="submit">Submit</GradientButton>
 
