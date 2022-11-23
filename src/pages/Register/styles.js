@@ -13,13 +13,17 @@ export const Container = styled.article`
 
 export const Box = styled.section`
   padding: 1rem;
-  height: fit-content;
-  background-image: var(--paper-2);
+  min-width: 100%;
+  height: 100%;
+  /* margin-block: 0; */
+  /* background-image: var(--paper-1); */
   padding-inline: var(--gip);
   @media ${device.sm} {
     box-shadow: var(--box-shadow-sm);
     margin-block: 2rem;
+    padding-inline: 2rem;
     border-radius: var(--border-radius-lg);
+    background-image: var(--paper-2);
     min-width: 400px;
   }
 `;
@@ -32,7 +36,8 @@ export const Form = styled.form`
 
 export const Heading = styled.h1`
   text-align: center;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 500;
 `;
 
 export const BoxFooterText = styled.p`

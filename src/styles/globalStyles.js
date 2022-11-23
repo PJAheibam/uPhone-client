@@ -92,7 +92,9 @@ export const GlobalStyles = createGlobalStyle`
     :root{
         // color palette
         ${rootVariables} 
-        --gip: 2rem; //global inline padding
+        --gip: 3rem; //global inline padding
+
+        color-scheme: ${(p) => p.theme.palette.mode};
     }
     
     * {
@@ -114,6 +116,7 @@ export const GlobalStyles = createGlobalStyle`
         font-family: "Poppins", sans-serif;
         color: hsl(var(--text-primary));
         background-color: hsl(var(--bg));
+        overflow: overlay;
     }
 
     // Reseting default anchor default styles

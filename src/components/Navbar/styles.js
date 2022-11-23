@@ -13,5 +13,5 @@ export const Wrapper = styled.section`
   gap: 1rem;
   align-items: center;
   padding-block: 0.5rem;
-  padding-inline: 2rem;
+  padding-inline: var(--gip);
 `;
