@@ -14,6 +14,9 @@ function UserMenu() {
     from: { opacity: 0, scale: 0.9 },
     enter: { opacity: 1, scale: 1 },
     leave: { opacity: 0, scale: 0.79 },
+    config: {
+      duration: 100,
+    },
   });
 
   function toggleMenu() {
