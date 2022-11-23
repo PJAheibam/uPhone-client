@@ -58,7 +58,7 @@ function Register() {
           </InputWrapper>
           <GradientButton type="submit">Submit</GradientButton>
           <OrDevider />
-          <LoginWithGoogle />
+          <LoginWithGoogle innerText="Register With Google" />
           <BoxFooterText>
             Already Have an account? <LinkText to="/login">Login</LinkText>{" "}
           </BoxFooterText>

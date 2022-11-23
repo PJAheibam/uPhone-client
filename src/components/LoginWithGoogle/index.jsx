@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "../Button";
 import google from "../../assets/icons/google.svg";
-function LoginWithGoogle() {
+function LoginWithGoogle({ innerText }) {
   return (
     <Container variant="outlined" color="primary">
       <img width={25} src={google} alt="google icon" />
-      <Text>Log in with google</Text>
+      <Text>{innerText || "Log in with google"}</Text>
     </Container>
   );
 }
