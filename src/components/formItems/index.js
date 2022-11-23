@@ -18,13 +18,26 @@ export const Input = styled.input.attrs((p) => ({
   color: hsl(var(--text-primary));
   font-size: 1.15rem;
   padding: 0.35rem 1rem;
-  border-radius: var(--border-radius-sm);
-  border: 1px solid hsl(var(--outline));
   width: 100%;
+  border-radius: var(--border-radius-sm);
+  outline: 3px solid transparent;
+  border: 1px solid
+    ${(p) => (p.error ? "hsl(var(--error-main) / 70%)" : "hsl(var(--outline))")};
   background-color: inherit;
+  transition: border 200ms ease, outline 200ms ease;
+  &:hover {
+    border: 1px solid
+      ${(p) => (p.error ? "hsl(var(--error-main))" : "hsl(var(--outline))")};
+  }
   &:focus-visible {
-    border: 1px solid hsl(var(--primary-main));
-    outline: 3px solid hsl(var(--primary-main) / 40%);
+    border: 1px solid
+      ${(p) =>
+        p.error ? "hsl(var(--error-main))" : "hsl(var(--primary-main))"};
+    outline: 3px solid
+      ${(p) =>
+        p.error
+          ? "hsl(var(--error-main) / 35%)"
+          : "hsl(var(--primary-main) / 40%)"};
     outline-offset: 0;
   }
 `;
