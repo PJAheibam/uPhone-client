@@ -107,6 +107,26 @@ export const GlobalStyles = createGlobalStyle`
       outline: 2px solid hsl(var(--info-main));
       outline-offset: 2px;
     }
+
+    ::-webkit-scrollbar{
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track{
+      margin-block: -5px;
+    }
+    ::-webkit-scrollbar-track:hover{
+      /* background-image: var(--paper-5); */
+      background-color: hsl(var(--text-disabled) / 20%);
+    }
+    ::-webkit-scrollbar-thumb{
+      border-radius: 5px;
+      margin: 0.2px;
+      background-color: hsl(var(--text-disabled) / 50%);
+    }
+    ::-webkit-scrollbar-thumb:hover{
+      background-color: hsl(var(--text-disabled) / 80%);
+    }
+    ::-webkit-scrollbar-corner{}
     
     html{
         scroll-behavior: smooth;
