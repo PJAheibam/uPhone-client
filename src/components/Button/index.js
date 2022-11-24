@@ -178,7 +178,7 @@ const variantHoverStyle = (p) => {
 
 export const Button = styled.button`
   will-change: border, color, background-color;
-  /* text-transform: uppercase; */
+  cursor: ${(p) => (p.loading ? "wait" : "pointer")};
   display: flex;
   align-items: center;
   font-size: 1.15rem;
@@ -186,10 +186,16 @@ export const Button = styled.button`
   padding-bottom: 0.3em;
   border-radius: 1em;
   /* font-weight: 600; */
+  ${(p) =>
+    p.disabled &&
+    css`
+      filter: saturate(0.5);
+      opacity: 0.45;
+    `}
   transition: background-color 250ms ease, color 250ms ease, border 250ms ease;
   ${variantStyles}
   &:hover {
-    ${variantHoverStyle}
+    ${(p) => (p.disabled ? null : variantHoverStyle)}
   }
   &:active {
     scale: 0.975;

@@ -66,6 +66,7 @@ const getGradient = (p) => {
 };
 
 export const GradientButton = styled.button`
+  cursor: ${(p) => (p.loading ? "wait" : "pointer")};
   will-change: background-position;
   ${getGradient}
   background-size: 200% auto;
@@ -76,7 +77,14 @@ export const GradientButton = styled.button`
   text-transform: capitalize;
   border-radius: 1em;
   transition: background-position 500ms ease;
+  filter: saturate(${(p) => (p.disabled ? 0.15 : 1)});
+  opacity: ${(p) => (p.disabled ? 0.45 : 1)};
+  background-color: hsl(var(--text-disabled));
   &:hover {
-    background-position: left center;
+    ${(p) =>
+      !p.disabled &&
+      css`
+        background-position: left center;
+      `}
   }
 `;

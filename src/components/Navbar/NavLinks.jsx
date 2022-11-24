@@ -7,7 +7,8 @@ import { useAuth } from "../../context/AuthContext";
 
 function NavLinks() {
   const { pathname } = useLocation();
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
+
   return (
     <Container>
       {globalLinks.map((item, i) => (
@@ -23,7 +24,9 @@ function NavLinks() {
       {user.uid && (
         <PrivateLinks>
           <NavLink to="/dashboard">Dashboard</NavLink>
-          <NavLink as="button">Logout</NavLink>
+          <NavLink as="button" onClick={logOut}>
+            Logout
+          </NavLink>
         </PrivateLinks>
       )}
     </Container>

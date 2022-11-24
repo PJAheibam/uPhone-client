@@ -26,11 +26,16 @@ import {
 } from "../../components/ToggleButton";
 import { useComponentSize } from "react-use-size";
 import { updateProfile } from "firebase/auth";
+import { addUser } from "../../api/addUser";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const { ref: groupRef, width: groupWidth } = useComponentSize();
   const defaultAccountRef = useRef();
-  const { register, setLoading, loading } = useAuth();
+  const { register } = useAuth();
   const [accountTypeInfo, setAccountTypeInfo] = useState({
     role: "user",
     width: 0,
@@ -45,7 +50,6 @@ function Register() {
     handleSubmit,
     isSubmitting,
     setSubmitting,
-    setFieldValue,
   } = useFormik({
     initialValues: {
       fullName: "",
@@ -57,17 +61,28 @@ function Register() {
     validationSchema: RegistrationFormSchema,
   });
 
-  function onSubmit(values, actions) {
-    console.info(values);
-    register(values.email, values.password)
-      .then((res) => {
-        updateProfile(res.user, {
-          displayName: values.fullName,
-        })
-          .then(() => console.info("profile updated"))
-          .catch((err) => console.error(err));
-      })
-      .catch((err) => console.error(err));
+  async function onSubmit(values, actions) {
+    try {
+      const res = await register(values.email, values.password);
+      const currentUser = {
+        uid: res.user.uid,
+        email: res.user.email,
+        fullName: values.fullName,
+        role: accountTypeInfo.role,
+      };
+
+      await updateProfile(res.user, {
+        displayName: values.fullName,
+      });
+
+      const addUserRes = await addUser(currentUser);
+      console.info(addUserRes.data);
+      actions.resetForm();
+
+      navigate(from, { replace: true });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   function handleToggleClick(e) {
@@ -99,7 +114,6 @@ function Register() {
             <Input
               name="fullName"
               placeholder="Full Name"
-              style={{ textTransform: "capitalize" }}
               value={values.fullName}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -174,14 +188,28 @@ function Register() {
             />
           </ToggleButtonGroup>
 
-          <GradientButton type="submit">Submit</GradientButton>
+          <GradientButton
+            disabled={isSubmitting}
+            loading={isSubmitting ? "true" : undefined}
+            type="submit"
+          >
+            Register
+          </GradientButton>
         </Form>
         <OrDevider />
 
-        <LoginWithGoogle innerText="Register With Google" />
+        <LoginWithGoogle
+          innerText="Register With Google"
+          isSubmitting={isSubmitting}
+          setSubmitting={setSubmitting}
+          navigateTo={from}
+        />
 
         <BoxFooterText>
-          Already Have an account? <LinkText to="/login">Login</LinkText>{" "}
+          Already Have an account?{" "}
+          <LinkText to="/login" state={{ from: location.state?.from }}>
+            Login
+          </LinkText>{" "}
         </BoxFooterText>
       </Box>
     </Container>

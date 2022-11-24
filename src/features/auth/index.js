@@ -10,7 +10,7 @@ import { app } from "./config";
 
 export const auth = getAuth(app);
 
-export function logIn(auth, email, password) {
+export function logIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
 

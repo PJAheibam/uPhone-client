@@ -4,7 +4,7 @@ import { lightTheme, darkTheme } from "../styles/theme";
 const ThemeContext = createContext();
 
 function ToggleThemeProvider({ children }) {
-  const [theme, setTheme] = useState(lightTheme);
+  const [theme, setTheme] = useState(darkTheme);
 
   function toggleTheme() {
     setTheme((previousTheme) =>

@@ -11,12 +11,14 @@ import {
 
 const AuthContext = createContext();
 
+const initialUserInfo = {
+  displayName: null,
+  email: null,
+  uid: null,
+};
+
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState({
-    displayName: null,
-    email: null,
-    uid: null,
-  });
+  const [user, setUser] = useState(initialUserInfo);
 
   const [loading, setLoading] = useState(true);
 
@@ -25,13 +27,15 @@ export function AuthProvider({ children }) {
       if (currentUser) {
         setUser(currentUser);
         getAccessToken({ uid: currentUser.uid, email: currentUser.email });
+      } else {
+        setUser(initialUserInfo);
       }
       setLoading(false);
     });
     return () => unsubscribe();
   }, []);
 
-  console.info(user);
+  // console.info(user);
 
   const value = {
     setLoading,

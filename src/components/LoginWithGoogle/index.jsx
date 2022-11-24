@@ -3,16 +3,32 @@ import styled from "styled-components";
 import { Button } from "../Button";
 import google from "../../assets/icons/google.svg";
 import { useAuth } from "../../context/AuthContext";
-function LoginWithGoogle({ innerText }) {
+import { useNavigate } from "react-router-dom";
+function LoginWithGoogle({
+  innerText,
+  isSubmitting,
+  setSubmitting,
+  navigateTo,
+}) {
   const { logInWithGoogle } = useAuth();
+  const navigate = useNavigate();
 
-  function handleClick() {
-    logInWithGoogle()
-      .then((res) => console.info(res.user))
-      .catch((err) => console.error(err));
+  async function handleClick() {
+    try {
+      setSubmitting(true);
+      const res = await logInWithGoogle();
+      console.info(res);
+      navigate(navigateTo, { replace: true });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSubmitting(false);
+    }
   }
   return (
     <Container
+      disabled={isSubmitting}
+      loading={isSubmitting ? "true" : undefined}
       type="button"
       variant="outlined"
       color="primary"
