@@ -23,8 +23,10 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "../../components/ToggleButton";
+import { useComponentSize } from "react-use-size";
 
 function Register() {
+  const { ref: groupRef, width: groupWidth } = useComponentSize();
   const defaultAccountRef = useRef();
   const [accountTypeInfo, setAccountTypeInfo] = useState({
     role: "user",
@@ -72,7 +74,7 @@ function Register() {
       left: defaultAccountRef.current.offsetLeft,
     };
     setAccountTypeInfo(data);
-  }, []);
+  }, [groupWidth]);
 
   return (
     <Container>
@@ -148,7 +150,7 @@ function Register() {
             )}
           </InputWrapper>
 
-          <ToggleButtonGroup>
+          <ToggleButtonGroup ref={groupRef}>
             <ToggleButton ref={defaultAccountRef} onClick={handleToggleClick}>
               Buyer
             </ToggleButton>
