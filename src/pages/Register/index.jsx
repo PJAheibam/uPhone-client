@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   HelperText,
   Input,
@@ -18,9 +18,19 @@ import OrDevider from "../../components/OrDevider";
 import LoginWithGoogle from "../../components/LoginWithGoogle";
 import { useFormik } from "formik";
 import { RegistrationFormSchema } from "../../schemas/registration.schema";
-import { ToggleButton, ToggleButtonGroup } from "../../components/ToggleButton";
+import {
+  ActiveBg,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "../../components/ToggleButton";
 
 function Register() {
+  const defaultAccountRef = useRef();
+  const [accountTypeInfo, setAccountTypeInfo] = useState({
+    role: "user",
+    width: 0,
+    left: 0,
+  });
   const {
     values,
     errors,
@@ -45,6 +55,24 @@ function Register() {
   function onSubmit(values, actions) {
     console.info(values);
   }
+
+  function handleToggleClick(e) {
+    // console.info(e);
+    setAccountTypeInfo({
+      role: e.target.innerText.toLowerCase(),
+      width: e.target.clientWidth,
+      left: e.target.offsetLeft,
+    });
+  }
+
+  useEffect(() => {
+    const data = {
+      role: defaultAccountRef.current.innerText.toLowerCase(),
+      width: defaultAccountRef.current.clientWidth,
+      left: defaultAccountRef.current.offsetLeft,
+    };
+    setAccountTypeInfo(data);
+  }, []);
 
   return (
     <Container>
@@ -121,8 +149,14 @@ function Register() {
           </InputWrapper>
 
           <ToggleButtonGroup>
-            <ToggleButton active>Buyer</ToggleButton>
-            <ToggleButton>Seller</ToggleButton>
+            <ToggleButton ref={defaultAccountRef} onClick={handleToggleClick}>
+              Buyer
+            </ToggleButton>
+            <ToggleButton onClick={handleToggleClick}>Seller</ToggleButton>
+            <ActiveBg
+              width={accountTypeInfo.width}
+              left={accountTypeInfo.left}
+            />
           </ToggleButtonGroup>
 
           <GradientButton type="submit">Submit</GradientButton>
