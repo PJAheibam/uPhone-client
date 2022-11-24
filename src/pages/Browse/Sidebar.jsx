@@ -1,6 +1,6 @@
 import React from "react";
 import { Link as RrdLink } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { categories } from "../../data/category";
 import { device } from "../../utils/breakpoints";
 
@@ -28,7 +28,13 @@ const Container = styled.aside`
   padding-inline: var(--gip);
   background-image: var(--paper-1);
   @media ${device.md} {
-    box-shadow: 15px 0 38px -30px hsl(var(--primary-hue) 80% 20%);
+    ${(p) => {
+      if (p.theme.palette.mode === "dark") return css``;
+      else
+        return css`
+          box-shadow: 15px 0 38px -30px hsl(var(--primary-hue) 80% 20%);
+        `;
+    }}
     grid-column: 1/4;
     padding-right: 1rem;
     padding-left: var(--gip);

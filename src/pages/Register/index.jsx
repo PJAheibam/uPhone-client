@@ -28,6 +28,7 @@ import { useComponentSize } from "react-use-size";
 import { updateProfile } from "firebase/auth";
 import { addUser } from "../../api/addUser";
 import { useLocation, useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 function Register() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ function Register() {
   const from = location.state?.from?.pathname || "/";
   const { ref: groupRef, width: groupWidth } = useComponentSize();
   const defaultAccountRef = useRef();
-  const { register } = useAuth();
+  const { register, loading } = useAuth();
   const [accountTypeInfo, setAccountTypeInfo] = useState({
     role: "user",
     width: 0,
@@ -95,13 +96,17 @@ function Register() {
   }
 
   useEffect(() => {
-    const data = {
-      role: defaultAccountRef.current.innerText.toLowerCase(),
-      width: defaultAccountRef.current.clientWidth,
-      left: defaultAccountRef.current.offsetLeft,
-    };
-    setAccountTypeInfo(data);
-  }, [groupWidth]);
+    if (!loading) {
+      const data = {
+        role: defaultAccountRef.current.innerText.toLowerCase(),
+        width: defaultAccountRef.current.clientWidth,
+        left: defaultAccountRef.current.offsetLeft,
+      };
+      setAccountTypeInfo(data);
+    }
+  }, [groupWidth, loading]);
+
+  if (loading) return <Loading />;
 
   return (
     <Container>

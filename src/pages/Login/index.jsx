@@ -20,12 +20,13 @@ import { useFormik } from "formik";
 import { LoginFormSchema } from "../../schemas/login.schema";
 import { useAuth } from "../../context/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const { logIn } = useAuth();
+  const { logIn, loading } = useAuth();
   const {
     values,
     errors,
@@ -56,6 +57,7 @@ function Login() {
   }
 
   // console.info(isSubmitting);
+  if (loading) return <Loading />;
 
   return (
     <Container>
