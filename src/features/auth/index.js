@@ -1,8 +1,10 @@
 import {
   getAuth,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signOut,
   signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { app } from "./config";
 
@@ -18,6 +20,12 @@ export function logOut() {
     .catch((err) => console.info("Log Out Error:", err));
 }
 
-export function logInWithPopup(provider) {
-  return signInWithPopup(auth, provider);
+const GoogleProvider = new GoogleAuthProvider();
+
+export function logInWithGoogle() {
+  return signInWithPopup(auth, GoogleProvider);
+}
+
+export function register(email, password) {
+  return createUserWithEmailAndPassword(auth, email, password);
 }

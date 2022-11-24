@@ -14,4 +14,11 @@ export const Wrapper = styled.section`
   align-items: center;
   padding-block: 0.5rem;
   padding-inline: var(--gip);
+  min-height: 50.72px;
+`;
+
+export const AuthButtonGroup = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 `;

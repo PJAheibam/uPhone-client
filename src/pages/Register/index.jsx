@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 import {
   HelperText,
   Input,
@@ -24,10 +25,12 @@ import {
   ToggleButtonGroup,
 } from "../../components/ToggleButton";
 import { useComponentSize } from "react-use-size";
+import { updateProfile } from "firebase/auth";
 
 function Register() {
   const { ref: groupRef, width: groupWidth } = useComponentSize();
   const defaultAccountRef = useRef();
+  const { register, setLoading, loading } = useAuth();
   const [accountTypeInfo, setAccountTypeInfo] = useState({
     role: "user",
     width: 0,
@@ -56,6 +59,15 @@ function Register() {
 
   function onSubmit(values, actions) {
     console.info(values);
+    register(values.email, values.password)
+      .then((res) => {
+        updateProfile(res.user, {
+          displayName: values.fullName,
+        })
+          .then(() => console.info("profile updated"))
+          .catch((err) => console.error(err));
+      })
+      .catch((err) => console.error(err));
   }
 
   function handleToggleClick(e) {
@@ -79,14 +91,15 @@ function Register() {
   return (
     <Container>
       <Box>
+        <Heading>Register</Heading>
         <Form onSubmit={handleSubmit}>
-          <Heading>Register</Heading>
           {/********** Full Name **********/}
           <InputWrapper>
             <Label>Full Name</Label>
             <Input
               name="fullName"
               placeholder="Full Name"
+              style={{ textTransform: "capitalize" }}
               value={values.fullName}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -162,15 +175,14 @@ function Register() {
           </ToggleButtonGroup>
 
           <GradientButton type="submit">Submit</GradientButton>
-
-          <OrDevider />
-
-          <LoginWithGoogle innerText="Register With Google" />
-
-          <BoxFooterText>
-            Already Have an account? <LinkText to="/login">Login</LinkText>{" "}
-          </BoxFooterText>
         </Form>
+        <OrDevider />
+
+        <LoginWithGoogle innerText="Register With Google" />
+
+        <BoxFooterText>
+          Already Have an account? <LinkText to="/login">Login</LinkText>{" "}
+        </BoxFooterText>
       </Box>
     </Container>
   );

@@ -41,6 +41,7 @@ export const Heading = styled.h1`
 `;
 
 export const BoxFooterText = styled.p`
+  margin-top: 0.75rem;
   text-align: center;
   color: hsl(var(--text-secondary));
 `;

@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { globalLinks } from "../../data/globalLinks";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 function NavLinks() {
   const { pathname } = useLocation();
+  const { user } = useAuth();
   return (
     <Container>
       {globalLinks.map((item, i) => (
@@ -18,6 +20,12 @@ function NavLinks() {
           {item.name}{" "}
         </NavLink>
       ))}
+      {user.uid && (
+        <PrivateLinks>
+          <NavLink to="/dashboard">Dashboard</NavLink>
+          <NavLink as="button">Logout</NavLink>
+        </PrivateLinks>
+      )}
     </Container>
   );
 }
@@ -38,4 +46,9 @@ export const NavLink = styled(Link)`
   &:hover {
     color: hsl(var(--text-primary));
   }
+`;
+
+export const PrivateLinks = styled.div`
+  display: flex;
+  gap: 1rem;
 `;

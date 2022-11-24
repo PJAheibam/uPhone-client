@@ -16,6 +16,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  margin-block: 0.35em;
 `;
 
 const Text = styled.span`
