@@ -7,6 +7,8 @@ import Register from "../pages/Register";
 import PageNotFound from "../pages/PageNotFound";
 import Browse from "../pages/Browse";
 import DashboardLayout from "../layout/Dashboard.layout";
+import Loading from "../components/Loading";
+import AddProduct from "../pages/AddProduct";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +25,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "blog",
-        element: <Blog />,
+        element: <Loading />,
       },
       {
         path: "login",
@@ -43,6 +45,14 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: <DashboardLayout />,
     children: [
+      {
+        path: "",
+        element: <Loading />,
+      },
+      {
+        path: "add-product",
+        element: <AddProduct />,
+      },
       {
         path: "/dashboard/*",
         element: <PageNotFound />,

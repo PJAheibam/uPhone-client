@@ -21,16 +21,16 @@ export const Input = styled.input.attrs((p) => ({
   width: 100%;
   border-radius: var(--border-radius-sm);
   outline: 3px solid transparent;
-  border: 1px solid
+  border: 1.5px solid
     ${(p) => (p.error ? "hsl(var(--error-main) / 70%)" : "hsl(var(--outline))")};
   background-color: inherit;
   transition: border 200ms ease, outline 200ms ease;
   &:hover {
-    border: 1px solid
+    border: 1.5px solid
       ${(p) => (p.error ? "hsl(var(--error-main))" : "hsl(var(--outline))")};
   }
   &:focus-visible {
-    border: 1px solid
+    border: 1.5px solid
       ${(p) =>
         p.error ? "hsl(var(--error-main))" : "hsl(var(--primary-main))"};
     outline: 3px solid

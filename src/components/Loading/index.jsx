@@ -5,7 +5,7 @@ import { PuffLoader } from "react-spinners";
 function Loading() {
   return (
     <Container>
-      <PuffLoader />
+      <PuffLoader color="#288bff" size={100} />
     </Container>
   );
 }
@@ -16,4 +16,5 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: calc(100vh - 55px);
 `;

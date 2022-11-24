@@ -14,8 +14,8 @@ function DashboardLayout() {
         <Sidebar>
           <Avatar src={userIcon} alt="User avatar" />
           <NavLinks>
+            <Link to="/dashboard">My Products</Link>
             <Link to="/dashboard/add-product">Add a Product</Link>
-            <Link to="/dashboard/my-products">My Products</Link>
           </NavLinks>
         </Sidebar>
         <MainSection>
@@ -41,7 +41,7 @@ const MainSection = styled.section`
   padding-block: 2rem;
   padding-inline: var(--gip);
   @media ${device.md} {
-    grid-column: 4/12;
+    grid-column: 4/13;
     padding-block: 2rem;
     padding-left: 2rem;
     padding-right: var(--gip);
