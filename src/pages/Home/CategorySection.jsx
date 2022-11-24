@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { categories } from "../../data/category";
 
 function CategorySection() {
-  data.map((item) => console.info(item));
+  categories.map((item) => console.info(item));
   return (
     <Container>
       <Heading>Browse phones by brand name</Heading>
       <Brands>
-        {data.map((item, i) => (
-          <Brand key={i} to="/">
+        {categories.map((item, i) => (
+          <Brand key={i} to={"/category/" + item.brandName}>
             {item.brandName}
           </Brand>
         ))}
@@ -54,30 +55,3 @@ const Brands = styled.section`
   grid-auto-rows: 1fr;
   gap: 1rem;
 `;
-
-const data = [
-  {
-    brandName: "iPhone",
-  },
-  {
-    brandName: "Samsung",
-  },
-  {
-    brandName: "Realme",
-  },
-  {
-    brandName: "Vivo",
-  },
-  {
-    brandName: "Symphony",
-  },
-  {
-    brandName: "Walton",
-  },
-  {
-    brandName: "Infinix",
-  },
-  {
-    brandName: "Techno",
-  },
-];

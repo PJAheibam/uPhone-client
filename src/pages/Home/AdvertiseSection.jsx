@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import styled from "styled-components";
 import { Button } from "../../components/Button";
+import { Link } from "react-router-dom";
 
 function AdvertiseSection() {
   const props = {
@@ -37,7 +38,12 @@ function AdvertiseSection() {
             <Text>
               Price: <Price>40000tk</Price>{" "}
             </Text>
-            <Button variant="outlined" style={{ marginTop: "15px" }}>
+            <Button
+              as={Link}
+              to="/category/1"
+              variant="outlined"
+              style={{ marginTop: "15px" }}
+            >
               View
             </Button>
           </Content>
