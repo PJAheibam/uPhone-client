@@ -79,8 +79,8 @@ const rootVariables = (p) => css`
 
   /* BOX SHADOWS */
   --box-shadow-sm: 0 2px 4px hsl(var(--primary-hue) 10% 5% / 50%);
-  --box-shadow-md: 0 5px 10px hsl(var(--primary-hue) 10% 5% / 50%);
-  --box-shadow-lg: 0 5px 15px hsl(var(--primary-hue) 10% 5% / 50%);
+  --box-shadow-md: 0 5px 10px hsl(var(--primary-hue) 10% 5% / 45%);
+  --box-shadow-lg: 0 10px 20px hsl(var(--primary-hue) 10% 5% / 30%);
 
   /* OUTLINE */
   --outline: ${p.theme.palette.outline.main};

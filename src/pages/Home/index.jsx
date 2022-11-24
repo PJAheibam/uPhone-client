@@ -1,4 +1,5 @@
 import React from "react";
+import AdvertiseSection from "./AdvertiseSection";
 import CategorySection from "./CategorySection";
 import HeroSection from "./HeroSection";
 
@@ -7,6 +8,7 @@ function Home() {
     <>
       <HeroSection />
       <CategorySection />
+      <AdvertiseSection />
     </>
   );
 }

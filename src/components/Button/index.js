@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 export * from "./GradientButton";
 
 const getColor = (p) => {
-  if (!p.color) return "hsl(var(--on-primar${alpha})";
+  if (!p.color) return "hsl(var(--on-primary))";
   switch (p.color) {
     case "primary":
       return "hsl(var(--on-primary))";
@@ -22,7 +22,7 @@ const getColor = (p) => {
   }
 };
 const getBgColor = (p) => {
-  if (!p.color) return "hsl(var(--primary-dark))";
+  // if (!p.color) return "hsl(var(--primary-dark))";
   switch (p.color) {
     case "primary":
       return "hsl(var(--primary-main))";
@@ -106,9 +106,9 @@ const getSemiTransparentBgColor = (p) => {
 const variantStyles = (p) => {
   if (!p.variant)
     return css`
-      color: hsl(var(--text-primary));
-      border: 1px solid ${getBgColor};
       background-color: transparent;
+      color: ${getBgColor};
+      border: 1px solid ${getBgColor};
     `;
 
   switch (p.variant) {
@@ -138,8 +138,12 @@ const variantStyles = (p) => {
 const variantHoverStyle = (p) => {
   if (!p.variant)
     return css`
-      color: hsl(var(--text-primary));
-      background-color: transparent;
+      background-color: ${getSemiTransparentBgColor};
+      color: ${p.theme.palette.mode === "dark"
+        ? getLightBgColor
+        : getDarkBgColor};
+      border: 1px solid
+        ${p.theme.palette.mode === "dark" ? getLightBgColor : getDarkBgColor};
     `;
 
   switch (p.variant) {
@@ -185,6 +189,7 @@ export const Button = styled.button`
   padding: 0.25em 0.75em;
   padding-bottom: 0.3em;
   border-radius: 1em;
+  width: fit-content;
   /* font-weight: 600; */
   ${(p) =>
     p.disabled &&
