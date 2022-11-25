@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Input } from "../../components/formItems";
+import { Input, InputWrapper } from "../../components/formItems";
 import { device } from "../../utils/breakpoints";
 import uploadImg from "../../assets/images/upload-image.svg";
 
@@ -11,7 +11,7 @@ export const Form = styled.form`
 
 export const Block = styled.div`
   display: grid;
-  align-items: center;
+  /* align-items: center; */
   gap: 1.5rem;
   grid-template-columns: 1fr;
   @media ${device.sm} {
@@ -30,7 +30,7 @@ export const TextArea = styled(Input)`
   font-family: inherit;
 `;
 
-export const UploadImage = styled.label`
+export const UploadImage = styled(InputWrapper)`
   position: relative;
   cursor: pointer;
   width: 100%;

@@ -6,9 +6,9 @@ const optionCommonStyles = css`
   align-items: center;
   gap: 1rem;
   font-size: 1.15rem;
-  text-transform: capitalize;
   padding: 0.35rem 1rem;
   width: 100%;
+  text-transform: none;
 `;
 
 export const Container = styled.div`

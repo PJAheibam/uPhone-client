@@ -152,5 +152,5 @@ export const GlobalStyles = createGlobalStyle`
         border: none;
         background-color: transparent;
         border-radius: 0;
-    }
+      }
 `;

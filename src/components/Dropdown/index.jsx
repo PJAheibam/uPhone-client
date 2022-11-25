@@ -12,7 +12,12 @@ import { MdKeyboardArrowDown as ArrowDown } from "react-icons/md";
 import { useSpring, config } from "react-spring";
 import { Label as TopLabel } from "../../components/formItems";
 
-function Dropdown({ data, setSelected, defaultLabel = "Select" }) {
+function Dropdown({
+  data,
+  setSelected,
+  defaultLabel = "Select",
+  onclick = () => {},
+}) {
   const [height, setHeight] = useState(0);
   const [label, setLabel] = useState(defaultLabel);
   const [open, setOpen] = useState(false);
@@ -39,7 +44,9 @@ function Dropdown({ data, setSelected, defaultLabel = "Select" }) {
     setLabel(e.target.innerText);
     if (e.target.innerText.toLowerCase() === "other") {
       setSelected(-1);
+      onclick("", "");
     } else {
+      onclick(id, e.target.innerText);
       setSelected(id);
     }
   }
@@ -64,7 +71,7 @@ function Dropdown({ data, setSelected, defaultLabel = "Select" }) {
                 {item.text}
               </Option>
             ))}
-          <Option onClick={handleClick}>other</Option>
+          <Option onClick={handleClick}>Other</Option>
         </Options>
       </OptionsWrapper>
     </Container>

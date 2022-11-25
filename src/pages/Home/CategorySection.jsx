@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { categories } from "../../data/category";
 
 function CategorySection() {
-  categories.map((item) => console.info(item));
   return (
     <Container>
       <Heading>Browse phones by brand name</Heading>
