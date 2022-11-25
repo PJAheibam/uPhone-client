@@ -16,6 +16,7 @@ import imgAPI from "../../api/uploadImage";
 import ProgressBar from "../../components/ProgressBar";
 import client from "../../api";
 import { useAuth } from "../../context/AuthContext";
+import { toast } from "react-hot-toast";
 
 const initialValues = {
   productName: "",
@@ -128,6 +129,7 @@ function AddProduct() {
 
   async function onSubmit(values, actions) {
     // console.info(values);
+    const toastId = toast.loading("Adding product...");
     try {
       if (!user.uid) throw "User info must needed";
       if (!localStorage.getItem("access-token")) throw "access-token needed";
@@ -146,7 +148,14 @@ function AddProduct() {
       const res = await client.post("/products", data);
       // console.info()
       console.info(res);
+      toast.success("Product Added", {
+        id: toastId,
+      });
+      actions.resetForm();
     } catch (error) {
+      toast.error("An error occur while uploading product!", {
+        id: toastId,
+      });
       console.error(error);
     }
   }
@@ -167,7 +176,7 @@ function AddProduct() {
               e.stopPropagation();
             }}
           />
-          {/* {isImgUploading && (
+          {isImgUploading && (
             <ProgressBar
               value={progress}
               borderRadius="var(--border-radius-sm)"
@@ -178,7 +187,7 @@ function AddProduct() {
                 zIndex: 10,
               }}
             />
-          )} */}
+          )}
         </UploadImage>
         {errors.images && touched.images && (
           <HelperText type="error">{imgError || errors.images}</HelperText>
