@@ -9,6 +9,7 @@ export const InputWrapper = styled.label`
 export const Label = styled.p`
   font-size: 0.9rem;
   width: 100%;
+  text-transform: capitalize;
 `;
 
 export const Input = styled.input.attrs((p) => ({

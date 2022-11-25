@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { GradientButton } from "../../components/Button";
+import Dropdown from "../../components/Dropdown";
 import { Input, InputWrapper, Label } from "../../components/formItems";
-import { Block, Form, Heading, TextArea } from "./styles";
+import { Block, Form, Heading, TextArea, UploadImage } from "./styles";
+import { categories } from "../../data/category";
 
 function AddProduct() {
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  console.info(selectedIndex);
   return (
     <>
       <Heading>Add Product</Heading>
       <Form>
+        {/* Upload Image */}
+        <UploadImage>
+          <input type="file" />
+        </UploadImage>
         {/* Product Name */}
         <InputWrapper>
           <Label>Product Name</Label>
@@ -30,7 +38,23 @@ function AddProduct() {
             <Input name="originalPrice" placeholder="Price in Taka" />
           </InputWrapper>
         </Block>
-        <Block></Block>
+        <Block>
+          <Dropdown
+            data={categories.map((item, i) => ({
+              id: i,
+              text: item.brandName,
+            }))}
+            defaultLabel="select brand"
+            setSelected={setSelectedIndex}
+          />
+          {/* Other Brand */}
+          {selectedIndex === -1 && (
+            <InputWrapper>
+              <Label>Enter Brand Name</Label>
+              <Input name="brandName" placeholder="Price in Taka" />
+            </InputWrapper>
+          )}
+        </Block>
         {/* Product Details */}
         <InputWrapper>
           <Label>Extra Details</Label>
