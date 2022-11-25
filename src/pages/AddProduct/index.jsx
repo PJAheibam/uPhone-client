@@ -14,6 +14,8 @@ import { useFormik } from "formik";
 import { AddProductFormSchema } from "../../schemas/addProduct.schema";
 import imgAPI from "../../api/uploadImage";
 import ProgressBar from "../../components/ProgressBar";
+import client from "../../api";
+import { useAuth } from "../../context/AuthContext";
 
 const initialValues = {
   productName: "",
@@ -27,6 +29,8 @@ const initialValues = {
 };
 
 function AddProduct() {
+  const { user } = useAuth();
+  const [thumbs, setThumbs] = useState([]);
   const [imgError, setImgError] = useState("");
   const [progress, setProgress] = useState(0);
   const [isImgUploading, setIsImgUploading] = useState(false);
@@ -50,15 +54,12 @@ function AddProduct() {
     setFieldValue,
     setFieldTouched,
     setFieldError,
+    isSubmitting,
   } = useFormik({
     initialValues,
     onSubmit,
     validationSchema: AddProductFormSchema,
   });
-
-  function onSubmit(values, actions) {
-    console.info(values);
-  }
 
   function handleOptionClick(id, text) {
     id && setFieldValue("brandId", id.toString());
@@ -68,7 +69,7 @@ function AddProduct() {
   function handleOnDrop(files, rejectedFiles) {
     // console.info("Accepted Files", files);
     // console.info("Rejected Files", rejectedFiles);
-    setFieldTouched(true);
+    // setFieldTouched(true);
     if (rejectedFiles.length > 0) {
       setImgError("We only accept .jpg, .jpeg & .png type image");
       setFieldError("We only accept .jpg, .jpeg & .png type image");
@@ -77,6 +78,14 @@ function AddProduct() {
 
     setImgError("");
     setFieldError("");
+    //creating thumbnail preview
+    setThumbs(
+      files.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      )
+    );
 
     files.map(async (file) => {
       try {
@@ -117,19 +126,48 @@ function AddProduct() {
     });
   }
 
+  async function onSubmit(values, actions) {
+    // console.info(values);
+    try {
+      if (!user.uid) throw "User info must needed";
+      if (!localStorage.getItem("access-token")) throw "access-token needed";
+      const data = {
+        name: values.productName,
+        moreDetails: values.moreDetails,
+        sellingPrice: values.sellingPrice,
+        originalPrice: values.originalPrice,
+        meetUpLocation: values.meetUpLocation,
+        images: values.images,
+        brand: values.brand,
+        brandId: values.brandId,
+        email: user.email,
+        uid: user.uid,
+      };
+      const res = await client.post("/products", data);
+      // console.info()
+      console.info(res);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <>
       <Heading>Add Product</Heading>
       <Form onSubmit={handleSubmit}>
         {/* Upload Image */}
-        <UploadImage {...getRootProps()}>
+        <UploadImage as="div" {...getRootProps()}>
           <input
             name="images"
             type="file"
             error={imgError ? "true" : undefined}
+            // onBlur={() => setFieldTouched("images", true)}
             {...getInputProps()}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           />
-          {isImgUploading && (
+          {/* {isImgUploading && (
             <ProgressBar
               value={progress}
               borderRadius="var(--border-radius-sm)"
@@ -140,12 +178,14 @@ function AddProduct() {
                 zIndex: 10,
               }}
             />
-          )}
+          )} */}
         </UploadImage>
-        {imgError ||
-          (errors.images && (
-            <HelperText type="error">{imgError || errors.images}</HelperText>
-          ))}
+        {errors.images && touched.images && (
+          <HelperText type="error">{imgError || errors.images}</HelperText>
+        )}
+        {thumbs.map((img, i) => (
+          <img src={img.preview} key={i} height={80} />
+        ))}
         {/* Product Name */}
         <InputWrapper>
           <Label>Product Name</Label>
@@ -273,6 +313,8 @@ function AddProduct() {
           type="submit"
           style={{ marginInline: "auto", marginTop: "1rem" }}
           onclick={() => console.warn(errors)}
+          disabled={isSubmitting}
+          loading={isSubmitting ? "true" : undefined}
         >
           Submit
         </GradientButton>
@@ -281,6 +323,7 @@ function AddProduct() {
           onClick={() => {
             console.info(values);
             console.info(errors);
+            console.info(touched);
           }}
         >
           Check

@@ -10,14 +10,7 @@ export const AddProductFormSchema = yup.object().shape({
   brand: yup.string().required(REQUIRED),
   brandId: yup.string(),
   moreDetails: yup.string(),
-  images: yup
-    .mixed()
-    .when("isArray", {
-      is: Array.isArray,
-      then: yup.array().of(yup.string()),
-      otherwise: yup.string(),
-    })
-    .required("Upload at least one image"),
+  images: yup.array().of(yup.object()).required("Upload at least one image"),
   // images: yup
   //   .mixed()
   //   .test("fileSize", "File Size is too large", (value) => {

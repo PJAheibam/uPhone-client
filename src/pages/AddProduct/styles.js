@@ -45,6 +45,7 @@ export const UploadImage = styled(InputWrapper)`
   overflow: hidden;
   input[type="file"] {
     display: none;
+    pointer-events: none;
   }
   &::before {
     position: absolute;
