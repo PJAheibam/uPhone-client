@@ -18,6 +18,7 @@ import client from "../../api";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-hot-toast";
 import { format } from "date-fns";
+import { useQuery } from "@tanstack/react-query";
 
 const initialValues = {
   productName: "",
@@ -32,6 +33,15 @@ const initialValues = {
 
 function AddProduct() {
   const date = new Date();
+  const { data: brands = [] } = useQuery({
+    queryKey: ["brands"],
+    queryFn: async () => {
+      const res = await client.get("/brands");
+      return res.data;
+    },
+    refetchOnMount: true,
+  });
+
   const { user } = useAuth();
   const [thumbs, setThumbs] = useState([]);
   const [imgError, setImgError] = useState("");
@@ -237,6 +247,7 @@ function AddProduct() {
             <HelperText type="error">{errors.meetUpLocation}</HelperText>
           )}
         </InputWrapper>
+        {/* Price Section */}
         <Block>
           {/* Selling Price */}
           <InputWrapper>
@@ -278,11 +289,12 @@ function AddProduct() {
             )}
           </InputWrapper>
         </Block>
+        {/* Brand Section */}
         <Block>
           <Dropdown
-            data={categories.map((item, i) => ({
-              id: i,
-              text: item.brandName,
+            data={brands.map((item) => ({
+              id: item._id,
+              text: item.name,
             }))}
             defaultLabel="select brand"
             setSelected={setSelectedIndex}

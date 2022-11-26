@@ -7,11 +7,15 @@ import { useAuth } from "../../context/AuthContext";
 
 function MyProducts() {
   const { user, loading } = useAuth();
-  const { data, isLoading } = useQuery(["my-products", user.uid], fetchData);
+  const { data = [], isLoading } = useQuery({
+    queryKey: ["my-products", user.uid],
+    queryFn: fetchData,
+    refetchOnMount: true,
+    enabled: loading ? false : true,
+  });
 
   async function fetchData() {
     try {
-      if (loading) return { message: "user is loading" };
       const url = "/products?uid=" + user.uid;
       const res = await client.get(url);
       console.log(res.data);
