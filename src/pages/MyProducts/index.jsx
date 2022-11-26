@@ -2,8 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import styled from "styled-components";
 import client from "../../api";
-import { T, Table } from "../../components/Table";
+import { More, T, Table, Icon } from "../../components/Table";
 import { useAuth } from "../../context/AuthContext";
+import { RiMore2Fill as MoreIcon } from "react-icons/ri";
+import Skeleton from "react-loading-skeleton";
 
 function MyProducts() {
   const { user, loading } = useAuth();
@@ -18,7 +20,7 @@ function MyProducts() {
     try {
       const url = "/products?uid=" + user.uid;
       const res = await client.get(url);
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -40,6 +42,26 @@ function MyProducts() {
           </T.Row>
         </T.Head>
         <T.Body>
+          {isLoading &&
+            [...Array(15).keys()].map((i) => (
+              <T.Row key={i}>
+                <T.Data>
+                  <Skeleton />
+                </T.Data>
+                <T.Data>
+                  <Skeleton />
+                </T.Data>
+                <T.Data>
+                  <Skeleton />
+                </T.Data>
+                <T.Data>
+                  <Skeleton />
+                </T.Data>
+                <T.Data>
+                  <Skeleton />
+                </T.Data>
+              </T.Row>
+            ))}
           {data.map((item, i) => (
             <T.Row key={item._id}>
               <T.Data>{i + 1}</T.Data>
@@ -47,6 +69,11 @@ function MyProducts() {
               <T.Data>{item.sellingPrice}</T.Data>
               <T.Data>{item.status}</T.Data>
               <T.Data>{item.advertise.toString()}</T.Data>
+              <More>
+                <Icon>
+                  <MoreIcon />
+                </Icon>
+              </More>
             </T.Row>
           ))}
         </T.Body>

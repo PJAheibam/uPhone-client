@@ -15,21 +15,55 @@ export const Table = styled.table`
 `;
 
 const Head = styled.thead``;
-const Body = styled.tbody`
-  &:hover {
-    background-image: var(--paper-3);
-  }
-`;
+const Body = styled.tbody``;
 
 const Heading = styled.th`
   ${commonStyle}
-  background-image: var(--paper-2);
+  background-image: var(--paper-3);
 `;
 
 const Data = styled.td`
   ${commonStyle}
 `;
 
-const Row = styled.tr``;
+export const More = styled.td`
+  cursor: pointer;
+  position: absolute;
+  font-size: 1.35rem;
+  height: 100%;
+  width: fit-content;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  padding-inline: 0.5rem;
+  /* background-color: blue; */
+  opacity: 0;
+  transition: opacity 200ms ease;
+`;
+
+export const Icon = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  padding: 0.25rem;
+  border-radius: 50%;
+  &:hover {
+    /* filter: brightness(1.1); */
+    background-image: var(--paper-5);
+  }
+`;
+
+const Row = styled.tr`
+  position: relative;
+  &:hover {
+    background-image: var(--paper-1);
+  }
+  &:hover ${More} {
+    opacity: 1;
+  }
+`;
 
 export const T = { Head, Body, Heading, Data, Row };
