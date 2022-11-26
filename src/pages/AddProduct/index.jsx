@@ -17,6 +17,7 @@ import ProgressBar from "../../components/ProgressBar";
 import client from "../../api";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-hot-toast";
+import { format } from "date-fns";
 
 const initialValues = {
   productName: "",
@@ -30,6 +31,7 @@ const initialValues = {
 };
 
 function AddProduct() {
+  const date = new Date();
   const { user } = useAuth();
   const [thumbs, setThumbs] = useState([]);
   const [imgError, setImgError] = useState("");
@@ -144,6 +146,10 @@ function AddProduct() {
         brandId: values.brandId,
         email: user.email,
         uid: user.uid,
+        postedOn: {
+          time: format(date, "p"),
+          date: format(date, "PP"),
+        },
       };
       const res = await client.post("/products", data);
       // console.info()
@@ -333,6 +339,7 @@ function AddProduct() {
             console.info(values);
             console.info(errors);
             console.info(touched);
+            console.info(format(date, "PPp"));
           }}
         >
           Check

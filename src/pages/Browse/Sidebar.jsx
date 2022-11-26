@@ -1,18 +1,40 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Link as RrdLink } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { categories } from "../../data/category";
+import client from "../../api";
 import { device } from "../../utils/breakpoints";
+import Skeleton from "react-loading-skeleton";
 
 function Sidebar() {
+  const { data = [], isLoading } = useQuery({
+    queryKey: ["brands"],
+    queryFn: async () => {
+      const res = await client.get("/brands");
+      return res.data;
+    },
+    refetchOnMount: true,
+  });
+
   return (
     <Container>
       <Heading>Category</Heading>
       <NavLinks>
-        {categories.map((data, i) => (
-          <Link to={"/category/" + data.brandName} key={i}>
+        {isLoading && (
+          <Skeleton
+            count={8}
+            height={25}
+            width="100%"
+            style={{
+              marginBottom: "1rem",
+            }}
+          />
+        )}
+
+        {data.map((data, i) => (
+          <Link to={"/category/" + data._id} key={data._id}>
             {" "}
-            {data.brandName}{" "}
+            {data.name}{" "}
           </Link>
         ))}
       </NavLinks>
