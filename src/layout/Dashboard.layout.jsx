@@ -5,18 +5,32 @@ import Navbar from "../components/Navbar";
 import { device } from "../utils/breakpoints";
 import userIcon from "../assets/icons/user.png";
 import { Link as RrdLink, Outlet } from "react-router-dom";
+import { useUserRole } from "../context/UserRoleContext";
+import Skeleton from "react-loading-skeleton";
 
 function DashboardLayout() {
+  const { role, loading } = useUserRole();
+
   return (
     <>
       <Navbar />
       <Container>
         <Sidebar>
           <Avatar src={userIcon} alt="User avatar" />
-          <NavLinks>
-            <Link to="/dashboard">My Products</Link>
-            <Link to="/dashboard/add-product">Add a Product</Link>
-          </NavLinks>
+          {loading && (
+            <SkeletonContainer>
+              <Skeleton height={23} />
+              <Skeleton height={23} />
+            </SkeletonContainer>
+          )}
+          {!loading && (
+            <NavLinks>
+              <Link to="/dashboard">My Products</Link>
+              {!loading && role !== "buyer" && (
+                <Link to="/dashboard/add-product">Add a Product</Link>
+              )}
+            </NavLinks>
+          )}
         </Sidebar>
         <MainSection>
           <Outlet />
@@ -34,6 +48,8 @@ const Container = styled.main`
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: 1fr;
   min-height: calc(100vh - 55px);
+  max-width: 1366px;
+  margin-inline: auto;
 `;
 
 const MainSection = styled.section`
@@ -65,12 +81,13 @@ const Sidebar = styled.aside`
     }}
     grid-column: 1/4;
     padding-right: 1rem;
-    padding-left: var(--gip);
+    padding-left: 2rem;
   }
 `;
 
 const Avatar = styled.img`
   /* margin-inline: auto; */
+  margin-left: 1rem;
   width: clamp(50px, 8vw, 80px);
   aspect-ratio: 1;
   border-radius: 50%;
@@ -84,9 +101,18 @@ const NavLinks = styled.nav`
 
 const Link = styled(RrdLink)`
   font-size: 1.15rem;
-  padding: 0.5em 1em;
+  padding: 0.5em 1rem;
   border-radius: 1em;
   &:hover {
     background-color: hsl(var(--primary-main) / 10%);
   }
+`;
+
+const SkeletonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-block: 0.15rem;
+  padding-left: 1rem;
+  margin-top: 1rem;
 `;

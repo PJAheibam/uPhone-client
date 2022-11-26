@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
       setLoading(false);
     });
     return () => unsubscribe();
-  }, []);
+  }, [user.uid]);
 
   // console.info(user);
 

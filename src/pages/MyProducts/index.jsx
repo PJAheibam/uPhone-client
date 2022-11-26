@@ -13,19 +13,14 @@ function MyProducts() {
     queryKey: ["my-products", user.uid],
     queryFn: fetchData,
     refetchOnMount: true,
-    enabled: loading ? false : true,
+    enabled: user.uid ? true : false,
   });
 
   async function fetchData() {
-    try {
-      const url = "/products?uid=" + user.uid;
-      const res = await client.get(url);
-      // console.log(res.data);
-      return res.data;
-    } catch (err) {
-      console.error(err);
-      return err;
-    }
+    const url = "/products?uid=" + user.uid;
+    const res = await client.get(url);
+    // console.log(res.data);
+    return res.data;
   }
 
   return (
