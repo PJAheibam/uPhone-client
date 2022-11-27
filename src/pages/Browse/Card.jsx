@@ -1,12 +1,27 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { GradientButton } from "../../components/Button";
 import { device } from "../../utils/breakpoints";
 import userIcon from "../../assets/icons/user.png";
+import { useQuery } from "@tanstack/react-query";
+import client from "../../api";
+import { Badge } from "../../components/Badge";
+import { MdVerified as VerifiedIcon } from "react-icons/md";
 
 function Card({ data }) {
-  const loading = false;
+  const theme = useTheme();
+  const { data: userData, isLoading } = useQuery({
+    queryKey: ["user", data.selerId],
+    queryFn: async () => {
+      const res = await client.get(`/users/${data.sellerId}`);
+      console.info(res);
+      return res.data;
+    },
+  });
+
+  console.info(userData);
+
   return (
     <Container>
       <Header>
@@ -19,24 +34,20 @@ function Card({ data }) {
             ${data?.sellingPrice}
           </Text>
           <Text>
-            <Property>
-              Original Price: <Value>${data?.originalPrice}</Value>
-            </Property>
+            <Property>Original Price: </Property>
+            <Value>${data?.originalPrice}</Value>
           </Text>
           <Text>
-            <Property>
-              Location: <Value>{data?.location}</Value>
-            </Property>
+            <Property>Location: </Property>
+            <Value>{data?.meetUpLocation}</Value>
           </Text>
           <Text>
-            <Property>
-              Posted On:{" "}
-              <Value>{`${data?.postedOn?.date} at ${data?.postedOn?.time}`}</Value>
-            </Property>
+            <Property>Posted On: </Property>
+            <Value>{`${data?.postedOn?.date} at ${data?.postedOn?.time}`}</Value>
           </Text>
         </Content>
         <Seller>
-          {loading ? (
+          {isLoading ? (
             <Skeleton circle height={40} width={40} />
           ) : (
             <SellerAvatar
@@ -44,7 +55,12 @@ function Card({ data }) {
               alt="Seller Avatar"
             />
           )}
-          <SellerName>Prosenjit Singha</SellerName>
+          <SellerName>
+            Prosenjit Singha{" "}
+            {userData?.verified && (
+              <VerifiedIcon color={`hsl(${theme.palette.info.main})`} />
+            )}
+          </SellerName>
         </Seller>
         <Footer>
           <GradientButton style={{ borderRadius: "0.25rem" }}>
@@ -133,6 +149,9 @@ const Seller = styled.div`
 const SellerName = styled.h2`
   font-size: 1rem;
   font-weight: 400;
+  display: flex;
+  gap: 0.15rem;
+  justify-content: center;
 `;
 
 const SellerAvatar = styled.img`
@@ -152,6 +171,8 @@ const Value = styled.span`
 
 const Text = styled.p`
   line-height: 1.25rem;
+  display: flex;
+  justify-content: space-between;
   /* margin-bottom: 0.15rem; */
 `;
 

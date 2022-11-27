@@ -9,6 +9,7 @@ import Skeleton from "react-loading-skeleton";
 import { MenuContainer, MenuItem, MenuText } from "../../components/menu";
 import useClickOutside from "../../hooks/useClickOutside";
 import { toast } from "react-hot-toast";
+import Portal from "../../services/portal";
 
 function MyProducts() {
   const { user, loading } = useAuth();
@@ -36,10 +37,10 @@ function MyProducts() {
   }
 
   function handleMenuClick(e, _id) {
-    e.preventDefault();
     setId(_id);
+    console.info(e);
     setVisableMenu((prev) => !prev);
-    const { top, left } = e.target.getBoundingClientRect();
+    const { top, left } = e.currentTarget.getBoundingClientRect();
     setMenuPosition({ x: top, y: left });
   }
 
@@ -110,9 +111,9 @@ function Menu({ x, y, open, setOpen, id, refetch }) {
   const { user } = useAuth();
   const ref = useClickOutside(() => setOpen(false));
   const body = document.querySelector("body");
-  if (open) {
-    body.style.overflow = "hidden";
-  } else body.style.overflow = "overlay";
+  // if (open) {
+  //   body.style.overflow = "hidden";
+  // } else body.style.overflow = "overlay";
 
   function handleDelete() {
     setOpen((prev) => !prev);
@@ -130,24 +131,25 @@ function Menu({ x, y, open, setOpen, id, refetch }) {
   }
 
   return (
-    <MenuContainer
-      ref={ref}
-      style={{
-        position: "fixed",
-        top: x + 15,
-        left: y,
-        width: "fit-content",
-        transform: "translateX(-100%)",
-        display: open ? "block" : "none",
-      }}
-    >
-      <MenuItem>
-        <MenuText>Advertise Products</MenuText>
-      </MenuItem>
-      <MenuItem onClick={handleDelete}>
-        <MenuText>Delete Product</MenuText>
-      </MenuItem>
-    </MenuContainer>
+    <Portal>
+      <MenuContainer
+        ref={ref}
+        style={{
+          position: "absolute",
+          inset: "0 auto auto 0",
+          width: "fit-content",
+          transform: `translate(${x}px, ${y}px)`,
+          // display: open ? "block" : "none",
+        }}
+      >
+        <MenuItem>
+          <MenuText>Advertise Products</MenuText>
+        </MenuItem>
+        <MenuItem onClick={handleDelete}>
+          <MenuText>Delete Product</MenuText>
+        </MenuItem>
+      </MenuContainer>
+    </Portal>
   );
 }
 

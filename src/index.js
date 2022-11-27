@@ -8,6 +8,7 @@ import "tippy.js/dist/tippy.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import "react-loading-skeleton/dist/skeleton.css";
+import "rodal/lib/rodal.css";
 
 const queryClient = new QueryClient();
 

@@ -5,3 +5,9 @@ export const Container = styled.article``;
 export const Heading = styled.h1`
   margin-bottom: 1.5rem;
 `;
+
+export const ChangeButton = styled.button`
+  display: flex;
+  gap: 0.15rem;
+  align-items: center;
+`;

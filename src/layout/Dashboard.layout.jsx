@@ -37,9 +37,6 @@ function DashboardLayout() {
           )}
           {!loading && (
             <NavLinks>
-              {!loading && role === "admin" && (
-                <Link to="/dashboard/manage-users">Manage Users</Link>
-              )}
               <Link to="/dashboard">My Products</Link>
 
               {!loading && (
@@ -47,6 +44,9 @@ function DashboardLayout() {
               )}
               {!loading && role !== "buyer" && (
                 <Link to="/dashboard/add-product">Add a Product</Link>
+              )}
+              {!loading && role === "admin" && (
+                <Link to="/dashboard/manage-users">Manage Users</Link>
               )}
             </NavLinks>
           )}

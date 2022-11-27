@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const commonStyle = (p) => css`
   font-size: 1.15rem;
-  padding: 0.35em 1em;
+  padding: 0.5em 1em;
   text-align: left;
   border-bottom: 1px solid hsl(var(--outline-variant) / 50%);
 `;
