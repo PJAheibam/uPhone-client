@@ -13,6 +13,8 @@ import { MenuContainer, MenuItem, MenuText } from "../../components/menu";
 import { usePopper } from "react-popper";
 import useClickOutside from "../../hooks/useClickOutside";
 import { updateUser } from "../../services/updateUser";
+import { deleteUser } from "../../services/deleteUser";
+import { async } from "@firebase/util";
 
 function ManageUser() {
   const referenceElement = useRef();
@@ -54,14 +56,17 @@ function ManageUser() {
     setSelectedUser(user);
   }
 
-  function handleUserVerification() {
+  async function handleUserVerification() {
     setVisible(false);
-    updateUser(admin, selectedUser, { verified: !selectedUser.verified });
+    await updateUser(admin, selectedUser, { verified: !selectedUser.verified });
     refetch();
   }
 
-  // console.info(selectedUser);
-  useEffect(() => {}, []);
+  async function handleDeleteClick() {
+    await deleteUser(admin, selectedUser.uid);
+    setVisible(false);
+    refetch();
+  }
 
   return (
     <Container>
@@ -142,9 +147,9 @@ function ManageUser() {
           {...attributes.popper}
         >
           <MenuItem onClick={handleUserVerification}>
-            {selectedUser.verified ? "unverify" : "verify"}
+            {selectedUser?.verified ? "unverify" : "verify"}
           </MenuItem>
-          <MenuItem>Delete</MenuItem>
+          <MenuItem onClick={handleDeleteClick}>Delete</MenuItem>
         </MenuContainer>
       </Portal>
 

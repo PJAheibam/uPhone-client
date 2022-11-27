@@ -18,6 +18,7 @@ import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-hot-toast";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
+import Images from "./Images";
 
 const initialValues = {
   productName: "",
@@ -180,6 +181,7 @@ function AddProduct() {
     <>
       <Heading>Add Product</Heading>
       <Form onSubmit={handleSubmit}>
+        <Images />
         {/* Upload Image */}
         <UploadImage as="div" {...getRootProps()}>
           <input

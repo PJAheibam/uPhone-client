@@ -153,4 +153,7 @@ export const GlobalStyles = createGlobalStyle`
         background-color: transparent;
         border-radius: 0;
       }
+    .add-product-images{
+      max-height: clamp(200px, 30vh, 300px);
+    }
 `;
