@@ -4,8 +4,9 @@ import Rodal from "rodal";
 import styled from "styled-components";
 import Portal from "../../services/portal";
 import { MdClose } from "react-icons/md";
+import VerifyUser from "./VerifyUser";
 
-function VerifyModal({ open, setOpen, user }) {
+function VerifyModal({ open, setOpen, data }) {
   const outsideRef = useRef();
   const transApi = useTransition(open, {
     from: { opacity: 0 },
@@ -13,11 +14,14 @@ function VerifyModal({ open, setOpen, user }) {
     leave: { opacity: 0 },
   });
   function handleClose() {
-    setOpen((prev) => !prev);
+    setOpen(false);
   }
   function handleOutsideClick(e) {
     if (outsideRef.current && outsideRef.current === e.target) setOpen(false);
   }
+
+  if (open) document.body.style.overflow = "hidden";
+  else document.body.style.overflow = "overlay";
 
   return (
     <Portal>
@@ -30,10 +34,10 @@ function VerifyModal({ open, setOpen, user }) {
               onClick={handleOutsideClick}
             >
               <Box>
-                demo
-                <CloseIcon>
+                <CloseIcon onClick={handleClose}>
                   <MdClose />
                 </CloseIcon>
+                <VerifyUser handleCancel={handleClose} data={data} />
               </Box>
             </Container>
           )
@@ -79,4 +83,7 @@ const CloseIcon = styled.button`
   padding: 0.1 5em;
   color: hsl(var(--error-main));
   background-color: hsl(var(--error-main) / 10%);
+  &:active {
+    scale: 0.95;
+  }
 `;

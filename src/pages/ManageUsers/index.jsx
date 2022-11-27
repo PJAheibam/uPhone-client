@@ -12,14 +12,15 @@ import Portal from "../../services/portal";
 import { MenuContainer, MenuItem, MenuText } from "../../components/menu";
 import { usePopper } from "react-popper";
 import useClickOutside from "../../hooks/useClickOutside";
-import VerifyModal from "../../components/VerifyModal";
+import Modal from "../../components/Modal";
 
 function ManageUser() {
   const referenceElement = useRef();
+  const [modalData, setModalData] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [popperElement, setPopperElement] = useState(null);
-  const [visable, setVisable] = useState(false);
-  const verifyMenuRef = useClickOutside(() => setVisable(false));
+  const [visible, setVisible] = useState(false);
+  const verifyMenuRef = useClickOutside(() => setVisible(false));
 
   // console.info(openModal);
 
@@ -32,7 +33,11 @@ function ManageUser() {
   );
 
   const { user: admin } = useAuth();
-  const { isLoading, data = [] } = useQuery({
+  const {
+    isLoading,
+    data = [],
+    refetch,
+  } = useQuery({
     queryKey: ["all-user"],
     queryFn: async () => {
       const url = `/users?uid=${admin.uid}`;
@@ -42,13 +47,14 @@ function ManageUser() {
     enabled: admin.uid ? true : false,
   });
 
-  function handleVerified(e) {
+  function handleVerified(e, user) {
     referenceElement.current = e.currentTarget;
-    setVisable((prev) => !prev);
+    setVisible((prev) => !prev);
     setOpenModal(true);
+    setModalData(user);
   }
 
-  //   console.info(data);
+  // console.info(modalData);
 
   return (
     <Container>
@@ -91,7 +97,7 @@ function ManageUser() {
                 <T.Data>{user.fullName}</T.Data>
                 <T.Data>{user.email}</T.Data>
                 <T.Data>
-                  <ChangeButton onClick={handleVerified}>
+                  <ChangeButton onClick={(e) => handleVerified(e, user)}>
                     <DropIcon size="1rem" />
                     {user?.verified ? (
                       <Badge color="success">verified</Badge>
@@ -120,7 +126,7 @@ function ManageUser() {
           }}
           style={{
             ...styles.popper,
-            display: visable ? "block" : "none",
+            visibility: visible ? "visible" : "hidden",
           }}
           {...attributes.popper}
         >
@@ -129,7 +135,12 @@ function ManageUser() {
         </MenuContainer>
       </Portal>
       {/* Modal */}
-      <VerifyModal open={openModal} setOpen={setOpenModal} />
+      <Modal
+        open={openModal}
+        setOpen={setOpenModal}
+        data={{ user: modalData, refetch }}
+        onSuccess
+      />
     </Container>
   );
 }

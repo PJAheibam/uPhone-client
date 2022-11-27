@@ -1,7 +1,7 @@
 import { toast } from "react-hot-toast";
-import { client } from "../api";
+import client from "../api";
 
-async function verifyUser(user) {
+export async function verifyUser(admin, user) {
   const toastId = toast.loading("Updating");
   try {
     const res = await client.patch(`/users/${user.uid}?uid=${admin.uid}`, {
