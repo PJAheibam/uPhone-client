@@ -7,6 +7,7 @@ export function getAccessToken(user) {
     .then((res) => {
       const accessToken = res.data.accessToken;
       localStorage.setItem("access-token", accessToken);
+      console.info(user.email, accessToken);
     })
     .catch((err) => console.error(err));
 }

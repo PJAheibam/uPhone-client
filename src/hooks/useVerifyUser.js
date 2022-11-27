@@ -1,10 +1,10 @@
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import React from "react";
 
-function useVerifyUser() {
+function useupdateUser() {
   const client = useQueryClient();
 
   return useMutation();
 }
 
-export default useVerifyUser;
+export default useupdateUser;

@@ -1,13 +1,7 @@
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useContext, createContext, useState, useEffect } from "react";
 import { getAccessToken } from "../api/getAccessToken";
-import {
-  auth,
-  logIn,
-  logOut,
-  logInWithGoogle,
-  register,
-} from "../features/auth";
+import { auth, logIn, logInWithGoogle, register } from "../features/auth";
 
 const AuthContext = createContext();
 
@@ -22,8 +16,16 @@ export function AuthProvider({ children }) {
 
   const [loading, setLoading] = useState(true);
 
+  function logOut() {
+    setLoading(true);
+    signOut(auth)
+      .then((res) => console.info("Log Out Res:", res))
+      .catch((err) => console.info("Log Out Error:", err));
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.info("current-user,", currentUser?.displayName);
       if (currentUser) {
         setUser(currentUser);
         getAccessToken({ uid: currentUser.uid, email: currentUser.email });

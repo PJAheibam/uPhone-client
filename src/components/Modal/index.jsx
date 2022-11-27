@@ -3,7 +3,7 @@ import { animated, useSpring, useTransition } from "react-spring";
 import styled from "styled-components";
 import Portal from "../../services/portal";
 import { MdClose } from "react-icons/md";
-import VerifyUser from "./VerifyUser";
+import updateUser from "./updateUser";
 
 function VerifyModal({ open, setOpen, data }) {
   const outsideRef = useRef();
@@ -36,7 +36,7 @@ function VerifyModal({ open, setOpen, data }) {
                 <CloseIcon onClick={handleClose}>
                   <MdClose />
                 </CloseIcon>
-                <VerifyUser handleCancel={handleClose} data={data} />
+                <updateUser handleCancel={handleClose} data={data} />
               </Box>
             </Container>
           )

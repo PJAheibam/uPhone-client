@@ -12,13 +12,12 @@ import Portal from "../../services/portal";
 import { MenuContainer, MenuItem, MenuText } from "../../components/menu";
 import { usePopper } from "react-popper";
 import useClickOutside from "../../hooks/useClickOutside";
-import Modal from "../../components/Modal";
-import { update } from "react-spring";
+import { updateUser } from "../../services/updateUser";
 
 function ManageUser() {
   const referenceElement = useRef();
-  const [modalData, setModalData] = useState(null);
-  const [openModal, setOpenModal] = useState(false);
+  const { user: admin } = useAuth();
+  const [selectedUser, setSelectedUser] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
   const [visible, setVisible] = useState(false);
   const verifyMenuRef = useClickOutside(() => setVisible(false));
@@ -29,11 +28,10 @@ function ManageUser() {
     referenceElement.current,
     popperElement,
     {
-      placement: "bottom-start",
+      placement: "bottom-end",
     }
   );
 
-  const { user: admin } = useAuth();
   const {
     isLoading,
     data = [],
@@ -53,9 +51,16 @@ function ManageUser() {
     referenceElement.current = e.currentTarget;
     setVisible((prev) => !prev);
     // setOpenModal(true);
-    setModalData(user);
+    setSelectedUser(user);
   }
-  // console.info(modalData);
+
+  function handleUserVerification() {
+    setVisible(false);
+    updateUser(admin, selectedUser, { verified: !selectedUser.verified });
+    refetch();
+  }
+
+  // console.info(selectedUser);
   useEffect(() => {}, []);
 
   return (
@@ -133,8 +138,12 @@ function ManageUser() {
           }}
           {...attributes.popper}
         >
-          <MenuItem style={{ fontSize: "0.95rem" }}>verified</MenuItem>
-          <MenuItem style={{ fontSize: "0.95rem" }}>not-verified</MenuItem>
+          <MenuItem
+            onClick={handleUserVerification}
+            style={{ fontSize: "0.95rem", textTransform: "lowercase" }}
+          >
+            {selectedUser.verified ? "unverify" : "verify"}
+          </MenuItem>
         </MenuContainer>
       </Portal>
     </Container>

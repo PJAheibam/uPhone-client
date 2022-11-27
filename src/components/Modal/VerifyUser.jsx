@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "../Button";
 import userIcon from "../../assets/icons/user.png";
-import { verifyUser } from "../../services/verifyUser";
+import { updateUser } from "../../services/updateUser";
 import { useAuth } from "../../context/AuthContext";
 
 function Confirmation({ data, handleCancel }) {
@@ -10,7 +10,7 @@ function Confirmation({ data, handleCancel }) {
   const { user: admin } = useAuth();
   async function handleConfirm() {
     handleCancel();
-    await verifyUser(admin, user);
+    await updateUser(admin, user);
     refetch();
   }
   return (
