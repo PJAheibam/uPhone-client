@@ -11,6 +11,7 @@ export const MenuContainer = styled(animated.div)`
   position: absolute;
   top: 100%;
   right: 0;
+  font-size: 1.15rem;
   border-radius: var(--border-radius-md);
   overflow: hidden;
   background-image: var(--paper-3);
@@ -25,7 +26,7 @@ export const MenuItem = styled.button`
   white-space: nowrap;
   align-items: center;
   gap: 1rem;
-  font-size: 1.15rem;
+  font-size: inherit;
   padding: 0.35em 1em;
   color: hsl(var(--text-secondary));
   background-image: inherit;

@@ -73,7 +73,7 @@ function ManageUser() {
             <T.Heading>Name</T.Heading>
             <T.Heading>Email</T.Heading>
             <T.Heading>Verified</T.Heading>
-            <T.Heading>Acc Type</T.Heading>
+            <T.Heading>Ac Type</T.Heading>
           </T.Row>
         </T.Head>
         <T.Body>
@@ -117,7 +117,7 @@ function ManageUser() {
                   {user.role}
                 </T.Data>
                 <More>
-                  <Icon>
+                  <Icon onClick={(e) => handleVerified(e, user)}>
                     <MoreIcon />
                   </Icon>
                 </More>
@@ -125,6 +125,8 @@ function ManageUser() {
             ))}
         </T.Body>
       </Table>
+
+      {/* VERIFIY MENU */}
       <Portal>
         <MenuContainer
           ref={(element) => {
@@ -135,16 +137,20 @@ function ManageUser() {
             ...styles.popper,
             visibility: visible ? "visible" : "hidden",
             width: "fit-content",
+            fontSize: "0.95rem",
           }}
           {...attributes.popper}
         >
-          <MenuItem
-            onClick={handleUserVerification}
-            style={{ fontSize: "0.95rem", textTransform: "lowercase" }}
-          >
+          <MenuItem onClick={handleUserVerification}>
             {selectedUser.verified ? "unverify" : "verify"}
           </MenuItem>
+          <MenuItem>Delete</MenuItem>
         </MenuContainer>
+      </Portal>
+
+      {/* MORE MENU */}
+      <Portal>
+        <MenuContainer></MenuContainer>
       </Portal>
     </Container>
   );

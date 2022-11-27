@@ -42,7 +42,7 @@ export const More = styled.td`
   opacity: 0;
   /* background-color: blue; */
   /* transition: opacity 200ms ease; */
-  z-index: 200;
+  z-index: 0;
 `;
 
 export const Icon = styled.button`
