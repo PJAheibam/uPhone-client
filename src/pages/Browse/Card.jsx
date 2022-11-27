@@ -39,7 +39,7 @@ function Card({ data }) {
           </Text>
           <Text>
             <Property>Location: </Property>
-            <Value>{data?.meetUpLocation}</Value>
+            <Value>{data?.location}</Value>
           </Text>
           <Text>
             <Property>Posted On: </Property>

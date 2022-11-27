@@ -4,7 +4,7 @@ function useClickOutside(handler) {
   const ref = useRef();
 
   function handleClick(event) {
-    event.stopImmediatePropagation();
+    // console.info(event.target);
     if (ref.current && !ref.current.contains(event.target)) handler();
   }
   useEffect(() => {

@@ -21,7 +21,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const initialValues = {
   productName: "",
-  meetUpLocation: "",
+  location: "",
   sellingPrice: "",
   originalPrice: "",
   brandId: "",
@@ -149,7 +149,7 @@ function AddProduct() {
         moreDetails: values.moreDetails,
         sellingPrice: values.sellingPrice,
         originalPrice: values.originalPrice,
-        meetUpLocation: values.meetUpLocation,
+        location: values.location,
         images: values.images,
         brand: values.brand,
         brandId: values.brandId,
@@ -232,19 +232,15 @@ function AddProduct() {
         <InputWrapper>
           <Label>Meet Up Location</Label>
           <Input
-            name="meetUpLocation"
+            name="location"
             placeholder="Meet Up Location"
-            value={values.meetUpLocation}
+            value={values.location}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={
-              errors.meetUpLocation && touched.meetUpLocation
-                ? "true"
-                : undefined
-            }
+            error={errors.location && touched.location ? "true" : undefined}
           />
-          {errors.meetUpLocation && touched.meetUpLocation && (
-            <HelperText type="error">{errors.meetUpLocation}</HelperText>
+          {errors.location && touched.location && (
+            <HelperText type="error">{errors.location}</HelperText>
           )}
         </InputWrapper>
         {/* Price Section */}

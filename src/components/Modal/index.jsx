@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { animated, useSpring, useTransition } from "react-spring";
-import Rodal from "rodal";
 import styled from "styled-components";
 import Portal from "../../services/portal";
 import { MdClose } from "react-icons/md";

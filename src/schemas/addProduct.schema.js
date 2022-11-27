@@ -4,7 +4,7 @@ const REQUIRED = "Required";
 
 export const AddProductFormSchema = yup.object().shape({
   productName: yup.string().required(REQUIRED),
-  meetUpLocation: yup.string().required(REQUIRED),
+  location: yup.string().required(REQUIRED),
   sellingPrice: yup.number().required(REQUIRED).positive().min(1),
   originalPrice: yup.number().required(REQUIRED).positive(),
   brand: yup.string().required(REQUIRED),

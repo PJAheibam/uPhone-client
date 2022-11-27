@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChangeButton, Container, Heading } from "./styles";
 import client from "../../api/";
 import { useAuth } from "../../context/AuthContext";
@@ -13,6 +13,7 @@ import { MenuContainer, MenuItem, MenuText } from "../../components/menu";
 import { usePopper } from "react-popper";
 import useClickOutside from "../../hooks/useClickOutside";
 import Modal from "../../components/Modal";
+import { update } from "react-spring";
 
 function ManageUser() {
   const referenceElement = useRef();
@@ -48,13 +49,14 @@ function ManageUser() {
   });
 
   function handleVerified(e, user) {
+    e.stopPropagation();
     referenceElement.current = e.currentTarget;
     setVisible((prev) => !prev);
-    setOpenModal(true);
+    // setOpenModal(true);
     setModalData(user);
   }
-
   // console.info(modalData);
+  useEffect(() => {}, []);
 
   return (
     <Container>
@@ -127,6 +129,7 @@ function ManageUser() {
           style={{
             ...styles.popper,
             visibility: visible ? "visible" : "hidden",
+            width: "fit-content",
           }}
           {...attributes.popper}
         >
@@ -134,13 +137,6 @@ function ManageUser() {
           <MenuItem style={{ fontSize: "0.95rem" }}>not-verified</MenuItem>
         </MenuContainer>
       </Portal>
-      {/* Modal */}
-      <Modal
-        open={openModal}
-        setOpen={setOpenModal}
-        data={{ user: modalData, refetch }}
-        onSuccess
-      />
     </Container>
   );
 }

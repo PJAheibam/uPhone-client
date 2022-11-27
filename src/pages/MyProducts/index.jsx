@@ -10,13 +10,20 @@ import { MenuContainer, MenuItem, MenuText } from "../../components/menu";
 import useClickOutside from "../../hooks/useClickOutside";
 import { toast } from "react-hot-toast";
 import Portal from "../../services/portal";
+import { usePopper } from "react-popper";
 
 function MyProducts() {
-  const { user, loading } = useAuth();
-  const [id, setId] = useState(null);
-  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
 
-  const [visableMenu, setVisableMenu] = useState(false);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: "bottom-end",
+  });
+  const menuRef = useClickOutside(() => setVisibleMenu(false));
+  const { user } = useAuth();
+  const [id, setId] = useState(null);
+
+  const [visibleMenu, setVisibleMenu] = useState(false);
 
   const {
     data = [],
@@ -37,11 +44,24 @@ function MyProducts() {
   }
 
   function handleMenuClick(e, _id) {
+    setReferenceElement(e.currentTarget);
     setId(_id);
-    console.info(e);
-    setVisableMenu((prev) => !prev);
-    const { top, left } = e.currentTarget.getBoundingClientRect();
-    setMenuPosition({ x: top, y: left });
+    setVisibleMenu((prev) => !prev);
+  }
+
+  function handleDelete() {
+    setVisibleMenu((prev) => !prev);
+    const deleteToastId = toast.loading("Deleting...");
+    client
+      .delete(`/products?id=${id}&uid=${user.uid}`)
+      .then((_res) => {
+        refetch();
+        toast.success("Product Removed!", { id: deleteToastId });
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.success("Product Removed!", { id: deleteToastId });
+      });
   }
 
   return (
@@ -95,61 +115,38 @@ function MyProducts() {
           ))}
         </T.Body>
       </Table>
-      <Menu
-        x={menuPosition.x}
-        y={menuPosition.y}
-        open={visableMenu}
-        setOpen={setVisableMenu}
-        id={id}
-        refetch={refetch}
-      />
+      <Portal>
+        <MenuContainer
+          ref={(el) => {
+            setPopperElement(el);
+            menuRef.current = el;
+          }}
+          style={{
+            visibility: visibleMenu ? "visible" : "hidden",
+            width: "fit-content",
+            ...styles.popper,
+          }}
+          {...attributes.popper}
+        >
+          <MenuItem
+            style={{
+              fontSize: "0.9rem",
+            }}
+          >
+            <MenuText>Advertise Products</MenuText>
+          </MenuItem>
+          <MenuItem
+            color="error"
+            onClick={handleDelete}
+            style={{
+              fontSize: "0.9rem",
+            }}
+          >
+            <MenuText>Delete Product</MenuText>
+          </MenuItem>
+        </MenuContainer>
+      </Portal>
     </Container>
-  );
-}
-
-function Menu({ x, y, open, setOpen, id, refetch }) {
-  const { user } = useAuth();
-  const ref = useClickOutside(() => setOpen(false));
-  const body = document.querySelector("body");
-  // if (open) {
-  //   body.style.overflow = "hidden";
-  // } else body.style.overflow = "overlay";
-
-  function handleDelete() {
-    setOpen((prev) => !prev);
-    const deleteToastId = toast.loading("Deleting...");
-    client
-      .delete(`/products?id=${id}&uid=${user.uid}`)
-      .then((_res) => {
-        refetch();
-        toast.success("Product Removed!", { id: deleteToastId });
-      })
-      .catch((err) => {
-        console.error(err);
-        toast.success("Product Removed!", { id: deleteToastId });
-      });
-  }
-
-  return (
-    <Portal>
-      <MenuContainer
-        ref={ref}
-        style={{
-          position: "absolute",
-          inset: "0 auto auto 0",
-          width: "fit-content",
-          transform: `translate(${x}px, ${y}px)`,
-          // display: open ? "block" : "none",
-        }}
-      >
-        <MenuItem>
-          <MenuText>Advertise Products</MenuText>
-        </MenuItem>
-        <MenuItem onClick={handleDelete}>
-          <MenuText>Delete Product</MenuText>
-        </MenuItem>
-      </MenuContainer>
-    </Portal>
   );
 }
 
