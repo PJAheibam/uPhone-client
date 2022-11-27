@@ -4,6 +4,7 @@ import App from "./App";
 import ToggleThemeProvider from "./context/ThemeContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // styles
+import "tippy.js/dist/tippy.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import "react-loading-skeleton/dist/skeleton.css";

@@ -19,6 +19,7 @@ const Body = styled.tbody``;
 
 const Heading = styled.th`
   ${commonStyle}
+  font-weight: 500;
   background-image: var(--paper-3);
 `;
 
@@ -38,17 +39,21 @@ export const More = styled.td`
   align-items: center;
   justify-content: right;
   padding-inline: 0.5rem;
-  /* background-color: blue; */
   opacity: 0;
-  transition: opacity 200ms ease;
+  /* background-color: blue; */
+  /* transition: opacity 200ms ease; */
+  z-index: 200;
 `;
 
 export const Icon = styled.button`
+  /* position: absolute; */
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.3rem;
   padding: 0.25rem;
+  min-width: 33px;
+  min-height: 33px;
   border-radius: 50%;
   &:hover {
     /* filter: brightness(1.1); */

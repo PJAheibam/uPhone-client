@@ -10,16 +10,21 @@ import UserRoleProvider from "./context/UserRoleContext";
 
 function App() {
   const { theme } = useToggleTheme();
+  const baseColor =
+    theme.palette.mode === "dark"
+      ? "hsl(var(--primary-hue) 10% 18%)"
+      : "hsl(var(--primary-hue) 20% 88%)";
+  const heighlightColor =
+    theme.palette.mode === "dark"
+      ? "hsl(var(--primary-hue) 10% 27%)"
+      : "hsl(var(--primary-hue) 20% 94%)";
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <Toaster position="top-center" reverseOrder={false} />
       <AuthProvider>
         <UserRoleProvider>
-          <SkeletonTheme
-            baseColor="hsl(var(--primary-hue) 10% 20%)"
-            highlightColor="hsl(var(--primary-hue) 10% 50%)"
-          >
+          <SkeletonTheme baseColor={baseColor} highlightColor={heighlightColor}>
             <RouterProvider router={router} />
           </SkeletonTheme>
         </UserRoleProvider>

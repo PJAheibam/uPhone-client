@@ -10,6 +10,7 @@ import DashboardLayout from "../layout/Dashboard.layout";
 import Loading from "../components/Loading";
 import AddProduct from "../pages/AddProduct";
 import MyProducts from "../pages/MyProducts";
+import ManageUser from "../pages/ManageUsers";
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "category/:name",
+        path: "category/:id",
         element: <Browse />,
       },
       {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path: "add-product",
         element: <AddProduct />,
+      },
+      {
+        path: "manage-users",
+        element: <ManageUser />,
       },
       {
         path: "/dashboard/*",

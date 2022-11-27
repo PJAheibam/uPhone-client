@@ -7,25 +7,44 @@ import userIcon from "../assets/icons/user.png";
 import { Link as RrdLink, Outlet } from "react-router-dom";
 import { useUserRole } from "../context/UserRoleContext";
 import Skeleton from "react-loading-skeleton";
+import { Badge } from "../components/Badge";
+import { useAuth } from "../context/AuthContext";
 
 function DashboardLayout() {
   const { role, loading } = useUserRole();
+  const { user } = useAuth();
+
+  // console.info(role);
 
   return (
     <>
       <Navbar />
       <Container>
         <Sidebar>
-          <Avatar src={userIcon} alt="User avatar" />
+          <SidebarHeader>
+            <Avatar src={userIcon} alt="User avatar" />
+            <Name>{user.displayName}</Name>
+            <Badge color="primary">Admin</Badge>
+          </SidebarHeader>
           {loading && (
             <SkeletonContainer>
-              <Skeleton height={23} />
-              <Skeleton height={23} />
+              <Skeleton
+                height={23}
+                count={3}
+                style={{ marginBottom: "1rem" }}
+              />
             </SkeletonContainer>
           )}
           {!loading && (
             <NavLinks>
+              {!loading && role === "admin" && (
+                <Link to="/dashboard/manage-users">Manage Users</Link>
+              )}
               <Link to="/dashboard">My Products</Link>
+
+              {!loading && (
+                <Link to="/dashboard/add-bookings">My Bookings</Link>
+              )}
               {!loading && role !== "buyer" && (
                 <Link to="/dashboard/add-product">Add a Product</Link>
               )}
@@ -87,7 +106,7 @@ const Sidebar = styled.aside`
 
 const Avatar = styled.img`
   /* margin-inline: auto; */
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
   width: clamp(50px, 8vw, 80px);
   aspect-ratio: 1;
   border-radius: 50%;
@@ -115,4 +134,19 @@ const SkeletonContainer = styled.div`
   margin-block: 0.15rem;
   padding-left: 1rem;
   margin-top: 1rem;
+`;
+
+const Name = styled.h1`
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-block: 0.15rem;
+`;
+
+const SidebarHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin-left: 1rem;
+  border: 1px solid hsl(var(--outline-variant) / 50%);
+  align-items: center;
 `;

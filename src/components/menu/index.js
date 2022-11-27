@@ -9,7 +9,7 @@ export const MenuBtnContainer = styled.div`
 
 export const MenuContainer = styled(animated.div)`
   position: absolute;
-  top: 110%;
+  top: 100%;
   right: 0;
   border-radius: var(--border-radius-md);
   overflow: hidden;
@@ -22,6 +22,7 @@ export const MenuContainer = styled(animated.div)`
 export const MenuItem = styled.button`
   display: flex;
   width: 100%;
+  white-space: nowrap;
   align-items: center;
   gap: 1rem;
   font-size: 1.15rem;

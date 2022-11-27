@@ -9,7 +9,6 @@ import {
   Label,
 } from "../../components/formItems";
 import { Block, Form, Heading, TextArea, UploadImage } from "./styles";
-import { categories } from "../../data/category";
 import { useFormik } from "formik";
 import { AddProductFormSchema } from "../../schemas/addProduct.schema";
 import imgAPI from "../../api/uploadImage";
@@ -156,6 +155,7 @@ function AddProduct() {
         brandId: values.brandId,
         email: user.email,
         uid: user.uid,
+        sellerImg: user.photoURl,
         postedOn: {
           time: format(date, "p"),
           date: format(date, "PP"),

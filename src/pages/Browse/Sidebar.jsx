@@ -31,6 +31,8 @@ function Sidebar() {
           />
         )}
 
+        {!isLoading && <Link to={"/category/all"}>All</Link>}
+
         {data.map((data, i) => (
           <Link to={"/category/" + data._id} key={data._id}>
             {" "}
@@ -50,6 +52,7 @@ const Container = styled.aside`
   padding-inline: var(--gip);
   background-image: var(--paper-1);
   @media ${device.md} {
+    min-height: calc(100vh - 54px);
     ${(p) => {
       if (p.theme.palette.mode === "dark") return css``;
       else
