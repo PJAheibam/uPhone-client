@@ -60,3 +60,30 @@ export const LinkText = styled(Link)`
         : "hsl(var(--primary-dark))"};
   }
 `;
+
+export const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+  object-fit: cover;
+  object-position: center;
+`;
+
+export const Avatar = styled.div`
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  border-radius: 50%;
+  border: 3px solid hsl(var(--text-secondary));
+  margin-inline: auto;
+  margin-top: 1rem;
+  &:active {
+    scale: 0.99;
+  }
+`;

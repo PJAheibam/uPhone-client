@@ -1,6 +1,10 @@
 import imgAPI from "../api/uploadImage";
 
-async function uploadImages(images, onSuccess = () => {}, onError = () => {}) {
+export async function uploadImages(
+  images,
+  onSuccess = () => {},
+  onError = () => {}
+) {
   let finished = [];
 
   await images.map(async (file) => {

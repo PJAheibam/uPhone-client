@@ -7,11 +7,13 @@ import {
   Label,
 } from "../../components/formItems";
 import {
+  Avatar,
   Box,
   BoxFooterText,
   Container,
   Form,
   Heading,
+  Image,
   LinkText,
 } from "./styles";
 import { GradientButton } from "../../components/Button";
@@ -29,6 +31,8 @@ import { updateProfile } from "firebase/auth";
 import { addUser } from "../../api/addUser";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
+import { AiOutlineUserAdd as AddProfilePhoto } from "react-icons/ai";
+import Dropzone, { useDropzone } from "react-dropzone";
 
 function Register() {
   const navigate = useNavigate();
@@ -51,8 +55,11 @@ function Register() {
     handleSubmit,
     isSubmitting,
     setSubmitting,
+    setFieldValue,
+    setFieldError,
   } = useFormik({
     initialValues: {
+      profilePhoto: "",
       fullName: "",
       email: "",
       password: "",
@@ -60,6 +67,16 @@ function Register() {
     },
     onSubmit,
     validationSchema: RegistrationFormSchema,
+  });
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: handleOnDrop,
+    maxSize: 1048576 * 5, //  max size is 5 MB
+    accept: {
+      "image/jpeg": [],
+      "image/png": [],
+      "image/jpg": [],
+    },
   });
 
   async function onSubmit(values, actions) {
@@ -95,6 +112,21 @@ function Register() {
     });
   }
 
+  function handleOnDrop(acceptedFiles, rejectedFiles) {
+    if (acceptedFiles.length > 0) {
+      setFieldError("profilePhto", "");
+      acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      );
+      setFieldValue("profilePhoto", acceptedFiles[0]);
+    }
+    if (rejectedFiles.length > 0) {
+      setFieldError("profilePhoto", "We only accept .jpg, .jpeg, .png format");
+    }
+  }
+
   useEffect(() => {
     if (!loading) {
       const data = {
@@ -113,6 +145,24 @@ function Register() {
       <Box>
         <Heading>Register</Heading>
         <Form onSubmit={handleSubmit}>
+          {/********** Avatar Name **********/}
+
+          <Avatar
+            aria-label="upload user profile pic"
+            type="button"
+            {...getRootProps()}
+          >
+            {values.profilePhoto ? (
+              <Image src={values.profilePhoto.preview} alt="user profile" />
+            ) : (
+              <AddProfilePhoto />
+            )}
+            <input {...getInputProps()} />
+          </Avatar>
+          {errors.profilePhoto && (
+            <HelperText type="error">{errors.profilePhoto}</HelperText>
+          )}
+
           {/********** Full Name **********/}
           <InputWrapper>
             <Label>Full Name</Label>

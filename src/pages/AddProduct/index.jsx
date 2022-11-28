@@ -20,6 +20,7 @@ import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import Images from "./Images";
 import { RiImageAddLine as AddImageIcon } from "react-icons/ri";
+import { uploadImages } from "../../services/uploadImages";
 
 const initialValues = {
   productName: "",
@@ -48,16 +49,15 @@ function AddProduct() {
   const [imgError, setImgError] = useState("");
   const [progress, setProgress] = useState(0);
   const [isImgUploading, setIsImgUploading] = useState(false);
-  const { getRootProps, getInputProps, isDragActive, inputRef, open, rootRef } =
-    useDropzone({
-      onDrop: handleOnDrop,
-      maxSize: 1048576 * 5, //  max size is 5 MB
-      accept: {
-        "image/jpeg": [],
-        "image/png": [],
-        "image/jpg": [],
-      },
-    });
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: handleOnDrop,
+    maxSize: 1048576 * 5, //  max size is 5 MB
+    accept: {
+      "image/jpeg": [],
+      "image/png": [],
+      "image/jpg": [],
+    },
+  });
   const [selectedIndex, setSelectedIndex] = useState(null);
   const {
     values,
@@ -107,13 +107,14 @@ function AddProduct() {
     try {
       if (!user.uid) throw "User info must needed";
       if (!localStorage.getItem("access-token")) throw "access-token needed";
+      const uploadedImages = await uploadImages(images);
       const data = {
         name: values.productName,
         moreDetails: values.moreDetails,
         sellingPrice: values.sellingPrice,
         originalPrice: values.originalPrice,
         location: values.location,
-        images: values.images,
+        images: uploadedImages,
         brand: values.brand,
         brandId: values.brandId,
         email: user.email,
@@ -193,10 +194,10 @@ function AddProduct() {
         </InputWrapper>
         {/* Meetup Place */}
         <InputWrapper>
-          <Label>Meet Up Location</Label>
+          <Label>Location</Label>
           <Input
             name="location"
-            placeholder="Meet Up Location"
+            placeholder="Location"
             value={values.location}
             onChange={handleChange}
             onBlur={handleBlur}
