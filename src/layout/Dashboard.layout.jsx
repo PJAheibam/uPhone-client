@@ -9,12 +9,27 @@ import { useUserRole } from "../context/UserRoleContext";
 import Skeleton from "react-loading-skeleton";
 import { Badge } from "../components/Badge";
 import { useAuth } from "../context/AuthContext";
+import { useQuery } from "@tanstack/react-query";
+import client from "../api";
 
 function DashboardLayout() {
-  const { role, loading } = useUserRole();
+  // const { role, loading } = useUserRole();
   const { user } = useAuth();
 
-  // console.info(role);
+  const { data, isLoading } = useQuery({
+    queryKey: ["user-role", user?.uid],
+    queryFn: async () => {
+      const res = await client(`/user-role?uid=${user?.uid}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      });
+      return res.data;
+    },
+    refetchOnMount: true,
+  });
+
+  console.info(data);
 
   return (
     <>
@@ -24,9 +39,9 @@ function DashboardLayout() {
           <SidebarHeader>
             <Avatar src={user.photoURL || userIcon} alt="User avatar" />
             <Name>{user.displayName}</Name>
-            <Badge color="primary">Admin</Badge>
+            <Badge color="primary">{data?.role}</Badge>
           </SidebarHeader>
-          {loading && (
+          {isLoading && (
             <SkeletonContainer>
               <Skeleton
                 height={23}
@@ -35,17 +50,17 @@ function DashboardLayout() {
               />
             </SkeletonContainer>
           )}
-          {!loading && (
+          {!isLoading && (
             <NavLinks>
               <Link to="/dashboard">My Products</Link>
 
-              {!loading && (
+              {!isLoading && (
                 <Link to="/dashboard/add-bookings">My Bookings</Link>
               )}
-              {!loading && role !== "buyer" && (
+              {!isLoading && data?.role !== "buyer" && (
                 <Link to="/dashboard/add-product">Add a Product</Link>
               )}
-              {!loading && role === "admin" && (
+              {!isLoading && data?.role === "admin" && (
                 <Link to="/dashboard/manage-users">Manage Users</Link>
               )}
             </NavLinks>

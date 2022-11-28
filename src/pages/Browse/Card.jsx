@@ -6,7 +6,6 @@ import { device } from "../../utils/breakpoints";
 import userIcon from "../../assets/icons/user.png";
 import { useQuery } from "@tanstack/react-query";
 import client from "../../api";
-import { Badge } from "../../components/Badge";
 import { MdVerified as VerifiedIcon } from "react-icons/md";
 
 function Card({ data }) {
@@ -15,13 +14,11 @@ function Card({ data }) {
     queryKey: ["seller", data.selerId],
     queryFn: async () => {
       const res = await client.get(`/users/${data.sellerId}`);
-      console.info(res);
+      console.log("seller", res.data);
       return res.data;
     },
     refetchOnMount: true,
   });
-
-  console.info(seller);
 
   return (
     <Container>

@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
   function logOut() {
     setLoading(true);
     signOut(auth)
-      .then((res) => console.info("Log Out Res:", res))
+      .then(() => localStorage.removeItem("access-token"))
       .catch((err) => console.info("Log Out Error:", err));
   }
 
@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
       console.info("current-user,", currentUser?.displayName);
       if (currentUser) {
         setUser(currentUser);
-        getAccessToken({ uid: currentUser.uid, email: currentUser.email });
+        // getAccessToken({ uid: currentUser.uid, email: currentUser.email });
       } else {
         setUser(initialUserInfo);
       }

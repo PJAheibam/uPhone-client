@@ -9,16 +9,26 @@ function UserRoleProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
-  useEffect(() => {
-    if (user.uid) {
-      setLoading(true);
-      client
-        .get(`/user-role?uid=${user.uid}`)
-        .then((res) => setRole(res.data.role))
-        .catch((err) => console.error(err))
-        .finally(() => setLoading(false));
-    }
-  }, [user.uid]);
+  console.log(
+    "🚀 ~ file: UserRoleContext.jsx ~ line 11 ~ UserRoleProvider ~ user",
+    user?.displayName
+  );
+
+  // useEffect(() => {
+  //   if (user.uid) {
+  //     setLoading(true);
+  //     client
+  //       .get(`/user-role?uid=${user.uid}`, {
+  //         headers: {
+  //           authorization: `Bearer ${localStorage.getItem("access-token")}`,
+  //         },
+  //       })
+  //       .then((res) => setRole(res.data.role))
+  //       .catch((err) => console.error(err))
+  //       .finally(() => setLoading(false));
+  //   }
+  // }, [user.uid]);
+
   return (
     <UserRoleContext.Provider value={{ role, loading }}>
       {children}

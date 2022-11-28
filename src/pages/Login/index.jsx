@@ -21,6 +21,7 @@ import { LoginFormSchema } from "../../schemas/login.schema";
 import { useAuth } from "../../context/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
+import { getAccessToken } from "../../api/getAccessToken";
 
 function Login() {
   const navigate = useNavigate();
@@ -48,8 +49,11 @@ function Login() {
   async function onSubmit(values, actions) {
     try {
       const res = await logIn(values.email, values.password);
+
+      getAccessToken({ uid: res.user?.uid, email: res.user?.email });
+
       actions.resetForm();
-      // console.info("login res=", res);
+
       navigate(from, { replace: true });
     } catch (err) {
       console.error(err);

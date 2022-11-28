@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { GradientButton } from "../../components/Button";
 import Dropdown from "../../components/Dropdown";
 import { useDropzone } from "react-dropzone";
@@ -11,8 +11,6 @@ import {
 import { Block, Form, Heading, TextArea, UploadImage } from "./styles";
 import { useFormik } from "formik";
 import { AddProductFormSchema } from "../../schemas/addProduct.schema";
-import imgAPI from "../../api/uploadImage";
-import ProgressBar from "../../components/ProgressBar";
 import client from "../../api";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-hot-toast";
@@ -21,6 +19,7 @@ import { useQuery } from "@tanstack/react-query";
 import Images from "./Images";
 import { RiImageAddLine as AddImageIcon } from "react-icons/ri";
 import { uploadImages } from "../../services/uploadImages";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   productName: "",
@@ -47,7 +46,7 @@ function AddProduct() {
     },
     refetchOnMount: true,
   });
-
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [images, setImages] = useState([]);
   const [imgError, setImgError] = useState("");
@@ -143,6 +142,7 @@ function AddProduct() {
         id: toastId,
       });
       actions.resetForm();
+      navigate("/dashboard");
     } catch (error) {
       toast.error("An error occur while uploading product!", {
         id: toastId,
