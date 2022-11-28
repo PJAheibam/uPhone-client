@@ -60,10 +60,10 @@ function MyProducts() {
     try {
       // this will delete all photos of releted product
 
-      for (const image of data[id]?.images) {
-        const res = await axios.delete(image.delete_url);
-        console.log("image delete response");
-      }
+      // for (const image of data[id]?.images) {
+      //   const res = await axios.delete(image.delete_url);
+      //   console.log("image delete response");
+      // }
 
       const res = await client.delete(`/products?id=${id}&uid=${user.uid}`);
 

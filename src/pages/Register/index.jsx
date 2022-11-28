@@ -34,6 +34,7 @@ import Loading from "../../components/Loading";
 import { AiOutlineUserAdd as AddProfilePhoto } from "react-icons/ai";
 import Dropzone, { useDropzone } from "react-dropzone";
 import { uploadImage } from "../../services/uploadImage";
+import { getAccessToken } from "../../api/getAccessToken";
 
 function Register() {
   const navigate = useNavigate();
@@ -95,11 +96,11 @@ function Register() {
         fullName: values.fullName,
         role: accountTypeInfo.role,
         profilePhoto: {
-          title: profilePhotoData?.title,
-          display_url: profilePhotoData?.display_url,
-          thumb_url: profilePhotoData?.thumb?.url,
-          medium_url: profilePhotoData?.medium?.url,
-          delete_url: profilePhotoData?.delete_url,
+          title: profilePhotoData?.title || null,
+          display_url: profilePhotoData?.display_url || null,
+          thumb_url: profilePhotoData?.thumb?.url || null,
+          medium_url: profilePhotoData?.medium?.url || null,
+          delete_url: profilePhotoData?.delete_url || null,
         },
       };
 
@@ -109,6 +110,8 @@ function Register() {
       });
 
       const addUserRes = await addUser(currentUser);
+
+      getAccessToken({ uid: res.user?.uid, email: res.user?.email });
 
       console.info(addUserRes.data);
 
