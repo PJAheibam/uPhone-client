@@ -44,19 +44,20 @@ function AddProduct() {
   });
 
   const { user } = useAuth();
-  const [thumbs, setThumbs] = useState([]);
+  const [images, setImages] = useState([]);
   const [imgError, setImgError] = useState("");
   const [progress, setProgress] = useState(0);
   const [isImgUploading, setIsImgUploading] = useState(false);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: handleOnDrop,
-    maxSize: 1048576 * 5, //  max size is 5 MB
-    accept: {
-      "image/jpeg": [],
-      "image/png": [],
-      "image/jpg": [],
-    },
-  });
+  const { getRootProps, getInputProps, isDragActive, inputRef, open, rootRef } =
+    useDropzone({
+      onDrop: handleOnDrop,
+      maxSize: 1048576 * 5, //  max size is 5 MB
+      accept: {
+        "image/jpeg": [],
+        "image/png": [],
+        "image/jpg": [],
+      },
+    });
   const [selectedIndex, setSelectedIndex] = useState(null);
   const {
     values,
@@ -84,6 +85,12 @@ function AddProduct() {
     // console.info("Accepted Files", files);
     // console.info("Rejected Files", rejectedFiles);
     // setFieldTouched(true);
+    files.map((file) =>
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      })
+    );
+    setImages([...images, ...files]);
     if (rejectedFiles.length > 0) {
       setImgError("We only accept .jpg, .jpeg & .png type image");
       setFieldError("We only accept .jpg, .jpeg & .png type image");
@@ -92,52 +99,6 @@ function AddProduct() {
 
     setImgError("");
     setFieldError("");
-    //creating thumbnail preview
-    setThumbs(
-      files.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
-      )
-    );
-
-    files.map(async (file) => {
-      try {
-        setIsImgUploading(true);
-        const formData = new FormData();
-        formData.append("image", file);
-        const res = await imgAPI.post("", formData, {
-          onUploadProgress: ({ total, loaded }) => {
-            let uploadProgress = Math.round((loaded * 100) / total);
-            setProgress(uploadProgress);
-          },
-        });
-
-        const imageData = {
-          title: res.data?.data?.title,
-          display_url: res.data?.data?.display_url,
-          thumb_url: res.data?.data?.thumb?.url,
-          medium_url: res.data?.data?.medium?.url,
-          delete_url: res.data?.data?.delete_url,
-        };
-
-        console.info(imageData);
-
-        if (imageData.display_url) {
-          setFieldValue(
-            "images",
-            values.images.length > 0
-              ? [...values.images, imageData]
-              : [imageData]
-          );
-        }
-      } catch (err) {
-        console.error("image upload error", err);
-      } finally {
-        setProgress(0);
-        setIsImgUploading(false);
-      }
-    });
   }
 
   async function onSubmit(values, actions) {
@@ -182,7 +143,7 @@ function AddProduct() {
     <>
       <Heading>Add Product</Heading>
       <Form onSubmit={handleSubmit}>
-        <Images />
+        <Images images={images} setImages={setImages} />
         {/* Upload Image */}
         <UploadImage as="div" {...getRootProps()}>
           <input
@@ -212,9 +173,7 @@ function AddProduct() {
         {errors.images && touched.images && (
           <HelperText type="error">{imgError || errors.images}</HelperText>
         )}
-        {thumbs.map((img, i) => (
-          <img src={img.preview} key={i} height={80} />
-        ))}
+
         {/* Product Name */}
         <InputWrapper>
           <Label>Product Name</Label>
@@ -348,10 +307,12 @@ function AddProduct() {
         <button
           type="button"
           onClick={() => {
-            console.info(values);
-            console.info(errors);
-            console.info(touched);
-            console.info(format(date, "PPp"));
+            console.info(images);
+            // console.info(.current.files);
+            // console.info(values);
+            // console.info(errors);
+            // console.info(touched);
+            // console.info(format(date, "PPp"));
           }}
         >
           Check

@@ -3,8 +3,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import styled from "styled-components";
 import { MdDelete } from "react-icons/md";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
-function Images() {
+function Images({ images, setImages }) {
+  function handleDelete(img) {
+    // const toastId = toast.loading("Removing Img");
+    // try {
+    //   axios.delete(img.delete_url);
+    // } catch (error) {}
+  }
   return (
     <>
       {/* Images */}
@@ -19,16 +27,30 @@ function Images() {
           navigation
           pagination
           grabCursor
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+          }}
           modules={[Navigation, Pagination]}
           className="add-product-images"
         >
-          <SwiperItem>
-            <DeleteButton type="button">
-              <MdDelete />
-            </DeleteButton>
-            <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-          </SwiperItem>
-          <SwiperItem>
+          {images.map((image, i) => (
+            <SwiperItem key={i}>
+              <img src={image?.preview} alt={images?.name} />
+            </SwiperItem>
+          ))}
+
+          {/* <SwiperItem>
             <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
           </SwiperItem>
           <SwiperItem>
@@ -36,7 +58,7 @@ function Images() {
           </SwiperItem>
           <SwiperItem>
             <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-          </SwiperItem>
+          </SwiperItem> */}
         </Swiper>
       </ImagesContainer>
     </>
