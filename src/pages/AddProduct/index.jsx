@@ -31,10 +31,14 @@ const initialValues = {
   brand: "",
   moreDetails: "",
   images: "",
+  purchaseYear: "",
+  condition: "",
+  phoneNumber: "",
 };
 
 function AddProduct() {
   const date = new Date();
+
   const { data: brands = [] } = useQuery({
     queryKey: ["brands"],
     queryFn: async () => {
@@ -47,8 +51,6 @@ function AddProduct() {
   const { user } = useAuth();
   const [images, setImages] = useState([]);
   const [imgError, setImgError] = useState("");
-  const [progress, setProgress] = useState(0);
-  const [isImgUploading, setIsImgUploading] = useState(false);
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleOnDrop,
     maxSize: 1048576 * 5, //  max size is 5 MB
@@ -58,7 +60,6 @@ function AddProduct() {
       "image/jpg": [],
     },
   });
-  const [selectedIndex, setSelectedIndex] = useState(null);
   const {
     values,
     errors,
@@ -82,15 +83,15 @@ function AddProduct() {
   }
 
   function handleOnDrop(files, rejectedFiles) {
-    // console.info("Accepted Files", files);
-    // console.info("Rejected Files", rejectedFiles);
-    // setFieldTouched(true);
     files.map((file) =>
       Object.assign(file, {
         preview: URL.createObjectURL(file),
       })
     );
     setImages([...images, ...files]);
+    if (values.images.length === 0) setFieldValue("images", files);
+    if (values.images.length > 0)
+      setFieldValue("images", [...values.images, ...files]);
     if (rejectedFiles.length > 0) {
       setImgError("We only accept .jpg, .jpeg & .png type image");
       setFieldError("We only accept .jpg, .jpeg & .png type image");
@@ -98,7 +99,17 @@ function AddProduct() {
     }
 
     setImgError("");
-    setFieldError("");
+    setFieldError("images", undefined);
+  }
+
+  function removeImage(index) {
+    const updatedImages = images.filter((_image, i) => index !== i);
+    setFieldValue("images", updatedImages);
+    setImages(updatedImages);
+  }
+
+  function handleConditionClick(__id, text) {
+    setFieldValue("condition", text.toLowerCase());
   }
 
   async function onSubmit(values, actions) {
@@ -144,7 +155,7 @@ function AddProduct() {
     <>
       <Heading>Add Product</Heading>
       <Form onSubmit={handleSubmit}>
-        <Images images={images} setImages={setImages} />
+        <Images images={values.images || []} onDelete={removeImage} />
         {/* Upload Image */}
         <UploadImage as="div" {...getRootProps()}>
           <input
@@ -158,19 +169,8 @@ function AddProduct() {
             }}
           />
           <AddImageIcon />
-          {isImgUploading && (
-            <ProgressBar
-              value={progress}
-              borderRadius="var(--border-radius-sm)"
-              containerStyles={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                zIndex: 10,
-              }}
-            />
-          )}
         </UploadImage>
+        {!!imgError && <HelperText type="error">{imgError}</HelperText>}
         {errors.images && touched.images && (
           <HelperText type="error">{imgError || errors.images}</HelperText>
         )}
@@ -190,21 +190,6 @@ function AddProduct() {
           />
           {errors.productName && touched.productName && (
             <HelperText type="error">{errors.productName}</HelperText>
-          )}
-        </InputWrapper>
-        {/* Meetup Place */}
-        <InputWrapper>
-          <Label>Location</Label>
-          <Input
-            name="location"
-            placeholder="Location"
-            value={values.location}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={errors.location && touched.location ? "true" : undefined}
-          />
-          {errors.location && touched.location && (
-            <HelperText type="error">{errors.location}</HelperText>
           )}
         </InputWrapper>
         {/* Price Section */}
@@ -249,34 +234,101 @@ function AddProduct() {
             )}
           </InputWrapper>
         </Block>
+
+        <Block>
+          {/* Purchase Year */}
+          <InputWrapper>
+            <Label>Purchase Year</Label>
+            <Input
+              name="purchaseYear"
+              placeholder="2000"
+              type="number"
+              min={1980}
+              max={date.getFullYear()}
+              value={values.purchaseYear}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={
+                errors.purchaseYear && touched.purchaseYear ? "true" : undefined
+              }
+            />
+            {errors.purchaseYear && touched.purchaseYear && (
+              <HelperText type="error">{errors.purchaseYear}</HelperText>
+            )}
+          </InputWrapper>
+          {/* Condition */}
+
+          <div>
+            <Dropdown
+              data={["Like New", "Good", "Fair"].map((text, i) => ({
+                id: i,
+                text,
+              }))}
+              defaultLabel="Select Condition"
+              // setSelected={setSelectedIndex}
+              onclick={handleConditionClick}
+              showOther={false}
+            />
+            {errors.condition && touched.condition && (
+              <HelperText type="error" style={{ marginTop: "0.5rem" }}>
+                {errors.condition}
+              </HelperText>
+            )}
+          </div>
+        </Block>
+        {/* Mobile Number */}
+        <InputWrapper>
+          <Label>phone Number</Label>
+          <Input
+            name="phoneNumber"
+            placeholder="01712 345 678"
+            type="string"
+            min={1}
+            max={date.getFullYear()}
+            value={values.phoneNumber}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={
+              errors.phoneNumber && touched.phoneNumber ? "true" : undefined
+            }
+          />
+          {errors.phoneNumber && touched.phoneNumber && (
+            <HelperText type="error">{errors.phoneNumber}</HelperText>
+          )}
+        </InputWrapper>
         {/* Brand Section */}
         <Block>
-          <Dropdown
-            data={brands.map((item) => ({
-              id: item._id,
-              text: item.name,
-            }))}
-            defaultLabel="select brand"
-            setSelected={setSelectedIndex}
-            onclick={handleOptionClick}
-          />
-          {/* Other Brand */}
-          {selectedIndex === -1 && (
-            <InputWrapper>
-              <Label>Enter Brand Name</Label>
-              <Input
-                name="brand"
-                placeholder="Price in Taka"
-                value={values.brand}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={errors.brand && touched.brand ? "true" : undefined}
-              />
-              {errors.brand && touched.brand && (
-                <HelperText type="error">{errors.brand}</HelperText>
-              )}
-            </InputWrapper>
-          )}
+          <div>
+            <Dropdown
+              data={brands.map((item) => ({
+                id: item._id,
+                text: item.name,
+              }))}
+              defaultLabel="select brand"
+              onclick={handleOptionClick}
+              showOther={false}
+            />
+            {errors.brand && touched.brand && (
+              <HelperText type="error" style={{ marginTop: "0.4rem" }}>
+                {errors.brand}
+              </HelperText>
+            )}
+          </div>
+          {/* Location Place */}
+          <InputWrapper>
+            <Label>Location</Label>
+            <Input
+              name="location"
+              placeholder="Location"
+              value={values.location}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.location && touched.location ? "true" : undefined}
+            />
+            {errors.location && touched.location && (
+              <HelperText type="error">{errors.location}</HelperText>
+            )}
+          </InputWrapper>
         </Block>
         {/* Product Details */}
         <InputWrapper>
@@ -308,9 +360,9 @@ function AddProduct() {
         <button
           type="button"
           onClick={() => {
-            console.info(images);
+            // console.info(images);
             // console.info(.current.files);
-            // console.info(values);
+            console.info(values);
             // console.info(errors);
             // console.info(touched);
             // console.info(format(date, "PPp"));

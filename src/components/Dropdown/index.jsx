@@ -14,8 +14,9 @@ import { Label as TopLabel } from "../../components/formItems";
 
 function Dropdown({
   data,
-  setSelected,
+  setIndex,
   defaultLabel = "Select",
+  showOther = true,
   onclick = () => {},
 }) {
   const [height, setHeight] = useState(0);
@@ -43,11 +44,11 @@ function Dropdown({
     toggleOpen();
     setLabel(e.target.innerText);
     if (e.target.innerText.toLowerCase() === "other") {
-      setSelected(-1);
+      if (setIndex) setIndex(-1);
       onclick("", "");
     } else {
       onclick(id, e.target.innerText);
-      setSelected(id);
+      if (setIndex) setIndex(id);
     }
   }
 
@@ -71,7 +72,7 @@ function Dropdown({
                 {item.text}
               </Option>
             ))}
-          <Option onClick={handleClick}>Other</Option>
+          {showOther && <Option onClick={handleClick}>Other</Option>}
         </Options>
       </OptionsWrapper>
     </Container>

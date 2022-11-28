@@ -11,16 +11,17 @@ import { MdVerified as VerifiedIcon } from "react-icons/md";
 
 function Card({ data }) {
   const theme = useTheme();
-  const { data: userData, isLoading } = useQuery({
-    queryKey: ["user", data.selerId],
+  const { data: seller, isLoading } = useQuery({
+    queryKey: ["seller", data.selerId],
     queryFn: async () => {
       const res = await client.get(`/users/${data.sellerId}`);
       console.info(res);
       return res.data;
     },
+    refetchOnMount: true,
   });
 
-  console.info(userData);
+  console.info(seller);
 
   return (
     <Container>
@@ -51,13 +52,13 @@ function Card({ data }) {
             <Skeleton circle height={40} width={40} />
           ) : (
             <SellerAvatar
-              src={data?.sellerImg || userIcon}
+              src={seller?.photoURL || userIcon}
               alt="Seller Avatar"
             />
           )}
           <SellerName>
             Prosenjit Singha{" "}
-            {userData?.verified && (
+            {seller?.verified && (
               <VerifiedIcon color={`hsl(${theme.palette.info.main})`} />
             )}
           </SellerName>

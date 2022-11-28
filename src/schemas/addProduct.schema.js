@@ -1,6 +1,8 @@
 import * as yup from "yup";
 
 const REQUIRED = "Required";
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 export const AddProductFormSchema = yup.object().shape({
   productName: yup.string().required(REQUIRED),
@@ -10,36 +12,25 @@ export const AddProductFormSchema = yup.object().shape({
   brand: yup.string().required(REQUIRED),
   brandId: yup.string(),
   moreDetails: yup.string(),
-  images: yup.array().of(yup.object()).required("Upload at least one image"),
-  // images: yup
-  //   .mixed()
-  //   .test("fileSize", "File Size is too large", (value) => {
-  //     if (value && value?.length > 0) {
-  //       for (let i = 0; i < value.length; i++) {
-  //         if (value[i].size > 5242880) {
-  //           return false;
-  //         }
-  //       }
-  //     }
-  //     return true;
-  //   })
-  //   .test(
-  //     "fileType",
-  //     "Only the following formates are supported: png, jpg & jpeg",
-  //     (value) => {
-  //       if (value && value.length > 0) {
-  //         for (let i = 0; i < value.length; i++) {
-  //           if (
-  //             value[i].type !== "image/png" &&
-  //             value[i].type !== "image/jpg" &&
-  //             value[i].type !== "image/jpeg"
-  //           ) {
-  //             return false;
-  //           }
-  //         }
-  //       }
-  //       return true;
-  //     }
-  //   )
-  //   .required(REQUIRED),
+  images: yup
+    .array()
+    .required("Upload at least one image")
+    .nullable()
+    .required(REQUIRED),
+  purchaseYear: yup
+    .number()
+    .min(1980)
+    .max(new Date().getFullYear())
+    .required(REQUIRED),
+  condition: yup
+    .string()
+    .oneOf(
+      ["like new", "good", "fair"],
+      "Accepted values are brand new, good, fair"
+    )
+    .required(REQUIRED),
+  phoneNumber: yup
+    .string()
+    .matches(phoneRegExp, "Enter phone number without whitespace, - and +")
+    .required(REQUIRED),
 });

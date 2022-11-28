@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
-import { ChangeButton, Container, Heading } from "./styles";
+import { VerifyStatus, Container, Heading } from "./styles";
 import client from "../../api/";
 import { useAuth } from "../../context/AuthContext";
 import { Table, T, Icon, More } from "../../components/Table";
@@ -109,14 +109,14 @@ function ManageUser() {
                 <T.Data>{user.fullName}</T.Data>
                 <T.Data>{user.email}</T.Data>
                 <T.Data>
-                  <ChangeButton onClick={(e) => handleVerified(e, user)}>
+                  <VerifyStatus>
                     <DropIcon size="1rem" />
                     {user?.verified ? (
                       <Badge color="success">verified</Badge>
                     ) : (
                       <Badge color="error">not-verified</Badge>
                     )}
-                  </ChangeButton>
+                  </VerifyStatus>
                 </T.Data>
                 <T.Data style={{ textTransform: "capitalize" }}>
                   {user.role}

@@ -6,13 +6,7 @@ import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-function Images({ images, setImages }) {
-  function handleDelete(img) {
-    // const toastId = toast.loading("Removing Img");
-    // try {
-    //   axios.delete(img.delete_url);
-    // } catch (error) {}
-  }
+function Images({ images, onDelete = () => {} }) {
   return (
     <>
       {/* Images */}
@@ -46,6 +40,9 @@ function Images({ images, setImages }) {
         >
           {images.map((image, i) => (
             <SwiperItem key={i}>
+              <DeleteButton type="button" onClick={() => onDelete(i)}>
+                <MdDelete />
+              </DeleteButton>
               <img src={image?.preview} alt={images?.name} />
             </SwiperItem>
           ))}

@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.info("current-user,", currentUser.displayName);
+      console.info("current-user,", currentUser?.displayName);
       if (currentUser) {
         setUser(currentUser);
         getAccessToken({ uid: currentUser.uid, email: currentUser.email });
@@ -36,8 +36,6 @@ export function AuthProvider({ children }) {
     });
     return () => unsubscribe();
   }, [user.uid]);
-
-  // console.info(user);
 
   const value = {
     setLoading,

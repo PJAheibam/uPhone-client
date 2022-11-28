@@ -1,4 +1,5 @@
 import imgAPI from "../api/uploadImage";
+import { uploadImage } from "./uploadImage";
 
 export async function uploadImages(
   images,
@@ -7,25 +8,25 @@ export async function uploadImages(
 ) {
   let finished = [];
 
-  await images.map(async (file) => {
+  for (const image of images) {
     try {
-      const formData = new FormData();
-      formData.append("image", file);
-      const res = await imgAPI.post("", formData);
+      const res = await uploadImage(image);
       const imageData = {
-        title: res.data?.data?.title,
-        display_url: res.data?.data?.display_url,
-        thumb_url: res.data?.data?.thumb?.url,
-        medium_url: res.data?.data?.medium?.url,
-        delete_url: res.data?.data?.delete_url,
+        title: res?.title,
+        display_url: res?.display_url,
+        thumb_url: res?.thumb?.url,
+        medium_url: res?.medium?.url,
+        delete_url: res?.delete_url,
       };
       finished.push(imageData);
       onSuccess();
     } catch (err) {
       onError();
+      break;
     } finally {
       //   setProgress(((finished * 100) / total).toFixed(2));
     }
-  });
+  }
+
   return finished;
 }

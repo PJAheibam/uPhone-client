@@ -6,7 +6,7 @@ export const Heading = styled.h1`
   margin-bottom: 1.5rem;
 `;
 
-export const ChangeButton = styled.button`
+export const VerifyStatus = styled.button`
   display: flex;
   gap: 0.15rem;
   align-items: center;
