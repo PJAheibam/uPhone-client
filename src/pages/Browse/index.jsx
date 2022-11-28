@@ -1,14 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import client from "../../api";
+import { useBrands } from "../../hooks/useBrands";
 import { device } from "../../utils/breakpoints";
 import Card, { CardSkeleton } from "./Card";
 import Sidebar from "./Sidebar";
+import Dropdown from "../../components/Dropdown";
 
 function Browse() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const { data: brands = [] } = useBrands();
 
   const {
     data = [],
@@ -31,6 +36,19 @@ function Browse() {
     <Container>
       <Sidebar />
       <MainSection>
+        <Header>
+          <Dropdown
+            showOther={false}
+            label="Category"
+            defaultValue="Select Category"
+            selectButtonStyle={{ marginBottom: "1rem", width: "14rem" }}
+            data={[
+              { id: "all", text: "All" },
+              ...brands.map((brand) => ({ id: brand._id, text: brand.name })),
+            ]}
+            onclick={(id) => navigate("/category/" + id)}
+          />
+        </Header>
         <Cards>
           {isLoading &&
             [...Array(6).keys()].map((i) => <CardSkeleton key={i} />)}
@@ -56,7 +74,7 @@ const MainSection = styled.section`
   padding-block: 2rem;
   padding-inline: var(--gip);
   @media ${device.md} {
-    grid-column: 4/13;
+    grid-column: 3/13;
     padding-block: 2rem;
     padding-left: 2rem;
     padding-right: var(--gip);
@@ -65,7 +83,21 @@ const MainSection = styled.section`
 
 const Cards = styled.section`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
   grid-auto-rows: 1fr;
   gap: 1rem;
+  grid-template-columns: 1;
+  @media ${device.sm} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media ${device.lg} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+const Header = styled.div`
+  grid-column: 1/2;
+  display: flex;
+  @media ${device.md} {
+    display: none;
+  }
 `;

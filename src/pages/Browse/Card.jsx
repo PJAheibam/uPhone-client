@@ -121,7 +121,7 @@ const Container = styled.div`
   border: 1px solid hsl(var(--outline-variant) / 70%);
   background-image: var(--paper-1);
   @media ${device.sm} {
-    max-width: 300px;
+    /* max-width: 150px; */
   }
 `;
 

@@ -39,11 +39,14 @@ function Sidebar() {
 export default Sidebar;
 
 const Container = styled.aside`
+  display: none;
   grid-column: 1/13;
   padding-block: 2rem;
   padding-inline: var(--gip);
   background-image: var(--paper-1);
   @media ${device.md} {
+    display: block;
+    /* width: fit-content; */
     min-height: calc(100vh - 54px);
     ${(p) => {
       if (p.theme.palette.mode === "dark") return css``;
@@ -52,7 +55,7 @@ const Container = styled.aside`
           box-shadow: 15px 0 38px -30px hsl(var(--primary-hue) 80% 20%);
         `;
     }}
-    grid-column: 1/4;
+    grid-column: 1/3;
     padding-right: 1rem;
     padding-left: var(--gip);
   }

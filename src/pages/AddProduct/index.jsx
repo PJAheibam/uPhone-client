@@ -264,7 +264,8 @@ function AddProduct() {
                 id: i,
                 text,
               }))}
-              defaultLabel="Select Condition"
+              label="Condition"
+              defaultValue="Select Condition"
               // setSelected={setSelectedIndex}
               onclick={handleConditionClick}
               showOther={false}
@@ -304,7 +305,8 @@ function AddProduct() {
                 id: item._id,
                 text: item.name,
               }))}
-              defaultLabel="select brand"
+              label="Brand"
+              defaultValue="Select Brand"
               onclick={handleOptionClick}
               showOther={false}
             />

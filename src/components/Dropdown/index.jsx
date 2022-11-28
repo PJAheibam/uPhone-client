@@ -13,14 +13,16 @@ import { useSpring, config } from "react-spring";
 import { Label as TopLabel } from "../../components/formItems";
 
 function Dropdown({
+  selectButtonStyle,
   data,
   setIndex,
-  defaultLabel = "Select",
+  label = "Select",
+  defaultValue = "Select",
   showOther = true,
   onclick = () => {},
 }) {
   const [height, setHeight] = useState(0);
-  const [label, setLabel] = useState(defaultLabel);
+  const [selected, setSelected] = useState(defaultValue);
   const [open, setOpen] = useState(false);
   const optionsRef = useRef();
   const selectRef = useRef();
@@ -42,7 +44,7 @@ function Dropdown({
 
   function handleClick(e, id) {
     toggleOpen();
-    setLabel(e.target.innerText);
+    setSelected(e.target.innerText);
     if (e.target.innerText.toLowerCase() === "other") {
       if (setIndex) setIndex(-1);
       onclick("", "");
@@ -53,10 +55,10 @@ function Dropdown({
   }
 
   return (
-    <Container maxHeight={height}>
-      <TopLabel style={{ marginBottom: "0.25rem" }}>{defaultLabel}</TopLabel>
+    <Container maxHeight={height} style={selectButtonStyle}>
+      <TopLabel style={{ marginBottom: "0.25rem" }}>{label}</TopLabel>
       <Select ref={selectRef} onClick={toggleOpen}>
-        <Label>{label}</Label>{" "}
+        <Label>{selected}</Label>{" "}
         <Icon style={arrowStyle}>
           <ArrowDown />
         </Icon>
