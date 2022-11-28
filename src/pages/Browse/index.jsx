@@ -8,11 +8,14 @@ import { device } from "../../utils/breakpoints";
 import Card, { CardSkeleton } from "./Card";
 import Sidebar from "./Sidebar";
 import Dropdown from "../../components/Dropdown";
+import BookNowModal from "./BookNowModal";
+import { useAuth } from "../../context/AuthContext";
 
 function Browse() {
+  const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const [product, setProduct] = useState(null);
   const { data: brands = [] } = useBrands();
 
   const {
@@ -34,6 +37,7 @@ function Browse() {
 
   return (
     <Container>
+      <BookNowModal product={product} user={user} setProduct={setProduct} />
       <Sidebar />
       <MainSection>
         <Header>
@@ -53,7 +57,9 @@ function Browse() {
           {isLoading &&
             [...Array(6).keys()].map((i) => <CardSkeleton key={i} />)}
           {!isLoading &&
-            data.map((item) => <Card key={item._id} data={item} />)}
+            data.map((item) => (
+              <Card key={item._id} data={item} setProduct={setProduct} />
+            ))}
         </Cards>
       </MainSection>
     </Container>

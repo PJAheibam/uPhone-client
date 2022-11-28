@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import styled from "styled-components";
 import { MdDelete } from "react-icons/md";
-import axios from "axios";
-import { toast } from "react-hot-toast";
 
 function Images({ images, onDelete = () => {} }) {
   return (

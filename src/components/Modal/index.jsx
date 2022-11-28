@@ -3,9 +3,8 @@ import { animated, useSpring, useTransition } from "react-spring";
 import styled from "styled-components";
 import Portal from "../../services/portal";
 import { MdClose } from "react-icons/md";
-import updateUser from "./updateUser";
 
-function VerifyModal({ open, setOpen, children }) {
+function Modal({ open, onClose, children }) {
   const outsideRef = useRef();
   const transApi = useTransition(open, {
     from: { opacity: 0 },
@@ -13,10 +12,10 @@ function VerifyModal({ open, setOpen, children }) {
     leave: { opacity: 0 },
   });
   function handleClose() {
-    setOpen(false);
+    onClose();
   }
   function handleOutsideClick(e) {
-    if (outsideRef.current && outsideRef.current === e.target) setOpen(false);
+    if (outsideRef.current && outsideRef.current === e.target) onClose();
   }
 
   if (open) document.body.style.overflow = "hidden";
@@ -36,7 +35,7 @@ function VerifyModal({ open, setOpen, children }) {
                 <CloseIcon onClick={handleClose}>
                   <MdClose />
                 </CloseIcon>
-                {/* <updateUser handleCancel={handleClose} data={data} /> */}
+                {children}
               </Box>
             </Container>
           )
@@ -45,7 +44,7 @@ function VerifyModal({ open, setOpen, children }) {
   );
 }
 
-export default VerifyModal;
+export default Modal;
 
 const Container = styled(animated.div)`
   position: fixed;

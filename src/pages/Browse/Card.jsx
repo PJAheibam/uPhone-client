@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import client from "../../api";
 import { MdVerified as VerifiedIcon } from "react-icons/md";
 
-function Card({ data }) {
+function Card({ data, setProduct }) {
   // console.info(data.sellerId);
   const theme = useTheme();
   const { data: seller, isLoading } = useQuery({
@@ -19,6 +19,10 @@ function Card({ data }) {
     },
     refetchOnMount: true,
   });
+
+  function handleBookNow() {
+    setProduct({ ...data, sellerInfo: seller });
+  }
 
   return (
     <Container>
@@ -61,7 +65,11 @@ function Card({ data }) {
           </SellerName>
         </Seller>
         <Footer>
-          <GradientButton style={{ borderRadius: "0.25rem" }}>
+          <GradientButton
+            style={{ borderRadius: "0.25rem" }}
+            type="button"
+            onClick={handleBookNow}
+          >
             Book
           </GradientButton>
         </Footer>
