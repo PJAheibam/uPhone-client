@@ -1,20 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Link as RrdLink } from "react-router-dom";
 import styled, { css } from "styled-components";
-import client from "../../api";
 import { device } from "../../utils/breakpoints";
 import Skeleton from "react-loading-skeleton";
+import { useBrands } from "../../hooks/useBrands";
 
 function Sidebar() {
-  const { data = [], isLoading } = useQuery({
-    queryKey: ["brands"],
-    queryFn: async () => {
-      const res = await client.get("/brands");
-      return res.data;
-    },
-    refetchOnMount: true,
-  });
+  const { data = [], isLoading } = useBrands();
 
   return (
     <Container>

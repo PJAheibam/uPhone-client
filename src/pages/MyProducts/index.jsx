@@ -11,6 +11,7 @@ import useClickOutside from "../../hooks/useClickOutside";
 import { toast } from "react-hot-toast";
 import Portal from "../../services/portal";
 import { usePopper } from "react-popper";
+import axios from "axios";
 
 function MyProducts() {
   const [referenceElement, setReferenceElement] = useState(null);
@@ -53,19 +54,25 @@ function MyProducts() {
     setVisibleMenu((prev) => !prev);
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     setVisibleMenu((prev) => !prev);
     const deleteToastId = toast.loading("Deleting...");
-    client
-      .delete(`/products?id=${id}&uid=${user.uid}`)
-      .then((_res) => {
-        refetch();
-        toast.success("Product Removed!", { id: deleteToastId });
-      })
-      .catch((err) => {
-        console.error(err);
-        toast.success("Product Removed!", { id: deleteToastId });
-      });
+    try {
+      // this will delete all photos of releted product
+
+      for (const image of data[id]?.images) {
+        const res = await axios.delete(image.delete_url);
+        console.log("image delete response");
+      }
+
+      const res = await client.delete(`/products?id=${id}&uid=${user.uid}`);
+
+      refetch();
+
+      toast.success("Product Removed!", { id: deleteToastId });
+    } catch (err) {
+      toast.success("Erro Occur While Deleting", { id: deleteToastId });
+    }
   }
 
   return (

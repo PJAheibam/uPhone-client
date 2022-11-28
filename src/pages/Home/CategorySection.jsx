@@ -1,17 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import client from "../../api";
+import { useBrands } from "../../hooks/useBrands";
 
 function CategorySection() {
-  const { data = [], isLoading } = useQuery({
-    queryKey: ["brands"],
-    queryFn: async () => {
-      const res = client.get("/brands");
-      return (await res).data;
-    },
-  });
+  const { data = [], isLoading } = useBrands();
+
   return (
     <Container>
       <Heading>Browse phones by brand name</Heading>

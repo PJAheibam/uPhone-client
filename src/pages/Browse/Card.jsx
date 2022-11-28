@@ -14,7 +14,6 @@ function Card({ data }) {
     queryKey: ["seller", data.selerId],
     queryFn: async () => {
       const res = await client.get(`/users/${data.sellerId}`);
-      // console.log("seller", res.data);
       return res.data;
     },
     refetchOnMount: true,
