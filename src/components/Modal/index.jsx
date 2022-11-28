@@ -5,7 +5,7 @@ import Portal from "../../services/portal";
 import { MdClose } from "react-icons/md";
 import updateUser from "./updateUser";
 
-function VerifyModal({ open, setOpen, data }) {
+function VerifyModal({ open, setOpen, children }) {
   const outsideRef = useRef();
   const transApi = useTransition(open, {
     from: { opacity: 0 },
@@ -36,7 +36,7 @@ function VerifyModal({ open, setOpen, data }) {
                 <CloseIcon onClick={handleClose}>
                   <MdClose />
                 </CloseIcon>
-                <updateUser handleCancel={handleClose} data={data} />
+                {/* <updateUser handleCancel={handleClose} data={data} /> */}
               </Box>
             </Container>
           )
