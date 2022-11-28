@@ -9,9 +9,10 @@ import client from "../../api";
 import { MdVerified as VerifiedIcon } from "react-icons/md";
 
 function Card({ data }) {
+  // console.info(data.sellerId);
   const theme = useTheme();
   const { data: seller, isLoading } = useQuery({
-    queryKey: ["seller", data.selerId],
+    queryKey: ["seller", data.sellerId],
     queryFn: async () => {
       const res = await client.get(`/users/${data.sellerId}`);
       return res.data;
@@ -53,7 +54,7 @@ function Card({ data }) {
             />
           )}
           <SellerName>
-            Prosenjit Singha{" "}
+            {seller?.fullName}
             {seller?.verified && (
               <VerifiedIcon color={`hsl(${theme.palette.info.main})`} />
             )}
