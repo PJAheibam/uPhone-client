@@ -5,31 +5,15 @@ import Navbar from "../components/Navbar";
 import { device } from "../utils/breakpoints";
 import userIcon from "../assets/icons/user.png";
 import { Link as RrdLink, Outlet } from "react-router-dom";
-import { useUserRole } from "../context/UserRoleContext";
 import Skeleton from "react-loading-skeleton";
 import { Badge } from "../components/Badge";
 import { useAuth } from "../context/AuthContext";
-import { useQuery } from "@tanstack/react-query";
-import client from "../api";
+import useUserRole from "../hooks/useUserRole";
 
 function DashboardLayout() {
-  // const { role, loading } = useUserRole();
   const { user } = useAuth();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["user-role", user?.uid],
-    queryFn: async () => {
-      const res = await client(`/user-role?uid=${user?.uid}`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      });
-      return res.data;
-    },
-    refetchOnMount: true,
-  });
-
-  console.info(data);
+  const { data, isLoading } = useUserRole(user?.uid);
 
   return (
     <>

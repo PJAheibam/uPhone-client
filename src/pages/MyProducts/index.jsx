@@ -38,7 +38,11 @@ function MyProducts() {
 
   async function fetchData() {
     const url = "/my-products?uid=" + user.uid;
-    const res = await client.get(url);
+    const res = await client.get(url, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("access-token")}`,
+      },
+    });
     // console.log(res.data);
     return res.data;
   }
