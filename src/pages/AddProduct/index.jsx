@@ -19,6 +19,7 @@ import { toast } from "react-hot-toast";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import Images from "./Images";
+import { RiImageAddLine as AddImageIcon } from "react-icons/ri";
 
 const initialValues = {
   productName: "",
@@ -194,6 +195,7 @@ function AddProduct() {
               e.stopPropagation();
             }}
           />
+          <AddImageIcon />
           {isImgUploading && (
             <ProgressBar
               value={progress}

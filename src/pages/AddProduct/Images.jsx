@@ -14,14 +14,16 @@ function Images() {
             "--swiper-navigation-color": "#fff",
             "--swiper-pagination-color": "#fff",
           }}
+          slidesPerView={3}
           spaceBetween={10}
-          navigation={true}
-          pagination={true}
+          navigation
+          pagination
+          grabCursor
           modules={[Navigation, Pagination]}
           className="add-product-images"
         >
           <SwiperItem>
-            <DeleteButton>
+            <DeleteButton type="button">
               <MdDelete />
             </DeleteButton>
             <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
@@ -70,4 +72,7 @@ const DeleteButton = styled.button`
   position: absolute;
   top: 10px;
   right: 20px;
+  &:active {
+    scale: 0.95;
+  }
 `;

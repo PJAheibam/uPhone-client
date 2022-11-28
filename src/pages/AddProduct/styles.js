@@ -33,32 +33,17 @@ export const TextArea = styled(Input)`
 export const UploadImage = styled(InputWrapper)`
   position: relative;
   cursor: pointer;
-  width: 100%;
-  height: 200px;
+  font-size: 2.5rem;
+  color: hsl(var(--primary-main));
+  margin-inline: auto;
+  width: fit-content;
   padding: 1rem;
-  background-image: url(${uploadImg});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
   border: 1px solid hsl(var(--outline-variant));
   border-radius: var(--border-radius-md);
   overflow: hidden;
   input[type="file"] {
     display: none;
     pointer-events: none;
-  }
-  &::before {
-    position: absolute;
-    /* content: attr(data-file-name); */
-    content: "file name";
-    width: 100%;
-    bottom: -2px;
-    left: 0%;
-    text-align: center;
-    padding: 0.5em 1em;
-    height: fit-content;
-    background-color: gray;
-    /* background-color: hsl(var(--background)); */
   }
   &:hover {
     border: 1px solid hsl(var(--outline));
