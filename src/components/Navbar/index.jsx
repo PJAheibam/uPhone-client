@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <Header>
       <Wrapper>
-        <Logo />
+        <Logo style={{ marginRight: "auto" }} />
         <NavLinks />
         <ToggleThemeButton />
         {!user.uid && (

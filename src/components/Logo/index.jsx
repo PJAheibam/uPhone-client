@@ -1,9 +1,12 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function Logo() {
-  return <Container>uPhone</Container>;
+function Logo({ style }) {
+  return (
+    <Container style={style} to="/">
+      UPHONE
+    </Container>
+  );
 }
 
 export default Logo;
