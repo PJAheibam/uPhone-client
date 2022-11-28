@@ -22,7 +22,7 @@ function DashboardLayout() {
       <Container>
         <Sidebar>
           <SidebarHeader>
-            <Avatar src={userIcon} alt="User avatar" />
+            <Avatar src={user.photoURL || userIcon} alt="User avatar" />
             <Name>{user.displayName}</Name>
             <Badge color="primary">Admin</Badge>
           </SidebarHeader>

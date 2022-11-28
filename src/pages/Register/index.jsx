@@ -33,6 +33,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { AiOutlineUserAdd as AddProfilePhoto } from "react-icons/ai";
 import Dropzone, { useDropzone } from "react-dropzone";
+import { uploadImage } from "../../services/uploadImage";
 
 function Register() {
   const navigate = useNavigate();
@@ -81,20 +82,36 @@ function Register() {
 
   async function onSubmit(values, actions) {
     try {
+      let profilePhotoData = null;
+      if (values.profilePhoto) {
+        profilePhotoData = await uploadImage(values.profilePhoto);
+      }
+
       const res = await register(values.email, values.password);
+
       const currentUser = {
         uid: res.user.uid,
         email: res.user.email,
         fullName: values.fullName,
         role: accountTypeInfo.role,
+        profilePhoto: {
+          title: profilePhotoData?.title,
+          display_url: profilePhotoData?.display_url,
+          thumb_url: profilePhotoData?.thumb?.url,
+          medium_url: profilePhotoData?.medium?.url,
+          delete_url: profilePhotoData?.delete_url,
+        },
       };
 
       await updateProfile(res.user, {
         displayName: values.fullName,
+        photoURL: profilePhotoData?.display_url,
       });
 
       const addUserRes = await addUser(currentUser);
+
       console.info(addUserRes.data);
+
       actions.resetForm();
 
       navigate(from, { replace: true });
@@ -113,6 +130,8 @@ function Register() {
   }
 
   function handleOnDrop(acceptedFiles, rejectedFiles) {
+    // console.log(acceptedFiles);
+
     if (acceptedFiles.length > 0) {
       setFieldError("profilePhto", "");
       acceptedFiles.map((file) =>

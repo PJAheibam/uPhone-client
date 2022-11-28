@@ -6,6 +6,6 @@ export const uploadImage = async (imageFile) => {
   const formData = new FormData();
   formData.append("image", imageFile);
   const res = await imgAPI.post("", formData);
-
+  //   console.log(imageFile, res);
   return res.data?.data;
 };
