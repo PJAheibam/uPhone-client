@@ -14,7 +14,9 @@ import Drawer from "./Drawer";
 function Navbar() {
   const [open, setOpen] = useState(false);
   const { user } = useAuth();
-  const [hideRegister, hideLogin, hideLink] = useBreakpoints([410, 529, 725]);
+  const [hideThemeToggler, hideLogin, hideLink] = useBreakpoints([
+    410, 529, 725,
+  ]);
 
   // auto close navmenu on large display
   useEffect(() => {
@@ -27,7 +29,7 @@ function Navbar() {
       <Wrapper>
         <Logo style={{ marginRight: "auto" }} />
         {!hideLink && <NavLinks />}
-        {!hideRegister && <ToggleThemeButton />}
+        {!hideThemeToggler && <ToggleThemeButton />}
         {!user.uid && (
           <AuthButtonGroup>
             {!hideLogin && <NavLink to="/login"> Login</NavLink>}
@@ -39,7 +41,7 @@ function Navbar() {
         {/* <UserMenu /> */}
         {hideLink && <Hamburger toggled={open} toggle={setOpen} rounded />}
       </Wrapper>
-      {open && <Drawer />}
+      <Drawer open={open} />
     </Header>
   );
 }

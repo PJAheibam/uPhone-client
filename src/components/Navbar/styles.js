@@ -4,6 +4,9 @@ import styled from "styled-components";
 export const Header = styled.header`
   padding-inline: calc((100vw - 1366px) / 2);
   background-image: var(--paper-5);
+  position: fixed;
+  z-index: 200;
+  width: 100%;
 `;
 
 export const Wrapper = styled.section`

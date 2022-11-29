@@ -2,50 +2,91 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Portal from "../../services/portal";
+import { useTransition, animated, easings } from "react-spring";
+import { useBreakpoints } from "react-use-size";
+import Switch from "rc-switch";
+import { useToggleTheme } from "../../context/ThemeContext";
+import ToggleSwitch from "../ToggleSwitch";
 
-function Drawer() {
+function Drawer({ open }) {
   const { pathname } = useLocation();
+  const [showThemeToggler, showLogin] = useBreakpoints([410, 529]);
+
+  const { theme, toggleTheme } = useToggleTheme();
+
+  const transApi = useTransition(open, {
+    from: { right: "-100%" },
+    enter: { right: "0%" },
+    leave: { right: "-100%" },
+    config: {
+      duration: 500,
+      easing: easings.easeOutSine,
+    },
+  });
 
   return (
     <Portal>
-      <Container>
-        <Heading>Menu</Heading>
-        <Nav>
-          <NavLink to="/" active={pathname.includes("/") ? "true" : undefined}>
-            Home
-          </NavLink>
+      {transApi(
+        (styles, o) =>
+          o && (
+            <Container style={styles}>
+              <Heading>Menu</Heading>
+              <Nav>
+                <NavLink
+                  to="/"
+                  active={pathname.includes("/") ? "true" : undefined}
+                >
+                  Home
+                </NavLink>
 
-          <NavLink
-            to="/category/all"
-            active={pathname.includes("/category") ? "true" : undefined}
-          >
-            Browse
-          </NavLink>
+                <NavLink
+                  to="/category/all"
+                  active={pathname.includes("/category") ? "true" : undefined}
+                >
+                  Browse
+                </NavLink>
 
-          <NavLink
-            to="/blog"
-            active={pathname.includes("/blog") ? "true" : undefined}
-          >
-            Blog
-          </NavLink>
-        </Nav>
-      </Container>
+                <NavLink
+                  to="/blog"
+                  active={pathname.includes("/blog") ? "true" : undefined}
+                >
+                  Blog
+                </NavLink>
+                {showLogin && (
+                  <NavLink
+                    to="/login"
+                    active={pathname.includes("/blog") ? "true" : undefined}
+                  >
+                    login
+                  </NavLink>
+                )}
+              </Nav>
+              {showThemeToggler && (
+                <ThemeSwitch onClick={toggleTheme} type="button">
+                  Dark mode
+                  <ToggleSwitch value={theme.palette.mode === "dark"} />
+                </ThemeSwitch>
+              )}
+            </Container>
+          )
+      )}
     </Portal>
   );
 }
 
 export default Drawer;
 
-const Container = styled.div`
+const Container = styled(animated.div)`
   position: fixed;
-  min-height: calc(100vh - 64px);
-  top: 64px;
+  height: 100vh;
+  top: 0;
   right: 0;
   min-width: 280px;
   padding-left: 2rem;
   padding-right: var(--gip);
   background-image: var(--paper-4);
-  padding-block: 1rem;
+  padding-bottom: 1rem;
+  padding-top: calc(64px + 1rem);
   z-index: 100;
 `;
 
@@ -65,4 +106,16 @@ const NavLink = styled(Link)`
   font-size: 1.15rem;
   color: ${(p) =>
     p.active ? "hsl(var(--text-primary))" : "hsl(var(--text-secondary))"};
+`;
+
+const ThemeSwitch = styled.button`
+  font-size: 1.15rem;
+  padding: 0.3em 0.7em;
+
+  color: hsl(var(--text-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem;
+  width: 100%;
 `;
