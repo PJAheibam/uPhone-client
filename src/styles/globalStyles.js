@@ -92,7 +92,7 @@ export const GlobalStyles = createGlobalStyle`
     :root{
         // color palette
         ${rootVariables} 
-        --gip: 3rem; //global inline padding
+        --gip: clamp(1.25rem, 4vw, 3rem); //global inline padding
 
         color-scheme: ${(p) => p.theme.palette.mode};
     }
