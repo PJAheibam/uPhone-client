@@ -67,6 +67,7 @@ const Content = styled.section`
   @media ${device.md} {
     align-items: flex-start;
     margin-block: auto;
+    margin-right: auto;
     /* flex-direction: row; */
     /* justify-content: flex-start; */
   }
@@ -110,10 +111,9 @@ const Input = styled.input`
 
 const Image = styled.img`
   height: 300px;
-  /* width: auto;
-  position: absolute;
-  top: 0;
-  right: 0; */
+  @media ${device.sm} {
+    margin-left: auto;
+  }
 `;
 
 const Button = styled(GradientButton)`
