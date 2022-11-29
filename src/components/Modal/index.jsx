@@ -71,7 +71,7 @@ const Box = styled(animated.div)`
 
 const CloseIcon = styled.button`
   position: absolute;
-  right: 5px;
+  right: 16px;
   top: 5px;
   display: flex;
   justify-content: center;
@@ -80,6 +80,7 @@ const CloseIcon = styled.button`
   border-radius: 50%;
   padding: 0.1 5em;
   color: hsl(var(--error-main));
+  z-index: 100;
   background-color: hsl(var(--error-main) / 10%);
   &:active {
     scale: 0.95;

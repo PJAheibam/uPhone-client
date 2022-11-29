@@ -29,8 +29,8 @@ export const AddProductFormSchema = yup.object().shape({
       "Accepted values are brand new, good, fair"
     )
     .required(REQUIRED),
-  phoneNumber: yup
-    .string()
-    .matches(phoneRegExp, "Enter phone number without whitespace, - and +")
-    .required(REQUIRED),
+  // phoneNumber: yup
+  //   .string()
+  //   .matches(phoneRegExp, "Enter phone number without whitespace, - and +")
+  //   .required(REQUIRED),
 });

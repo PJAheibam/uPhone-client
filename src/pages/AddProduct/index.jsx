@@ -30,9 +30,9 @@ const initialValues = {
   brand: "",
   moreDetails: "",
   images: "",
-  purchaseYear: "",
   condition: "",
-  phoneNumber: "",
+  purchaseYear: "",
+  // phoneNumber: "",
 };
 
 function AddProduct() {
@@ -129,7 +129,8 @@ function AddProduct() {
         brandId: values.brandId,
         email: user.email,
         uid: user.uid,
-        sellerImg: user.photoURl,
+        condition: values?.condition,
+        purchaseYear: values.purchaseYear,
         postedOn: {
           time: format(date, "p"),
           date: format(date, "PP"),
@@ -278,7 +279,7 @@ function AddProduct() {
           </div>
         </Block>
         {/* Mobile Number */}
-        <InputWrapper>
+        {/* <InputWrapper>
           <Label>phone Number</Label>
           <Input
             name="phoneNumber"
@@ -296,7 +297,7 @@ function AddProduct() {
           {errors.phoneNumber && touched.phoneNumber && (
             <HelperText type="error">{errors.phoneNumber}</HelperText>
           )}
-        </InputWrapper>
+        </InputWrapper> */}
         {/* Brand Section */}
         <Block>
           <div>
