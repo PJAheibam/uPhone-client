@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { breakpoint } from "../../utils/breakpoints";
 
 export const Main = styled.main`
+  padding-top: 52px;
   display: flex;
   flex-direction: column;
   gap: 3rem;
