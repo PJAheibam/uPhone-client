@@ -9,8 +9,8 @@ import { device } from "../../utils/breakpoints";
 import { useFormik } from "formik";
 import { BookNowSchema } from "../../schemas/bookNow.schema";
 import userIcon from "../../assets/icons/user.png";
-import { Badge } from "../../components/Badge";
 import { MdVerified } from "react-icons/md";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
 function BookNowModal({ product, user, setProduct }) {
   const { values, errors, touched, handleBlur, handleSubmit, handleChange } =
@@ -25,26 +25,31 @@ function BookNowModal({ product, user, setProduct }) {
   function handleModalClose() {
     setProduct(null);
   }
-  console.info(product, userIcon);
+  // console.info(product, userIcon);
   return (
     <Modal open={!!product} onClose={handleModalClose}>
       <Wrapper>
         <Heading>Book Now</Heading>
         <MobileSection>
-          <SwiperContainer
-            // pagination={{
-            //   type: "fraction",
-            // }}
-            navigation={true}
-            modules={[Pagination, Navigation]}
-          >
-            {product?.images &&
-              product?.images.map((image, i) => (
-                <SwiperItem key={i}>
-                  <img src={image?.display_url} alt={image?.title} />
-                </SwiperItem>
-              ))}
-          </SwiperContainer>
+          <PhotoProvider>
+            <SwiperContainer
+              // pagination={{
+              //   type: "fraction",
+              // }}
+              spaceBetween={10}
+              navigation={true}
+              modules={[Pagination, Navigation]}
+            >
+              {product?.images &&
+                product?.images.map((image, i) => (
+                  <SwiperItem key={i}>
+                    <PhotoView src={image?.display_url}>
+                      <img src={image?.display_url} alt={image?.title} />
+                    </PhotoView>
+                  </SwiperItem>
+                ))}
+            </SwiperContainer>
+          </PhotoProvider>
           <Content>
             <User style={{ marginBottom: "0.25rem" }}>
               <Avatar
@@ -118,6 +123,10 @@ const Wrapper = styled.section`
   padding: 1rem;
   max-height: 100vh;
   overflow: overlay;
+  width: 100vw;
+  @media ${device.sm} {
+    width: auto;
+  }
 `;
 
 const Heading = styled.h1`
@@ -126,15 +135,17 @@ const Heading = styled.h1`
 `;
 
 const SwiperContainer = styled(Swiper)`
-  max-width: 300px;
   flex-basis: 100%;
-  border-radius: var(--border-radius-md);
+  width: 100vw;
+  @media ${device.sm} {
+    max-width: 300px;
+  }
 `;
 
 const SwiperItem = styled(SwiperSlide)`
-  width: 200px;
-
-  /* height: 180px; */
+  /* width: 200px; */
+  height: 200px;
+  border-radius: var(--border-radius-md);
   overflow: hidden;
   img {
     height: 100%;

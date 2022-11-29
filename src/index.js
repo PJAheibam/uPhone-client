@@ -11,6 +11,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "swiper/css/thumbs";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
+import "react-photo-view/dist/react-photo-view.css";
 // import "rc-switch/assets/index.css";
 
 const queryClient = new QueryClient();
