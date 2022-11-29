@@ -16,6 +16,8 @@ import { BookNowSchema } from "../../schemas/bookNow.schema";
 import userIcon from "../../assets/icons/user.png";
 import { MdVerified } from "react-icons/md";
 import { PhotoProvider, PhotoView } from "react-photo-view";
+import client from "../../api";
+import { toast } from "react-hot-toast";
 
 function BookNowModal({ product, user, setProduct }) {
   const {
@@ -32,13 +34,29 @@ function BookNowModal({ product, user, setProduct }) {
     validationSchema: BookNowSchema,
   });
 
-  function onSubmit() {}
+  async function onSubmit(values, actions) {
+    const toastId = toast.loading("Booking...");
+    try {
+      const payload = {
+        productId: product._id,
+        buyerId: user?.uid,
+        sellerId: product.sellerId,
+        meetUpLocation: values.meetUpLocation,
+        buyerPhoneNumber: values.phoneNumber,
+      };
+      // console.info(payload);
+      const res = client.post(`/bookings`, payload);
+      toast.success("Booked!", { id: toastId });
+    } catch (error) {
+      toast.error("An error occur while booking", { id: toastId });
+    }
+  }
 
   function handleModalClose() {
     setProduct(null);
     resetForm();
   }
-  // console.info(product, userIcon);
+  // console.info(product);
   return (
     <Modal open={!!product} onClose={handleModalClose}>
       <Wrapper>

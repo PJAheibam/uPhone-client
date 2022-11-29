@@ -1,5 +1,5 @@
 import React from "react";
-import { Link as RrdLink } from "react-router-dom";
+import { Link as RrdLink, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { device } from "../../utils/breakpoints";
 import Skeleton from "react-loading-skeleton";
@@ -7,6 +7,12 @@ import { useBrands } from "../../hooks/useBrands";
 
 function Sidebar() {
   const { data = [], isLoading } = useBrands();
+
+  const { pathname } = useLocation();
+
+  function isActive(id) {
+    return pathname.includes(id) ? "true" : undefined;
+  }
 
   return (
     <Container>
@@ -23,10 +29,18 @@ function Sidebar() {
           />
         )}
 
-        {!isLoading && <Link to={"/category/all"}>All</Link>}
+        {!isLoading && (
+          <Link to={"/category/all"} active={isActive("all")}>
+            All
+          </Link>
+        )}
 
         {data.map((data, i) => (
-          <Link to={"/category/" + data._id} key={data._id}>
+          <Link
+            to={"/category/" + data._id}
+            key={data._id}
+            active={isActive(data._id)}
+          >
             {" "}
             {data.name}{" "}
           </Link>
@@ -76,7 +90,11 @@ const Link = styled(RrdLink)`
   font-size: 1.15rem;
   padding: 0.5em 1em;
   border-radius: 1em;
+  background-color: ${(p) =>
+    p.active
+      ? "hsl(var(--primary-main) / 10%)"
+      : "hsl(var(--primary-main) / 0%)"};
   &:hover {
-    background-color: hsl(var(--primary-main) / 10%);
+    background-color: hsl(var(--primary-main) / 5%);
   }
 `;

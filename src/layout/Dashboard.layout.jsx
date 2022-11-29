@@ -68,6 +68,7 @@ const Container = styled.main`
   min-height: calc(100vh - 55px);
   max-width: 1366px;
   margin-inline: auto;
+  padding-top: 53px;
 `;
 
 const MainSection = styled.section`
