@@ -2,9 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
-import heroImg1 from "../../assets/images/home-banner.jpg";
+import lgBanner from "../../assets/images/home-banner-lg.png";
+import smBanner from "../../assets/images/home-banner-sm.png";
+import { useBreakpoint } from "react-use-size";
 
 function HeroSection() {
+  const isSmall = useBreakpoint(900);
   return (
     <Container>
       <Swiper
@@ -18,7 +21,9 @@ function HeroSection() {
         // onSwiper={(swiper) => console.log(swiper)}
       >
         <SwiperSlide>
-          <BannerContainer></BannerContainer>
+          <BannerContainer>
+            <Banner src={isSmall ? smBanner : lgBanner} />
+          </BannerContainer>
         </SwiperSlide>
       </Swiper>
     </Container>
@@ -34,10 +39,14 @@ const Container = styled.article`
 
 const BannerContainer = styled.div`
   width: 100%;
-  aspect-ratio: 18/9;
+  /* aspect-ratio: 18/9; */
   /* min-height: 500px; */
-  background-image: url(${heroImg1});
+  /* background-image: url(${smBanner}); */
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+`;
+
+const Banner = styled.img`
+  width: 100%;
 `;

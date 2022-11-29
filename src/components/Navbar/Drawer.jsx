@@ -4,11 +4,12 @@ import styled from "styled-components";
 import Portal from "../../services/portal";
 import { useTransition, animated, easings } from "react-spring";
 import { useBreakpoints } from "react-use-size";
-import Switch from "rc-switch";
 import { useToggleTheme } from "../../context/ThemeContext";
 import ToggleSwitch from "../ToggleSwitch";
+import { useAuth } from "../../context/AuthContext";
 
 function Drawer({ open }) {
+  const { user, logOut } = useAuth();
   const { pathname } = useLocation();
   const [showThemeToggler, showLogin] = useBreakpoints([410, 529]);
 
@@ -32,10 +33,15 @@ function Drawer({ open }) {
             <Container style={styles}>
               <Heading>Menu</Heading>
               <Nav>
-                <NavLink
-                  to="/"
-                  active={pathname.includes("/") ? "true" : undefined}
-                >
+                {user?.uid && (
+                  <NavLink
+                    to="/dashboard"
+                    active={pathname === "/dashboard" ? "true" : undefined}
+                  >
+                    Dashboard
+                  </NavLink>
+                )}
+                <NavLink to="/" active={pathname === "/" ? "true" : undefined}>
                   Home
                 </NavLink>
 
@@ -66,6 +72,11 @@ function Drawer({ open }) {
                   Dark mode
                   <ToggleSwitch value={theme.palette.mode === "dark"} />
                 </ThemeSwitch>
+              )}
+              {user?.uid && (
+                <NavLink as="button" onClick={logOut}>
+                  Logout
+                </NavLink>
               )}
             </Container>
           )
@@ -106,9 +117,12 @@ const NavLink = styled(Link)`
   font-size: 1.15rem;
   color: ${(p) =>
     p.active ? "hsl(var(--text-primary))" : "hsl(var(--text-secondary))"};
+  &:hover {
+    color: hsl(var(--text-primary));
+  }
 `;
 
-const ThemeSwitch = styled.button`
+const ThemeSwitch = styled.div`
   font-size: 1.15rem;
   padding: 0.3em 0.7em;
 

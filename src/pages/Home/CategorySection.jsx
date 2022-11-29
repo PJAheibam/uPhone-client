@@ -11,7 +11,7 @@ function CategorySection() {
       <Heading>Browse phones by brand name</Heading>
       <Brands>
         {data.map((item, i) => (
-          <Brand key={i} to={"/category/" + item.name}>
+          <Brand key={i} to={"/category/" + item._id}>
             {item.name}
           </Brand>
         ))}
