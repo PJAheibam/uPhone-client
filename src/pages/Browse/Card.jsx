@@ -7,6 +7,7 @@ import userIcon from "../../assets/icons/user.png";
 import { useQuery } from "@tanstack/react-query";
 import client from "../../api";
 import { MdVerified as VerifiedIcon } from "react-icons/md";
+import { PhotoView } from "react-photo-view";
 
 function Card({ data, setProduct }) {
   // console.info(data.sellerId);
@@ -27,7 +28,9 @@ function Card({ data, setProduct }) {
   return (
     <Container>
       <Header>
-        <Image src={data?.images[0].display_url} alt="title" />
+        <PhotoView src={data?.images[0].display_url}>
+          <Image src={data?.images[0].display_url} alt="title" />
+        </PhotoView>
       </Header>
       <Body>
         <Content>

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import client from "../../api";
 import { useBrands } from "../../hooks/useBrands";
@@ -10,6 +10,7 @@ import Sidebar from "./Sidebar";
 import Dropdown from "../../components/Dropdown";
 import BookNowModal from "./BookNowModal";
 import { useAuth } from "../../context/AuthContext";
+import { PhotoProvider } from "react-photo-view";
 
 function Browse() {
   const { user } = useAuth();
@@ -54,12 +55,14 @@ function Browse() {
           />
         </Header>
         <Cards>
-          {isLoading &&
-            [...Array(6).keys()].map((i) => <CardSkeleton key={i} />)}
-          {!isLoading &&
-            data.map((item) => (
-              <Card key={item._id} data={item} setProduct={setProduct} />
-            ))}
+          <PhotoProvider>
+            {isLoading &&
+              [...Array(6).keys()].map((i) => <CardSkeleton key={i} />)}
+            {!isLoading &&
+              data.map((item) => (
+                <Card key={item._id} data={item} setProduct={setProduct} />
+              ))}
+          </PhotoProvider>
         </Cards>
       </MainSection>
     </Container>

@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Input, InputWrapper, Label } from "../../components/formItems";
+import {
+  HelperText,
+  Input,
+  InputWrapper,
+  Label,
+} from "../../components/formItems";
 import Modal from "../../components/Modal";
 import { GradientButton } from "../../components/Button";
 import { Pagination, Navigation } from "swiper";
@@ -13,17 +18,25 @@ import { MdVerified } from "react-icons/md";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 
 function BookNowModal({ product, user, setProduct }) {
-  const { values, errors, touched, handleBlur, handleSubmit, handleChange } =
-    useFormik({
-      initialValues: { meetUpLocation: "", phoneNumber: "" },
-      onSubmit,
-      validationSchema: BookNowSchema,
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleSubmit,
+    handleChange,
+    resetForm,
+  } = useFormik({
+    initialValues: { meetUpLocation: "", phoneNumber: "" },
+    onSubmit,
+    validationSchema: BookNowSchema,
+  });
 
   function onSubmit() {}
 
   function handleModalClose() {
     setProduct(null);
+    resetForm();
   }
   // console.info(product, userIcon);
   return (
@@ -77,7 +90,7 @@ function BookNowModal({ product, user, setProduct }) {
         </MobileSection>
         <Hr />
         {/******************* Form Start  *********************/}
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <User>
             <Avatar src={user?.photoURL || userIcon} alt={user?.displayName} />
             <Info>
@@ -89,13 +102,36 @@ function BookNowModal({ product, user, setProduct }) {
             <InputWrapper style={{ width: "100%" }}>
               <Label>Meet Up Location</Label>
               <Input
-                name="phoneNumber"
+                name="meetUpLocation"
                 placeholder="Where do you want to meet"
+                value={values.meetUpLocation}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={
+                  errors.meetUpLocation && touched.meetUpLocation
+                    ? "true"
+                    : undefined
+                }
               />
+              {errors.meetUpLocation && touched.meetUpLocation && (
+                <HelperText type="error">{errors.meetUpLocation}</HelperText>
+              )}
             </InputWrapper>
             <InputWrapper style={{ width: "100%" }}>
               <Label>Phone Number</Label>
-              <Input name="phoneNumber" placeholder="01__________" />
+              <Input
+                name="phoneNumber"
+                placeholder="01__________"
+                value={values.phoneNumber}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={
+                  errors.phoneNumber && touched.phoneNumber ? "true" : undefined
+                }
+              />
+              {errors.phoneNumber && touched.phoneNumber && (
+                <HelperText type="error">{errors.phoneNumber}</HelperText>
+              )}
             </InputWrapper>
           </Inputs>
           <GradientButton
