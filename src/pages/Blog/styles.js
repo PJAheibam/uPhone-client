@@ -11,7 +11,7 @@ export const Container = styled.article`
 export const Article = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
 `;
 
 export const Heading = styled.h1`
@@ -21,10 +21,13 @@ export const Heading = styled.h1`
 
 export const Title = styled.h2`
   font-weight: 500;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
+  font-size: 1.75rem;
 `;
 
 export const Text = styled.p`
-  /* color: hsl(var(--text-secondary)); */
-  line-height: 1.5rem;
+  color: hsl(var(--text-primary) / 95%);
+  font-size: 1.05rem;
+  line-height: 1.65rem;
+  letter-spacing: 1px;
 `;
