@@ -6,8 +6,12 @@ import { device } from "../../utils/breakpoints";
 import userIcon from "../../assets/icons/user.png";
 import { useQuery } from "@tanstack/react-query";
 import client from "../../api";
-import { MdVerified as VerifiedIcon } from "react-icons/md";
+import {
+  MdVerified as VerifiedIcon,
+  MdOutlineReportGmailerrorred as ReportIcon,
+} from "react-icons/md";
 import { PhotoView } from "react-photo-view";
+import Tippy from "@tippyjs/react";
 
 function Card({ data, setProduct }) {
   // console.info(data.sellerId);
@@ -75,6 +79,11 @@ function Card({ data, setProduct }) {
           >
             Book
           </GradientButton>
+          <Tippy content="Report This Product">
+            <ReportButton>
+              <ReportIcon />
+            </ReportButton>
+          </Tippy>
         </Footer>
       </Body>
     </Container>
@@ -198,6 +207,20 @@ const Body = styled.div`
 
 const Footer = styled.div`
   /* margin-top: auto; */
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Content = styled.div``;
+
+const ReportButton = styled.button`
+  padding: 0.25rem;
+  font-size: 1.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: hsl(var(--outline));
+  &:hover {
+    color: hsl(var(--error-main) / 80%);
+  }
+`;

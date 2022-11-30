@@ -12,6 +12,7 @@ import AddProduct from "../pages/AddProduct";
 import MyProducts from "../pages/MyProducts";
 import ManageUser from "../pages/ManageUsers";
 import PrivateRoute from "./PrivateRoute";
+import MyBookings from "../pages/MyBookings";
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "category/:id",
-        element: <Browse />,
+        element: (
+          <PrivateRoute>
+            <Browse />
+          </PrivateRoute>
+        ),
       },
       {
         path: "blog",
@@ -63,6 +68,10 @@ export const router = createBrowserRouter([
       {
         path: "manage-users",
         element: <ManageUser />,
+      },
+      {
+        path: "my-bookings",
+        element: <MyBookings />,
       },
       {
         path: "/dashboard/*",

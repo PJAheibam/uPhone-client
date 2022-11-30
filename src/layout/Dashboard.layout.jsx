@@ -39,7 +39,7 @@ function DashboardLayout() {
               <Link to="/dashboard">My Products</Link>
 
               {!isLoading && (
-                <Link to="/dashboard/add-bookings">My Bookings</Link>
+                <Link to="/dashboard/my-bookings">My Bookings</Link>
               )}
               {!isLoading && data?.role !== "buyer" && (
                 <Link to="/dashboard/add-product">Add a Product</Link>

@@ -11,7 +11,8 @@ import useClickOutside from "../../hooks/useClickOutside";
 import { toast } from "react-hot-toast";
 import Portal from "../../services/portal";
 import { usePopper } from "react-popper";
-import axios from "axios";
+import { Badge } from "../../components/Badge";
+// import axios from "axios";
 
 function MyProducts() {
   const [referenceElement, setReferenceElement] = useState(null);
@@ -22,7 +23,7 @@ function MyProducts() {
   });
   const menuRef = useClickOutside(() => setVisibleMenu(false));
   const { user } = useAuth();
-  const [id, setId] = useState(null);
+  const [id, setId] = useState(null); //product id
 
   const [visibleMenu, setVisibleMenu] = useState(false);
 
@@ -75,6 +76,21 @@ function MyProducts() {
     }
   }
 
+  async function handleAdvertise() {
+    const toastId = toast.loading("Updating...");
+    const selectedProduct = data.find((item, i) => item._id === id);
+    console.info(selectedProduct);
+    try {
+      const res = await client.patch(`/products/${id}`, {
+        advertise: !selectedProduct.advertise,
+      });
+      toast.success("Updated", { id: toastId });
+      refetch();
+    } catch (err) {
+      toast.error("An error occur while updating.", { id: toastId });
+    }
+  }
+
   return (
     <Container>
       <Heading>List of my products</Heading>
@@ -116,7 +132,11 @@ function MyProducts() {
               <T.Data>{item.name}</T.Data>
               <T.Data>{item.sellingPrice}</T.Data>
               <T.Data>{item.status}</T.Data>
-              <T.Data>{item.advertise.toString()}</T.Data>
+              <T.Data>
+                <Badge color={item.advertise ? "success" : "error"}>
+                  {item.advertise.toString()}
+                </Badge>
+              </T.Data>
               <More>
                 <Icon onClick={(e) => handleMenuClick(e, item._id)}>
                   <MoreIcon style={{ pointerEvents: "none" }} />
@@ -143,8 +163,9 @@ function MyProducts() {
             style={{
               fontSize: "0.9rem",
             }}
+            onClick={handleAdvertise}
           >
-            <MenuText>Advertise Products</MenuText>
+            <MenuText>Toggle Advertise</MenuText>
           </MenuItem>
           <MenuItem
             color="error"

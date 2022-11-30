@@ -28,6 +28,7 @@ function BookNowModal({ product, user, setProduct }) {
     handleSubmit,
     handleChange,
     resetForm,
+    isSubmitting,
   } = useFormik({
     initialValues: { meetUpLocation: "", phoneNumber: "" },
     onSubmit,
@@ -47,6 +48,7 @@ function BookNowModal({ product, user, setProduct }) {
       // console.info(payload);
       const res = client.post(`/bookings`, payload);
       toast.success("Booked!", { id: toastId });
+      setProduct(null);
     } catch (error) {
       toast.error("An error occur while booking", { id: toastId });
     }
@@ -159,6 +161,8 @@ function BookNowModal({ product, user, setProduct }) {
               marginInline: "auto",
               marginTop: "0.5rem",
             }}
+            disabled={isSubmitting}
+            loading={isSubmitting ? "true" : undefined}
           >
             Submit
           </GradientButton>
