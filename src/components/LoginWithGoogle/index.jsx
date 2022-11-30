@@ -4,6 +4,7 @@ import { Button } from "../Button";
 import google from "../../assets/icons/google.svg";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { getAccessToken } from "../../api/getAccessToken";
 function LoginWithGoogle({
   innerText,
   isSubmitting,
@@ -17,7 +18,8 @@ function LoginWithGoogle({
     try {
       setSubmitting(true);
       const res = await logInWithGoogle();
-      console.info(res);
+      // console.info(res);
+      getAccessToken({ uid: res.user?.uid, email: res.user?.email });
       navigate(navigateTo, { replace: true });
     } catch (err) {
       console.error(err);
