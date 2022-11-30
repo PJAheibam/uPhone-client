@@ -8,11 +8,9 @@ import { Badge } from "../../components/Badge";
 import { Button } from "../../components/Button";
 import PaymentModal from "./PaymentModal";
 
-import { Link } from "react-router-dom";
-
 function MyBookings() {
   const { user } = useAuth();
-  const { data = [], isLoading } = useMyBookingsData(user.uid);
+  const { data = [], isLoading, refetch } = useMyBookingsData(user.uid);
   const [product, setProduct] = useState(null);
   // console.info(data);
   function handlePayNow(data) {
@@ -21,7 +19,12 @@ function MyBookings() {
 
   return (
     <Container>
-      <PaymentModal booking={product} setBooking={setProduct} user={user} />
+      <PaymentModal
+        booking={product}
+        setBooking={setProduct}
+        user={user}
+        refetch={refetch}
+      />
 
       <Heading>My Bookings</Heading>
       <Table>

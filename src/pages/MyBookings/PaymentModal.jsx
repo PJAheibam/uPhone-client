@@ -5,8 +5,10 @@ import Modal from "../../components/Modal";
 import { toast } from "react-hot-toast";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import useClientSecret from "../../hooks/useClientSecret";
+import { device } from "../../utils/breakpoints";
+import client from "../../api";
 
-function PaymentModal({ booking, user, setBooking }) {
+function PaymentModal({ booking, user, setBooking, refetch }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -25,7 +27,7 @@ function PaymentModal({ booking, user, setBooking }) {
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
-    console.log("clientSecret", clientSecret);
+    // console.log("clientSecret", clientSecret);
     const toastId = toast.loading("Paying...");
     try {
       const card = elements.getElement(CardElement);
@@ -46,7 +48,7 @@ function PaymentModal({ booking, user, setBooking }) {
       if (error) {
         console.log("[error]", error);
       } else {
-        console.info("[PaymentMethod]", paymentMethod);
+        // console.info("[PaymentMethod]", paymentMethod);
       }
 
       const { paymentIntent, error: confirmError } =
@@ -64,7 +66,15 @@ function PaymentModal({ booking, user, setBooking }) {
         console.error(confirmError);
       }
       if (paymentIntent?.status === "succeeded") {
-        console.info("payment-intent", paymentIntent);
+        // console.info("payment-intent", paymentIntent);
+        const response = await client.patch(
+          `/bookings/${booking._id}?uid=${user?.uid}`,
+          {
+            paymentStatus: true,
+          }
+        );
+        console.info(response);
+        refetch();
       }
       console.info(paymentIntent);
       toast.success("Payment SuccessFull", { id: toastId });
@@ -75,7 +85,7 @@ function PaymentModal({ booking, user, setBooking }) {
       setSubmitting(false);
     }
   }
-  // console.info(booking);
+  // console.info(user);
 
   return (
     <Modal open={!!booking} onClose={handleModalClose} boxCSS={boxCSS}>
@@ -121,12 +131,18 @@ function PaymentModal({ booking, user, setBooking }) {
 export default PaymentModal;
 
 const Wrapper = styled.div`
-  width: 400px;
+  width: 80vw;
   min-height: 200px;
   padding: 1rem;
+  @media ${device.sm} {
+    width: 400px;
+  }
 `;
 
-const Form = styled.form``;
+const Form = styled.form`
+  margin-block: 1rem;
+  margin-bottom: 1.5rem;
+`;
 
 const Heading = styled.h2`
   font-weight: 500;
