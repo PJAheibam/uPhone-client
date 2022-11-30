@@ -46,15 +46,17 @@ function Login() {
     validationSchema: LoginFormSchema,
   });
 
+  // console.info(from);
+
   async function onSubmit(values, actions) {
     try {
       const res = await logIn(values.email, values.password);
 
       getAccessToken({ uid: res.user?.uid, email: res.user?.email });
 
-      actions.resetForm();
-
       navigate(from, { replace: true });
+
+      actions.resetForm();
     } catch (err) {
       console.error(err);
     }

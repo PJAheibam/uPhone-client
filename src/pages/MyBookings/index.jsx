@@ -11,7 +11,7 @@ function MyBookings() {
   const { user } = useAuth();
   const { data = [], isLoading } = useMyBookingsData(user.uid);
 
-  console.info(data);
+  // console.info(data);
 
   return (
     <Container>

@@ -25,7 +25,7 @@ export const Title = styled.h2`
   font-size: 1.75rem;
 `;
 
-export const Text = styled.p`
+export const Text = styled.div`
   color: hsl(var(--text-primary) / 95%);
   font-size: 1.05rem;
   line-height: 1.65rem;

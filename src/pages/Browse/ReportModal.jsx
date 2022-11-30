@@ -18,14 +18,15 @@ function ReportModal({ product, user, setProduct, open, setOpen }) {
     setSubmitting(true);
     const toastId = toast.loading("Submitting...");
     try {
-      console.info(product._id, user.uid);
       if (!user?.uid) throw "Only loged in user can report";
-      const res = client.post(`/reports`, {
+      const res = await client.post(`/reports`, {
         productId: product?._id,
         reporterId: user?.uid,
         reason: e.target[0].value,
       });
+      console.info(res);
       toast.success("Report Submitted", { id: toastId });
+      handleModalClose();
     } catch (err) {
       toast.success(err, { id: toastId });
     }
@@ -35,11 +36,20 @@ function ReportModal({ product, user, setProduct, open, setOpen }) {
     <Modal open={!!open} onClose={handleModalClose} boxCSS={boxCSS}>
       <Wrapper onSubmit={handleSubmit}>
         <Heading>Report Reson</Heading>
-        <Input as="textarea" rows={5} cols={50} required />
+        <Input
+          as="textarea"
+          style={{ fontFamily: `"Poppins",sans-serif`, letterSpacing: "1px" }}
+          rows={5}
+          cols={50}
+          required
+        />
         <GradientButton
           name="reason"
           type="submit"
-          style={{ width: "100%", marginTop: "0.75rem" }}
+          style={{
+            width: "100%",
+            marginTop: "0.75rem",
+          }}
         >
           Submit
         </GradientButton>

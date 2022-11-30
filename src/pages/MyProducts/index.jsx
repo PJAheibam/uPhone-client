@@ -79,7 +79,7 @@ function MyProducts() {
   async function handleAdvertise() {
     const toastId = toast.loading("Updating...");
     const selectedProduct = data.find((item, i) => item._id === id);
-    console.info(selectedProduct);
+    // console.info(selectedProduct);
     try {
       const res = await client.patch(`/products/${id}`, {
         advertise: !selectedProduct.advertise,

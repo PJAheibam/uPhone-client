@@ -72,3 +72,18 @@ const Row = styled.tr`
 `;
 
 export const T = { Head, Body, Heading, Data, Row };
+
+export const Thumb = styled.img`
+  height: 40px;
+  width: 40px;
+  border-radius: var(--border-radius-md);
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+`;
+
+export const ThumbContainer = styled.figure`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
