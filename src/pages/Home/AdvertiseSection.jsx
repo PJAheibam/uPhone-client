@@ -42,7 +42,7 @@ function AdvertiseSection() {
             <Content>
               <ItemName>{product.name}</ItemName>
               <Text>
-                Price: <Price>40000tk</Price>{" "}
+                Price: <Price>${product.sellingPrice}</Price>{" "}
               </Text>
               <Button
                 as={Link}

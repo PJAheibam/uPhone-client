@@ -101,10 +101,10 @@ function BookNowModal({ product, user, setProduct, open, setOpen }) {
               </Info>
             </User>
             <Title>{product?.name}</Title>
-            <Text>Selling Price: {product?.sellingPrice} ৳</Text>
+            <Text>Selling Price: ${product?.sellingPrice}</Text>
             <Text>Location: {product?.location}</Text>
             <Text>Condition: {product?.condition}</Text>
-            <Text>Original Price: {product?.originalPrice} ৳</Text>
+            <Text>Original Price: ${product?.originalPrice}</Text>
 
             <Details>More: {product?.moreDetails}</Details>
           </Content>

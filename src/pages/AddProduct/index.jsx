@@ -203,7 +203,7 @@ function AddProduct() {
             <Label>Selling Price</Label>
             <Input
               name="sellingPrice"
-              placeholder="Price in Taka"
+              placeholder="Price in Doller"
               type="number"
               min={1}
               value={values.sellingPrice}
@@ -222,7 +222,7 @@ function AddProduct() {
             <Label>Original Price</Label>
             <Input
               name="originalPrice"
-              placeholder="Price in Taka"
+              placeholder="Price in Doller"
               type="number"
               value={values.originalPrice}
               onChange={handleChange}
