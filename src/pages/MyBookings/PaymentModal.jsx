@@ -67,13 +67,14 @@ function PaymentModal({ booking, user, setBooking, refetch }) {
       }
       if (paymentIntent?.status === "succeeded") {
         // console.info("payment-intent", paymentIntent);
-        const response = await client.patch(
-          `/bookings/${booking._id}?uid=${user?.uid}`,
-          {
-            paymentStatus: true,
-          }
-        );
-        console.info(response);
+        await client.patch(`/bookings/${booking._id}?uid=${user?.uid}`, {
+          paymentStatus: true,
+        });
+
+        await client.patch(`/products/${booking?.productId}`, {
+          status: "sold",
+        });
+
         refetch();
       }
       console.info(paymentIntent);
@@ -85,7 +86,7 @@ function PaymentModal({ booking, user, setBooking, refetch }) {
       setSubmitting(false);
     }
   }
-  // console.info(user);
+  // console.info(booking);
 
   return (
     <Modal open={!!booking} onClose={handleModalClose} boxCSS={boxCSS}>
