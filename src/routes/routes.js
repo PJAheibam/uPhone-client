@@ -14,6 +14,8 @@ import ManageUser from "../pages/ManageUsers";
 import PrivateRoute from "./PrivateRoute";
 import MyBookings from "../pages/MyBookings";
 import AllSellers from "../pages/ManageUsers/AllSellers";
+import AllBuyers from "../pages/ManageUsers/AllBuyers";
+import Reports from "../pages/Reports";
 
 export const router = createBrowserRouter([
   {
@@ -73,6 +75,14 @@ export const router = createBrowserRouter([
       {
         path: "all-sellers",
         element: <AllSellers />,
+      },
+      {
+        path: "all-buyers",
+        element: <AllBuyers />,
+      },
+      {
+        path: "reports",
+        element: <Reports />,
       },
       {
         path: "my-bookings",

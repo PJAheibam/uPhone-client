@@ -24,7 +24,7 @@ function ReportModal({ product, user, setProduct, open, setOpen }) {
         reporterId: user?.uid,
         reason: e.target[0].value,
       });
-      console.info(res);
+      // console.info(res);
       toast.success("Report Submitted", { id: toastId });
       handleModalClose();
     } catch (err) {

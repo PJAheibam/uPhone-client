@@ -50,6 +50,9 @@ function DashboardLayout() {
               {!isLoading && data?.role === "admin" && (
                 <Link to="/dashboard/all-buyers">All Buyers</Link>
               )}
+              {!isLoading && data?.role === "admin" && (
+                <Link to="/dashboard/reports">Reports</Link>
+              )}
             </NavLinks>
           )}
         </Sidebar>

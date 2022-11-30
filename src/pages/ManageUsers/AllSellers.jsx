@@ -1,7 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { VerifyStatus, Container, Heading } from "./styles";
-import client from "../../api/";
 import { useAuth } from "../../context/AuthContext";
 import { Table, T, Icon, More, ThumbContainer } from "../../components/Table";
 import { Badge } from "../../components/Badge";
@@ -58,7 +56,7 @@ function AllSellers() {
     refetch();
   }
 
-  console.info(data);
+  // console.info(data);
 
   return (
     <Container>
