@@ -94,9 +94,19 @@ const Sidebar = styled.aside`
   padding-block: 2rem;
   padding-inline: var(--gip);
   background-image: var(--paper-1);
-  display: flex;
-  flex-direction: column;
+  display: none;
+  position: fixed;
+  top: 0;
+  margin-top: 54px;
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+  z-index: 20;
   @media ${device.md} {
+    margin-top: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
     ${(p) => {
       if (p.theme.palette.mode === "dark") return css``;
       else
