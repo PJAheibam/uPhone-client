@@ -25,6 +25,7 @@ function PaymentModal({ booking, user, setBooking }) {
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
+    console.log("clientSecret", clientSecret);
     const toastId = toast.loading("Paying...");
     try {
       const card = elements.getElement(CardElement);
@@ -45,35 +46,40 @@ function PaymentModal({ booking, user, setBooking }) {
       if (error) {
         console.log("[error]", error);
       } else {
-        console.log("[PaymentMethod]", paymentMethod);
+        console.info("[PaymentMethod]", paymentMethod);
       }
 
-      const {} = await stripe
-        .confirmCardPayment("{PAYMENT_INTENT_CLIENT_SECRET}", {
+      const { paymentIntent, error: confirmError } =
+        await stripe.confirmCardPayment(clientSecret, {
           payment_method: {
             card,
             billing_details: {
-              name: "Jenny Rosen",
+              name: user?.displayName,
+              email: user?.email,
+              phone: booking?.buyerPhoneNumber,
             },
           },
-        })
-        .then(function (result) {
-          // Handle result.error or result.paymentIntent
         });
-      // console.info(res);
+      if (confirmError) {
+        console.error(confirmError);
+      }
+      if (paymentIntent?.status === "succeeded") {
+        console.info("payment-intent", paymentIntent);
+      }
+      console.info(paymentIntent);
       toast.success("Payment SuccessFull", { id: toastId });
       handleModalClose();
     } catch (err) {
-      toast.error(err, { id: toastId });
+      toast.error("An error occur", { id: toastId });
     } finally {
       setSubmitting(false);
     }
   }
-  // console.info(card);
+  // console.info(booking);
 
   return (
     <Modal open={!!booking} onClose={handleModalClose} boxCSS={boxCSS}>
-      <Wrapper onSubmit={handleSubmit}>
+      <Wrapper>
         <Heading>Payment</Heading>
         <Text>Product Name: {booking?.product[0]?.name}</Text>
         <Text>Selling Price: ${booking?.product[0]?.sellingPrice}</Text>

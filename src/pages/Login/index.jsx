@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   HelperText,
   Input,
@@ -24,6 +24,7 @@ import Loading from "../../components/Loading";
 import { getAccessToken } from "../../api/getAccessToken";
 
 function Login() {
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -57,7 +58,9 @@ function Login() {
       navigate(from, { replace: true });
 
       actions.resetForm();
+      setError(null);
     } catch (err) {
+      setError("Email or password is incorrect");
       console.error(err);
     }
   }
@@ -71,6 +74,18 @@ function Login() {
     <Container>
       <Box>
         <Heading>Login</Heading>
+        {error && (
+          <HelperText
+            type="error"
+            style={{
+              marginBlock: "0.75em",
+              fontSize: "1rem",
+              paddingBlock: "0.75em",
+            }}
+          >
+            {error}
+          </HelperText>
+        )}
         <Form onSubmit={handleSubmit}>
           <InputWrapper>
             <Label>Email</Label>

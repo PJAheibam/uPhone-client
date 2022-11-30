@@ -80,10 +80,11 @@ function MyBookings() {
                 {!booking?.paymentStatus && (
                   <More>
                     <Button
+                      type="button"
                       style={{ fontSize: "0.9rem" }}
                       // as={Link}
                       // to={`/dashboard/payment/${booking._id}`}
-                      // onClick={() => handlePayNow(booking)}
+                      onClick={() => handlePayNow(booking)}
                     >
                       Pay Now
                     </Button>

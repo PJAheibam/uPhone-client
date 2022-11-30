@@ -39,6 +39,7 @@ import { getAccessToken } from "../../api/getAccessToken";
 function Register() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [error, setError] = useState(null);
   const from = location.state?.from?.pathname || "/";
   const { ref: groupRef, width: groupWidth } = useComponentSize();
   const defaultAccountRef = useRef();
@@ -116,10 +117,12 @@ function Register() {
       console.info(addUserRes.data);
 
       actions.resetForm();
-
+      setError(null);
       navigate(from, { replace: true });
     } catch (err) {
-      console.error(err);
+      if (err.code === "auth/email-already-in-use")
+        setError("Email is already in use");
+      console.error(err.code);
     }
   }
 
@@ -168,6 +171,18 @@ function Register() {
     <Container>
       <Box>
         <Heading>Register</Heading>
+        {error && (
+          <HelperText
+            type="error"
+            style={{
+              marginBlock: "0.75em",
+              fontSize: "1rem",
+              paddingBlock: "0.75em",
+            }}
+          >
+            {error}
+          </HelperText>
+        )}
         <Form onSubmit={handleSubmit}>
           {/********** Avatar Name **********/}
 
