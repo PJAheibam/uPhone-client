@@ -14,8 +14,11 @@ import {
 } from "./styles";
 import Logo from "../Logo";
 import Socials from "./Socials";
+import { useBrands } from "../../hooks/useBrands";
 
 function Footer() {
+  const { data: brands = [] } = useBrands();
+  // console.info(brands);
   return (
     <FooterContainer>
       <Wrapper>
@@ -27,19 +30,19 @@ function Footer() {
         <UsefullWrapper>
           <Nav>
             <Heading>Usefull Links</Heading>
-            <NavLink>Home</NavLink>
-            <NavLink>Browse</NavLink>
-            <NavLink>Blog</NavLink>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/category/all">Browse</NavLink>
+            <NavLink to="/blog">Blog</NavLink>
           </Nav>
         </UsefullWrapper>
         <BrandsWrapper>
           <Nav>
             <Heading>Brands</Heading>
-            <NavLink>iPhone</NavLink>
-            <NavLink>Samsung</NavLink>
-            <NavLink>Realme</NavLink>
-            <NavLink>Redmi</NavLink>
-            <NavLink>vivo</NavLink>
+            {brands.slice(0, 6).map((brand) => (
+              <NavLink key={brand._id} to={`/category/${brand._id}`}>
+                {brand.name}
+              </NavLink>
+            ))}
           </Nav>
         </BrandsWrapper>
         <SupportWrapper>

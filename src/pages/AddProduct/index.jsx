@@ -20,6 +20,7 @@ import Images from "./Images";
 import { RiImageAddLine as AddImageIcon } from "react-icons/ri";
 import { uploadImages } from "../../services/uploadImages";
 import { useNavigate } from "react-router-dom";
+import Tippy from "@tippyjs/react";
 
 const initialValues = {
   productName: "",
@@ -158,19 +159,21 @@ function AddProduct() {
       <Form onSubmit={handleSubmit}>
         <Images images={values.images || []} onDelete={removeImage} />
         {/* Upload Image */}
-        <UploadImage as="div" {...getRootProps()}>
-          <input
-            name="images"
-            type="file"
-            error={imgError ? "true" : undefined}
-            // onBlur={() => setFieldTouched("images", true)}
-            {...getInputProps()}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          />
-          <AddImageIcon />
-        </UploadImage>
+        <Tippy content="Add one or more photos" placement="bottom">
+          <UploadImage as="div" {...getRootProps()}>
+            <input
+              name="images"
+              type="file"
+              error={imgError ? "true" : undefined}
+              // onBlur={() => setFieldTouched("images", true)}
+              {...getInputProps()}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            />
+            <AddImageIcon />
+          </UploadImage>
+        </Tippy>
         {!!imgError && <HelperText type="error">{imgError}</HelperText>}
         {errors.images && touched.images && (
           <HelperText type="error">{imgError || errors.images}</HelperText>
