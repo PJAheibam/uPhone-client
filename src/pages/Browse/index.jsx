@@ -77,6 +77,7 @@ function Browse() {
             {!isLoading &&
               data.map((item) => (
                 <Card
+                  user={user}
                   key={item._id}
                   data={item}
                   setProduct={setProduct}

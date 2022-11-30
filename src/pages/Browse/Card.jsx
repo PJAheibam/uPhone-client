@@ -13,7 +13,7 @@ import {
 import { PhotoView } from "react-photo-view";
 import Tippy from "@tippyjs/react";
 
-function Card({ data, setProduct, setOpenBookNow, setOpenReport }) {
+function Card({ data, setProduct, setOpenBookNow, setOpenReport, user }) {
   // console.info(data.sellerId);
   const theme = useTheme();
   const { data: seller, isLoading } = useQuery({
@@ -34,6 +34,7 @@ function Card({ data, setProduct, setOpenBookNow, setOpenReport }) {
     setOpenReport(true);
   }
 
+  // console.info(seller);
   return (
     <Container>
       <Header>
@@ -76,20 +77,31 @@ function Card({ data, setProduct, setOpenBookNow, setOpenReport }) {
             )}
           </SellerName>
         </Seller>
-        <Footer>
-          <GradientButton
-            style={{ borderRadius: "0.25rem" }}
-            type="button"
-            onClick={handleBookNow}
-          >
-            Book
-          </GradientButton>
-          <Tippy content="Report This Product">
-            <ReportButton onClick={handleReportClick}>
-              <ReportIcon />
-            </ReportButton>
-          </Tippy>
-        </Footer>
+        <Tippy
+          content="You can't book or report your own product"
+          disabled={user?.email !== seller.email}
+          placement="bottom"
+        >
+          <Footer>
+            <GradientButton
+              style={{ borderRadius: "0.25rem" }}
+              type="button"
+              onClick={handleBookNow}
+              disabled={seller.email === user?.email}
+            >
+              Book
+            </GradientButton>
+
+            <Tippy content="Report This Product">
+              <ReportButton
+                onClick={handleReportClick}
+                disabled={seller.email === user?.email}
+              >
+                <ReportIcon />
+              </ReportButton>
+            </Tippy>
+          </Footer>
+        </Tippy>
       </Body>
     </Container>
   );
