@@ -4,6 +4,7 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import styled from "styled-components";
 import { Button } from "../../components/Button";
 import { Link } from "react-router-dom";
+import useAdvertisedProduct from "../../hooks/useAdvertisedProduct";
 
 function AdvertiseSection() {
   const props = {
@@ -22,66 +23,38 @@ function AdvertiseSection() {
     modules: [Autoplay, Pagination, Navigation],
     // className: "mySwiper",
   };
+  const { data = [], isLoading } = useAdvertisedProduct();
+
+  // console.info(data);
+
+  if (data.length === 0) return null;
+
   return (
     <Container>
       <Heading>Hot Deals</Heading>
       <SwiperContainer {...props}>
-        <Item>
-          <Image
-            src="https://www.91-img.com/gallery_images_uploads/d/7/d7cf5e2b1a3a3dfcca8a8dbb524fb11a8fb1c8e8.JPG?tr=h-550,w-0,c-at_max"
-            alt="mobile phone"
-          />
-          <Content>
-            <ItemName>Iphone 12</ItemName>
-            <Seller>Prosenjit</Seller>
-            <Location>Sylhet</Location>
-            <Text>
-              Price: <Price>40000tk</Price>{" "}
-            </Text>
-            <Button
-              as={Link}
-              to="/category/1"
-              variant="outlined"
-              style={{ marginTop: "15px" }}
-            >
-              View
-            </Button>
-          </Content>
-        </Item>
-        <Item>
-          <Image
-            src="https://www.91-img.com/gallery_images_uploads/d/7/d7cf5e2b1a3a3dfcca8a8dbb524fb11a8fb1c8e8.JPG?tr=h-550,w-0,c-at_max"
-            alt="mobile phone"
-          />
-          <Content>
-            <ItemName>Iphone 12</ItemName>
-            <Seller>Prosenjit</Seller>
-            <Location>Sylhet</Location>
-            <Text>
-              Price: <Price>40000tk</Price>{" "}
-            </Text>
-            <Button variant="outlined" style={{ marginTop: "15px" }}>
-              View
-            </Button>
-          </Content>
-        </Item>
-        <Item>
-          <Image
-            src="https://www.91-img.com/gallery_images_uploads/d/7/d7cf5e2b1a3a3dfcca8a8dbb524fb11a8fb1c8e8.JPG?tr=h-550,w-0,c-at_max"
-            alt="mobile phone"
-          />
-          <Content>
-            <ItemName>Iphone 12</ItemName>
-            <Seller>Prosenjit</Seller>
-            <Location>Sylhet</Location>
-            <Text>
-              Price: <Price>40000tk</Price>{" "}
-            </Text>
-            <Button variant="outlined" style={{ marginTop: "15px" }}>
-              View
-            </Button>
-          </Content>
-        </Item>
+        {data.map((product) => (
+          <Item key={product._id}>
+            <Image
+              src={product?.images[0]?.display_url}
+              alt={product?.images[0]?.title}
+            />
+            <Content>
+              <ItemName>{product.name}</ItemName>
+              <Text>
+                Price: <Price>40000tk</Price>{" "}
+              </Text>
+              <Button
+                as={Link}
+                to={`/category/${product.brandId}`}
+                variant="outlined"
+                style={{ marginTop: "15px" }}
+              >
+                View
+              </Button>
+            </Content>
+          </Item>
+        ))}
       </SwiperContainer>
     </Container>
   );
