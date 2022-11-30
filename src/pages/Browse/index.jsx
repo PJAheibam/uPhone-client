@@ -11,12 +11,15 @@ import Dropdown from "../../components/Dropdown";
 import BookNowModal from "./BookNowModal";
 import { useAuth } from "../../context/AuthContext";
 import { PhotoProvider } from "react-photo-view";
+import ReportModal from "./ReportModal";
 
 function Browse() {
   const { user } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [openBookNow, setOpenBookNow] = useState(false);
+  const [openReport, setOpenReport] = useState(false);
   const { data: brands = [] } = useBrands();
 
   const {
@@ -38,7 +41,20 @@ function Browse() {
 
   return (
     <Container>
-      <BookNowModal product={product} user={user} setProduct={setProduct} />
+      <BookNowModal
+        user={user}
+        product={product}
+        setProduct={setProduct}
+        open={openBookNow}
+        setOpen={setOpenBookNow}
+      />
+      <ReportModal
+        user={user}
+        open={openReport}
+        setOpen={setOpenReport}
+        product={product}
+        setProduct={setProduct}
+      />
       <Sidebar />
       <MainSection>
         <Header>
@@ -60,7 +76,13 @@ function Browse() {
               [...Array(6).keys()].map((i) => <CardSkeleton key={i} />)}
             {!isLoading &&
               data.map((item) => (
-                <Card key={item._id} data={item} setProduct={setProduct} />
+                <Card
+                  key={item._id}
+                  data={item}
+                  setProduct={setProduct}
+                  setOpenBookNow={setOpenBookNow}
+                  setOpenReport={setOpenReport}
+                />
               ))}
           </PhotoProvider>
         </Cards>

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Portal from "../../services/portal";
 import { MdClose } from "react-icons/md";
 
-function Modal({ open, onClose, children }) {
+function Modal({ open, onClose, children, boxCSS, containerCSS }) {
   const outsideRef = useRef();
   const transApi = useTransition(open, {
     from: { opacity: 0 },
@@ -30,8 +30,9 @@ function Modal({ open, onClose, children }) {
               ref={outsideRef}
               style={styles}
               onClick={handleOutsideClick}
+              css={containerCSS}
             >
-              <Box>
+              <Box css={boxCSS}>
                 <CloseIcon onClick={handleClose}>
                   <MdClose />
                 </CloseIcon>
@@ -57,6 +58,7 @@ const Container = styled(animated.div)`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${(p) => p.css}
 `;
 
 const Box = styled(animated.div)`
@@ -67,6 +69,7 @@ const Box = styled(animated.div)`
   min-height: 200px;
   border-radius: var(--border-radius-md);
   background-image: var(--paper-5);
+  ${(p) => p.css}
 `;
 
 const CloseIcon = styled.button`

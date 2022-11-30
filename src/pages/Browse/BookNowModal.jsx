@@ -19,7 +19,7 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 import client from "../../api";
 import { toast } from "react-hot-toast";
 
-function BookNowModal({ product, user, setProduct }) {
+function BookNowModal({ product, user, setProduct, open, setOpen }) {
   const {
     values,
     errors,
@@ -57,10 +57,11 @@ function BookNowModal({ product, user, setProduct }) {
   function handleModalClose() {
     setProduct(null);
     resetForm();
+    setOpen(false);
   }
   // console.info(product);
   return (
-    <Modal open={!!product} onClose={handleModalClose}>
+    <Modal open={!!open} onClose={handleModalClose}>
       <Wrapper>
         <Heading>Book Now</Heading>
         <MobileSection>

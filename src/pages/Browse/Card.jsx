@@ -13,7 +13,7 @@ import {
 import { PhotoView } from "react-photo-view";
 import Tippy from "@tippyjs/react";
 
-function Card({ data, setProduct }) {
+function Card({ data, setProduct, setOpenBookNow, setOpenReport }) {
   // console.info(data.sellerId);
   const theme = useTheme();
   const { data: seller, isLoading } = useQuery({
@@ -27,6 +27,11 @@ function Card({ data, setProduct }) {
 
   function handleBookNow() {
     setProduct({ ...data, sellerInfo: seller });
+    setOpenBookNow(true);
+  }
+  function handleReportClick() {
+    setProduct({ ...data, sellerInfo: seller });
+    setOpenReport(true);
   }
 
   return (
@@ -80,7 +85,7 @@ function Card({ data, setProduct }) {
             Book
           </GradientButton>
           <Tippy content="Report This Product">
-            <ReportButton>
+            <ReportButton onClick={handleReportClick}>
               <ReportIcon />
             </ReportButton>
           </Tippy>
