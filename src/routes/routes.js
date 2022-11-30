@@ -13,6 +13,7 @@ import MyProducts from "../pages/MyProducts";
 import ManageUser from "../pages/ManageUsers";
 import PrivateRoute from "./PrivateRoute";
 import MyBookings from "../pages/MyBookings";
+import AllSellers from "../pages/ManageUsers/AllSellers";
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
       {
         path: "manage-users",
         element: <ManageUser />,
+      },
+      {
+        path: "all-sellers",
+        element: <AllSellers />,
       },
       {
         path: "my-bookings",

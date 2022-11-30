@@ -45,7 +45,10 @@ function DashboardLayout() {
                 <Link to="/dashboard/add-product">Add a Product</Link>
               )}
               {!isLoading && data?.role === "admin" && (
-                <Link to="/dashboard/manage-users">Manage Users</Link>
+                <Link to="/dashboard/all-sellers">All Sellers</Link>
+              )}
+              {!isLoading && data?.role === "admin" && (
+                <Link to="/dashboard/all-buyers">All Buyers</Link>
               )}
             </NavLinks>
           )}
