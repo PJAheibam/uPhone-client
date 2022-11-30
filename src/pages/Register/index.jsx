@@ -29,7 +29,7 @@ import {
 import { useComponentSize } from "react-use-size";
 import { updateProfile } from "firebase/auth";
 import { addUser } from "../../api/addUser";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { AiOutlineUserAdd as AddProfilePhoto } from "react-icons/ai";
 import Dropzone, { useDropzone } from "react-dropzone";
@@ -42,7 +42,7 @@ function Register() {
   const from = location.state?.from?.pathname || "/";
   const { ref: groupRef, width: groupWidth } = useComponentSize();
   const defaultAccountRef = useRef();
-  const { register, loading } = useAuth();
+  const { register, loading, user } = useAuth();
   const [accountTypeInfo, setAccountTypeInfo] = useState({
     role: "user",
     width: 0,
@@ -161,6 +161,8 @@ function Register() {
   }, [groupWidth, loading]);
 
   if (loading) return <Loading />;
+
+  if (user?.uid) return <Navigate to="/" replace />;
 
   return (
     <Container>

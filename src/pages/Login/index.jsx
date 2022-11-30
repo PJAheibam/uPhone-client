@@ -19,7 +19,7 @@ import LoginWithGoogle from "../../components/LoginWithGoogle";
 import { useFormik } from "formik";
 import { LoginFormSchema } from "../../schemas/login.schema";
 import { useAuth } from "../../context/AuthContext";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { getAccessToken } from "../../api/getAccessToken";
 
@@ -27,7 +27,7 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const { logIn, loading } = useAuth();
+  const { logIn, loading, user } = useAuth();
   const {
     values,
     errors,
@@ -64,6 +64,8 @@ function Login() {
 
   // console.info(isSubmitting);
   if (loading) return <Loading />;
+
+  if (user?.uid) return <Navigate to="/" replace />;
 
   return (
     <Container>

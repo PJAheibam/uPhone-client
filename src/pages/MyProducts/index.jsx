@@ -2,7 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import client from "../../api";
-import { More, T, Table, Icon } from "../../components/Table";
+import {
+  More,
+  T,
+  Table,
+  Icon,
+  ThumbContainer,
+  Thumb,
+} from "../../components/Table";
 import { useAuth } from "../../context/AuthContext";
 import { RiMore2Fill as MoreIcon } from "react-icons/ri";
 import Skeleton from "react-loading-skeleton";
@@ -59,13 +66,6 @@ function MyProducts() {
     setVisibleMenu((prev) => !prev);
     const deleteToastId = toast.loading("Deleting...");
     try {
-      // this will delete all photos of releted product
-
-      // for (const image of data[id]?.images) {
-      //   const res = await axios.delete(image.delete_url);
-      //   console.log("image delete response");
-      // }
-
       const res = await client.delete(`/products?id=${id}&uid=${user.uid}`);
 
       refetch();
@@ -90,6 +90,8 @@ function MyProducts() {
       toast.error("An error occur while updating.", { id: toastId });
     }
   }
+
+  console.log("data", data);
 
   return (
     <Container>
@@ -129,7 +131,12 @@ function MyProducts() {
           {data.map((item, i) => (
             <T.Row key={item._id}>
               <T.Data>{i + 1}</T.Data>
-              <T.Data>{item.name}</T.Data>
+              <T.Data>
+                <ThumbContainer>
+                  <Thumb src={item?.images[0]?.display_url} alt={item.name} />
+                  {item.name}
+                </ThumbContainer>
+              </T.Data>
               <T.Data>{item.sellingPrice}</T.Data>
               <T.Data>{item.status}</T.Data>
               <T.Data>
