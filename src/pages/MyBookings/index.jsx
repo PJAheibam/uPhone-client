@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Heading, Product, Thumb } from "./styles";
 import { Table, T, Icon, More } from "../../components/Table";
 import useMyBookingsData from "../../hooks/useMyBookingsData";
@@ -6,15 +6,23 @@ import { useAuth } from "../../context/AuthContext";
 import Skeleton from "react-loading-skeleton";
 import { Badge } from "../../components/Badge";
 import { Button } from "../../components/Button";
+import PaymentModal from "./PaymentModal";
+
+import { Link } from "react-router-dom";
 
 function MyBookings() {
   const { user } = useAuth();
   const { data = [], isLoading } = useMyBookingsData(user.uid);
-
+  const [product, setProduct] = useState(null);
   // console.info(data);
+  function handlePayNow(data) {
+    setProduct(data);
+  }
 
   return (
     <Container>
+      <PaymentModal booking={product} setBooking={setProduct} user={user} />
+
       <Heading>My Bookings</Heading>
       <Table>
         <T.Head>
@@ -71,7 +79,14 @@ function MyBookings() {
                 </T.Data>
                 {!booking?.paymentStatus && (
                   <More>
-                    <Button style={{ fontSize: "0.9rem" }}>Pay Now</Button>
+                    <Button
+                      style={{ fontSize: "0.9rem" }}
+                      // as={Link}
+                      // to={`/dashboard/payment/${booking._id}`}
+                      // onClick={() => handlePayNow(booking)}
+                    >
+                      Pay Now
+                    </Button>
                   </More>
                 )}
               </T.Row>

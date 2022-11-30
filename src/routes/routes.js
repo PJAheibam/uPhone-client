@@ -16,11 +16,14 @@ import MyBookings from "../pages/MyBookings";
 import AllSellers from "../pages/ManageUsers/AllSellers";
 import AllBuyers from "../pages/ManageUsers/AllBuyers";
 import Reports from "../pages/Reports";
+import Payment from "../pages/Payment";
+import ErrorElement from "../pages/ErrorElement";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorElement />,
     children: [
       {
         path: "",
@@ -87,6 +90,10 @@ export const router = createBrowserRouter([
       {
         path: "my-bookings",
         element: <MyBookings />,
+      },
+      {
+        path: "payment/:id",
+        element: <Payment />,
       },
       {
         path: "/dashboard/*",

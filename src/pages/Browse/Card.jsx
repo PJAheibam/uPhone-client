@@ -79,7 +79,7 @@ function Card({ data, setProduct, setOpenBookNow, setOpenReport, user }) {
         </Seller>
         <Tippy
           content="You can't book or report your own product"
-          disabled={user?.email !== seller.email}
+          disabled={user?.email !== seller?.email}
           placement="bottom"
         >
           <Footer>
@@ -87,7 +87,7 @@ function Card({ data, setProduct, setOpenBookNow, setOpenReport, user }) {
               style={{ borderRadius: "0.25rem" }}
               type="button"
               onClick={handleBookNow}
-              disabled={seller.email === user?.email}
+              disabled={seller?.email === user?.email}
             >
               Book
             </GradientButton>
@@ -95,7 +95,7 @@ function Card({ data, setProduct, setOpenBookNow, setOpenReport, user }) {
             <Tippy content="Report This Product">
               <ReportButton
                 onClick={handleReportClick}
-                disabled={seller.email === user?.email}
+                disabled={seller?.email === user?.email}
               >
                 <ReportIcon />
               </ReportButton>
