@@ -10,6 +10,7 @@ export const useUserRole = (userId, onSuccess = () => {}, onError = () => {}) =>
           authorization: `Bearer ${localStorage.getItem("access-token")}`,
         },
       });
+      // console.info("uid", userId);
       return res.data;
     },
     enabled: userId ? true : false,
