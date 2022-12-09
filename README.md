@@ -1,6 +1,6 @@
 # uPhone
 
-[view server code](https://uphone-339a9.web.app/)
+[view server code]([https://uphone-339a9.web.app/](https://github.com/prosenjit-singha/uPhone-server.git))
 
 ## INTRODUCTION
 
