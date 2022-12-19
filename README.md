@@ -1,10 +1,10 @@
 # uPhone
 
-[Visit to the website](https://uphone-339a9.web.app/)
+[view server code](https://github.com/prosenjit-singha/uPhone-server.git)
 
 ## INTRODUCTION
 
-uPhone is a resale website. Where you can sale your used mobile phones at ease. You can also buy used phone at best price. Here, I have implemented payment method system which is also working.
+uPhone is a resale website. Where you can sell your used mobile phones with ease. You can also buy a used phone at the best price. Here, I have implemented a payment method system which is also working.
 
 ## FEATURES
 
