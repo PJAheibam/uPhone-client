@@ -77,6 +77,7 @@ const Item = styled(SwiperSlide)`
   display: flex;
   flex-direction: column;
   max-width: 300px;
+  min-height: 400px;
   overflow: hidden;
   border-radius: var(--border-radius-lg);
   background-image: var(--paper-2);
@@ -97,10 +98,11 @@ const Content = styled.div`
 
 const ItemName = styled.h2`
   margin-block: 0.25em;
+  font-size: 1.25rem;
 `;
 
 const Image = styled.img`
-  max-height: 300px;
+  height: 250px;
   object-fit: cover;
   object-position: center;
 `;

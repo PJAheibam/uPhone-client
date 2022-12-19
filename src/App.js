@@ -23,11 +23,9 @@ function App() {
       <GlobalStyles />
       <Toaster position="top-center" reverseOrder={false} />
       <AuthProvider>
-        <UserRoleProvider>
-          <SkeletonTheme baseColor={baseColor} highlightColor={heighlightColor}>
-            <RouterProvider router={router} />
-          </SkeletonTheme>
-        </UserRoleProvider>
+        <SkeletonTheme baseColor={baseColor} highlightColor={heighlightColor}>
+          <RouterProvider router={router} />
+        </SkeletonTheme>
       </AuthProvider>
     </ThemeProvider>
   );

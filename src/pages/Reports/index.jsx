@@ -6,6 +6,7 @@ import Tippy from "@tippyjs/react";
 import { Button } from "../../components/Button";
 import toast from "react-hot-toast";
 import client from "../../api";
+import Skeleton from "react-loading-skeleton";
 
 function Reports() {
   const { user } = useAuth();
@@ -13,7 +14,7 @@ function Reports() {
 
   async function handleDelete(id, reportId) {
     const toastId = toast.loading("Deleting...");
-    console.log("id", id);
+    // console.log("id", id);
     try {
       const deleteProduct = await client.delete(
         `/products?id=${id}&uid=${user?.uid}`
@@ -28,7 +29,7 @@ function Reports() {
     }
   }
 
-  console.info(data);
+  // console.info(data);
   return (
     <Container>
       <Heading>Reports</Heading>
@@ -42,6 +43,26 @@ function Reports() {
           </T.Row>
         </T.Head>
         <T.Body>
+          {isLoading &&
+            [...Array(10).keys()].map((i) => (
+              <T.Row key={i}>
+                <T.Data>
+                  <Skeleton />
+                </T.Data>
+                <T.Data>
+                  <Skeleton />
+                </T.Data>
+                <T.Data>
+                  <Skeleton />
+                </T.Data>
+                <T.Data>
+                  <Skeleton />
+                </T.Data>
+                <T.Data>
+                  <Skeleton />
+                </T.Data>
+              </T.Row>
+            ))}
           {!isLoading &&
             data.map((report, i) => (
               <T.Row key={report._id}>

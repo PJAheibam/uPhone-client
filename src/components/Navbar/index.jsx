@@ -32,7 +32,7 @@ function Navbar() {
   return (
     <Header>
       <Wrapper>
-        {showDashButton && (
+        {showDashButton && user.uid && (
           <Tippy content="Dashboard Menu">
             <Hamburger
               toggled={openDashMenu}
@@ -65,7 +65,7 @@ function Navbar() {
         )}
       </Wrapper>
       <Drawer open={open} />
-      <DashDrawer open={openDashMenu} />
+      <DashDrawer open={openDashMenu} onClose={() => setOpenDashMenu(false)} />
     </Header>
   );
 }

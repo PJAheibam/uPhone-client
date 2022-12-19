@@ -10,7 +10,7 @@ import { device } from "../../utils/breakpoints";
 import { Badge } from "../Badge";
 import userIcon from "../../assets/icons/user.png";
 
-function DashDrawer({ open }) {
+function DashDrawer({ open, onClose }) {
   const { user } = useAuth();
 
   const { data, isLoading } = useUserRole(user?.uid);
@@ -25,6 +25,10 @@ function DashDrawer({ open }) {
       easing: easings.easeOutSine,
     },
   });
+
+  function handleClick() {
+    onClose();
+  }
 
   return (
     <Portal>
@@ -48,22 +52,34 @@ function DashDrawer({ open }) {
               )}
               {!isLoading && (
                 <NavLinks>
-                  <Link to="/dashboard">My Products</Link>
+                  <Link to="/dashboard" onClick={handleClick}>
+                    My Products
+                  </Link>
 
                   {!isLoading && (
-                    <Link to="/dashboard/my-bookings">My Bookings</Link>
+                    <Link to="/dashboard/my-bookings" onClick={handleClick}>
+                      My Bookings
+                    </Link>
                   )}
                   {!isLoading && data?.role !== "buyer" && (
-                    <Link to="/dashboard/add-product">Add a Product</Link>
+                    <Link to="/dashboard/add-product" onClick={handleClick}>
+                      Add a Product
+                    </Link>
                   )}
                   {!isLoading && data?.role === "admin" && (
-                    <Link to="/dashboard/all-sellers">All Sellers</Link>
+                    <Link to="/dashboard/all-sellers" onClick={handleClick}>
+                      All Sellers
+                    </Link>
                   )}
                   {!isLoading && data?.role === "admin" && (
-                    <Link to="/dashboard/all-buyers">All Buyers</Link>
+                    <Link to="/dashboard/all-buyers" onClick={handleClick}>
+                      All Buyers
+                    </Link>
                   )}
                   {!isLoading && data?.role === "admin" && (
-                    <Link to="/dashboard/reports">Reports</Link>
+                    <Link to="/dashboard/reports" onClick={handleClick}>
+                      Reports
+                    </Link>
                   )}
                 </NavLinks>
               )}

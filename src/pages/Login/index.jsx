@@ -60,8 +60,9 @@ function Login() {
       actions.resetForm();
       setError(null);
     } catch (err) {
-      setError("Email or password is incorrect");
-      console.error(err);
+      if (err.code === "auth/user-not-found") setError("User not found");
+      else setError("Email or password is incorrect");
+      console.error(err.code);
     }
   }
 
