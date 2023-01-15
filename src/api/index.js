@@ -4,7 +4,7 @@ import axios from "axios";
  * https://uphone-pjaheibam.vercel.app
  */
 const client = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://uphone-pjaheibam.vercel.app",
 });
 
 client.defaults.headers.common.authorization = `Bearer ${localStorage.getItem(

@@ -77,6 +77,7 @@ function MyProducts() {
   }
 
   async function handleAdvertise() {
+    setVisibleMenu((prev) => !prev);
     const toastId = toast.loading("Updating...");
     const selectedProduct = data.find((item, i) => item._id === id);
     // console.info(selectedProduct);

@@ -46,7 +46,7 @@ function BookNowModal({ product, user, setProduct, open, setOpen }) {
         buyerPhoneNumber: values.phoneNumber,
       };
       // console.info(payload);
-      const res = client.post(`/bookings`, payload);
+      await client.post(`/bookings`, payload);
       toast.success("Booked!", { id: toastId });
       setProduct(null);
     } catch (error) {
