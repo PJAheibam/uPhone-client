@@ -12,9 +12,11 @@ import {
 } from "react-icons/md";
 import { PhotoView } from "react-photo-view";
 import Tippy from "@tippyjs/react";
+import { useNavigate } from "react-router-dom";
 
 function Card({ data, setProduct, setOpenBookNow, setOpenReport, user }) {
   // console.info(data.sellerId);
+  const navigate = useNavigate();
   const theme = useTheme();
   const { data: seller, isLoading } = useQuery({
     queryKey: ["seller", data.sellerId],
@@ -26,10 +28,12 @@ function Card({ data, setProduct, setOpenBookNow, setOpenReport, user }) {
   });
 
   function handleBookNow() {
+    if (!user || !user?.uid) navigate("/login");
     setProduct({ ...data, sellerInfo: seller });
     setOpenBookNow(true);
   }
   function handleReportClick() {
+    if (!user || !user?.uid) navigate("/login");
     setProduct({ ...data, sellerInfo: seller });
     setOpenReport(true);
   }

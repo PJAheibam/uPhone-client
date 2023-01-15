@@ -26,8 +26,9 @@ function Browse() {
     data = [],
     isLoading,
     refetch,
+    isFetching,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["products", id],
     queryFn: async () => {
       const res = await client.get(`/products?brandId=${id}&uid=${user?.uid}`);
       return res.data;

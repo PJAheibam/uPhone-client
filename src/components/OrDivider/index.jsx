@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function OrDevider() {
+function OrDivider() {
   return (
     <Container>
       <Line /> <Text>or</Text> <Line />{" "}
@@ -9,7 +9,7 @@ function OrDevider() {
   );
 }
 
-export default OrDevider;
+export default OrDivider;
 
 const Container = styled.div`
   font-size: 1rem;

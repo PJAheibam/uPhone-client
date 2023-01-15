@@ -17,7 +17,7 @@ import {
   LinkText,
 } from "./styles";
 import { GradientButton } from "../../components/Button";
-import OrDevider from "../../components/OrDevider";
+import OrDivider from "../../components/OrDivider";
 import LoginWithGoogle from "../../components/LoginWithGoogle";
 import { useFormik } from "formik";
 import { RegistrationFormSchema } from "../../schemas/registration.schema";
@@ -32,7 +32,7 @@ import { addUser } from "../../api/addUser";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { AiOutlineUserAdd as AddProfilePhoto } from "react-icons/ai";
-import Dropzone, { useDropzone } from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 import { uploadImage } from "../../services/uploadImage";
 import { getAccessToken } from "../../api/getAccessToken";
 
@@ -290,7 +290,7 @@ function Register() {
             Register
           </GradientButton>
         </Form>
-        <OrDevider />
+        <OrDivider />
 
         <LoginWithGoogle
           innerText="Register With Google"

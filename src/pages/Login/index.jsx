@@ -14,7 +14,7 @@ import {
   LinkText,
 } from "../Register/styles";
 import { GradientButton } from "../../components/Button";
-import OrDevider from "../../components/OrDevider";
+import OrDivider from "../../components/OrDivider";
 import LoginWithGoogle from "../../components/LoginWithGoogle";
 import { useFormik } from "formik";
 import { LoginFormSchema } from "../../schemas/login.schema";
@@ -127,7 +127,7 @@ function Login() {
             Login
           </GradientButton>
         </Form>
-        <OrDevider />
+        <OrDivider />
         <LoginWithGoogle
           isSubmitting={isSubmitting}
           setSubmitting={setSubmitting}
