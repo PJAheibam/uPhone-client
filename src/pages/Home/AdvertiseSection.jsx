@@ -10,7 +10,6 @@ function AdvertiseSection() {
   const props = {
     grabCursor: true,
     spaceBetween: 48,
-    centeredSlides: true,
     slidesPerView: "auto",
     // autoplay: {
     //   delay: 2500,
@@ -71,6 +70,7 @@ const Container = styled.article`
 const Heading = styled.h1`
   font-size: clamp(1.25rem, 5vw, 2.25rem);
   text-align: center;
+  text-transform: uppercase;
 `;
 
 const Item = styled(SwiperSlide)`

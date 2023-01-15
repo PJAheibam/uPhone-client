@@ -72,7 +72,7 @@ function MyProducts() {
 
       toast.success("Product Removed!", { id: deleteToastId });
     } catch (err) {
-      toast.success("Erro Occur While Deleting", { id: deleteToastId });
+      toast.success("Error Occur While Deleting", { id: deleteToastId });
     }
   }
 
@@ -82,7 +82,7 @@ function MyProducts() {
     const selectedProduct = data.find((item, i) => item._id === id);
     // console.info(selectedProduct);
     try {
-      const res = await client.patch(`/products/${id}`, {
+      await client.patch(`/products/${id}`, {
         advertise: !selectedProduct.advertise,
       });
       toast.success("Updated", { id: toastId });

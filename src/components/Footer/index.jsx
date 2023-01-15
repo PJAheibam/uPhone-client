@@ -32,7 +32,7 @@ function Footer() {
             <Heading>Usefull Links</Heading>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/category/all">Browse</NavLink>
-            <NavLink to="/blog">Blog</NavLink>
+            <NavLink to="/faq">FAQ</NavLink>
           </Nav>
         </UsefullWrapper>
         <BrandsWrapper>
@@ -50,7 +50,7 @@ function Footer() {
             <Heading>Supports</Heading>
             <NavLink>Terms & Conditions</NavLink>
             <NavLink>About</NavLink>
-            <NavLink>FAQ</NavLink>
+            {/* <NavLink to="/faq">FAQ</NavLink> */}
           </Nav>
         </SupportWrapper>
 

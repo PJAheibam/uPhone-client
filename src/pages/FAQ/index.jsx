@@ -5,10 +5,10 @@ import ReactState from "./ReactState";
 import { Container, Heading } from "./styles";
 import UnitTest from "./UnitTest";
 
-function Blog() {
+function FAQ() {
   return (
     <Container>
-      <Heading>Blog</Heading>
+      <Heading>Frequently Asked Questions</Heading>
       <ReactState />
       <PrototypicalInheritance />
       <UnitTest />
@@ -17,4 +17,4 @@ function Blog() {
   );
 }
 
-export default Blog;
+export default FAQ;

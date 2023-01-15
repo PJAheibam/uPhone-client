@@ -7,7 +7,7 @@ import { device } from "../../utils/breakpoints";
 function SupportSection() {
   return (
     <Container>
-      <Heading>WELCOME TO PHONO SUPPORT. WE'RE HERE TO HELP.</Heading>
+      <Heading>WELCOME TO UPHONE SUPPORT. WE'RE HERE TO HELP.</Heading>
       <SubHeading>ALWAYS ON YOUR SIDE WHEN YOU NEED HELP</SubHeading>
       <Cards>
         <Card.Container>

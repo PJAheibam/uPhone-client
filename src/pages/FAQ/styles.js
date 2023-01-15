@@ -15,8 +15,9 @@ export const Article = styled.section`
 `;
 
 export const Heading = styled.h1`
-  font-size: 2rem;
+  font-size: clamp(1.25rem, 4vw, 2.25rem);
   font-weight: 500;
+  text-transform: uppercase;
 `;
 
 export const Title = styled.h2`

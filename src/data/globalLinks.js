@@ -7,8 +7,8 @@ export const globalLinks = [
     path: "/category/all",
     name: "browse",
   },
-  {
-    path: "/blog",
-    name: "blog",
-  },
+  // {
+  //   path: "/faq",
+  //   name: "FAQ",
+  // },
 ];

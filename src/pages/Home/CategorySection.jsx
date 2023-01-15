@@ -31,6 +31,7 @@ const Container = styled.article`
 `;
 
 const Heading = styled.h1`
+  text-transform: uppercase;
   font-size: clamp(1.25rem, 5vw, 2.25rem);
   text-align: center;
 `;

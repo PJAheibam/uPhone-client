@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { device } from "../utils/breakpoints";
 import userIcon from "../assets/icons/user.png";
-import { Link as RrdLink, Outlet } from "react-router-dom";
+import { Link as RrdLink, Outlet, useLocation } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import { Badge } from "../components/Badge";
 import { useAuth } from "../context/AuthContext";
@@ -12,8 +12,10 @@ import useUserRole from "../hooks/useUserRole";
 
 function DashboardLayout() {
   const { user } = useAuth();
-
+  const { pathname } = useLocation();
   const { data, isLoading } = useUserRole(user?.uid);
+
+  const isActive = (path) => (pathname.includes(path) ? "active" : undefined);
 
   return (
     <>
@@ -37,23 +39,50 @@ function DashboardLayout() {
           {!isLoading && (
             <NavLinks>
               {!isLoading && data?.role !== "buyer" && (
-                <Link to="/dashboard">My Products</Link>
+                <Link
+                  to="/dashboard"
+                  isactive={pathname === "/dashboard" ? "active" : undefined}
+                >
+                  My Products
+                </Link>
               )}
 
               {!isLoading && (
-                <Link to="/dashboard/my-bookings">My Bookings</Link>
+                <Link
+                  to="/dashboard/my-bookings"
+                  isactive={isActive("my-bookings")}
+                >
+                  My Bookings
+                </Link>
               )}
               {!isLoading && data?.role !== "buyer" && (
-                <Link to="/dashboard/add-product">Add a Product</Link>
+                <Link
+                  to="/dashboard/add-product"
+                  isactive={isActive("add-product")}
+                >
+                  Add a Product
+                </Link>
               )}
               {!isLoading && data?.role === "admin" && (
-                <Link to="/dashboard/all-sellers">All Sellers</Link>
+                <Link
+                  to="/dashboard/all-sellers"
+                  isactive={isActive("all-sellers")}
+                >
+                  All Sellers
+                </Link>
               )}
               {!isLoading && data?.role === "admin" && (
-                <Link to="/dashboard/all-buyers">All Buyers</Link>
+                <Link
+                  to="/dashboard/all-buyers"
+                  isactive={isActive("all-buyers")}
+                >
+                  All Buyers
+                </Link>
               )}
               {!isLoading && data?.role === "admin" && (
-                <Link to="/dashboard/reports">Reports</Link>
+                <Link to="/dashboard/reports" isactive={isActive("reports")}>
+                  Reports
+                </Link>
               )}
             </NavLinks>
           )}
@@ -140,8 +169,10 @@ const Link = styled(RrdLink)`
   font-size: 1.15rem;
   padding: 0.5em 1rem;
   border-radius: 1em;
+  background-color: ${(p) =>
+    p.isactive ? "hsl(var(--primary-dark) / 10%)" : "transparent"};
   &:hover {
-    background-color: hsl(var(--primary-main) / 10%);
+    background-color: hsl(var(--primary-light) / 10%);
   }
 `;
 

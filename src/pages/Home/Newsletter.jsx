@@ -74,8 +74,8 @@ const Content = styled.section`
 `;
 
 const Heading = styled.h1`
-  /* text-align: center; */
   font-weight: 500;
+  text-transform: uppercase;
   font-size: clamp(1.75rem, 4vw, 2rem);
 `;
 

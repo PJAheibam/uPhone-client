@@ -23,7 +23,12 @@ function NavLinks() {
       ))}
       {user.uid && (
         <PrivateLinks>
-          <NavLink to="/dashboard">Dashboard</NavLink>
+          <NavLink
+            to="/dashboard"
+            isactive={pathname.includes("/dashboard") ? "active" : undefined}
+          >
+            Dashboard
+          </NavLink>
           <NavLink as="button" onClick={logOut}>
             Logout
           </NavLink>
