@@ -7,7 +7,7 @@ import Register from "../pages/Register";
 import PageNotFound from "../pages/PageNotFound";
 import Browse from "../pages/Browse";
 import DashboardLayout from "../layout/Dashboard.layout";
-import Loading from "../components/Loading";
+// import Loading from "../components/Loading";
 import AddProduct from "../pages/AddProduct";
 import MyProducts from "../pages/MyProducts";
 import ManageUser from "../pages/ManageUsers";
@@ -17,7 +17,7 @@ import AllSellers from "../pages/ManageUsers/AllSellers";
 import AllBuyers from "../pages/ManageUsers/AllBuyers";
 import Reports from "../pages/Reports";
 import Payment from "../pages/Payment";
-import ErrorElement from "../pages/ErrorElement";
+// import ErrorElement from "../pages/ErrorElement";
 
 export const router = createBrowserRouter([
   {

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import client from "../../api";
@@ -12,6 +12,7 @@ import BookNowModal from "./BookNowModal";
 import { useAuth } from "../../context/AuthContext";
 import { PhotoProvider } from "react-photo-view";
 import ReportModal from "./ReportModal";
+import Oops from "./Oops";
 
 function Browse() {
   const { user } = useAuth();
@@ -22,12 +23,7 @@ function Browse() {
   const [openReport, setOpenReport] = useState(false);
   const { data: brands = [] } = useBrands();
 
-  const {
-    data = [],
-    isLoading,
-    refetch,
-    isFetching,
-  } = useQuery({
+  const { data = [], isLoading } = useQuery({
     queryKey: ["products", id],
     queryFn: async () => {
       const res = await client.get(`/products?brandId=${id}&uid=${user?.uid}`);
@@ -35,10 +31,6 @@ function Browse() {
     },
     // refetchOnMount: true,
   });
-
-  useEffect(() => {
-    refetch();
-  }, [id]);
 
   return (
     <Container>
@@ -75,6 +67,7 @@ function Browse() {
           <PhotoProvider>
             {isLoading &&
               [...Array(6).keys()].map((i) => <CardSkeleton key={i} />)}
+            {!isLoading && !data.length && <Oops />}
             {!isLoading &&
               data.map((item) => (
                 <Card

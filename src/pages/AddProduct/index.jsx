@@ -363,7 +363,7 @@ function AddProduct() {
         >
           Submit
         </GradientButton>
-        <button
+        {/* <button
           type="button"
           onClick={() => {
             // console.info(images);
@@ -375,7 +375,7 @@ function AddProduct() {
           }}
         >
           Check
-        </button>
+        </button> */}
       </Form>
     </>
   );

@@ -47,7 +47,7 @@ function Login() {
     validationSchema: LoginFormSchema,
   });
 
-  // console.info(from);
+  // console.info("From -> Login", from);
 
   async function onSubmit(values, actions) {
     try {
@@ -136,7 +136,7 @@ function Login() {
         />
         <BoxFooterText>
           Don't Have an account?{" "}
-          <LinkText to="/register" state={{ from: location.state?.from }}>
+          <LinkText to="/register" state={{ from }}>
             Register
           </LinkText>{" "}
         </BoxFooterText>

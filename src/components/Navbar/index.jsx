@@ -11,7 +11,7 @@ import { Spin as Hamburger } from "hamburger-react";
 import { useBreakpoints } from "react-use-size";
 import Drawer from "./Drawer";
 import DashDrawer from "./DashDrawer";
-import Tippy from "@tippyjs/react";
+// import Tippy from "@tippyjs/react";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -33,13 +33,7 @@ function Navbar() {
     <Header>
       <Wrapper>
         {showDashButton && user.uid && (
-          <Tippy content="Dashboard Menu">
-            <Hamburger
-              toggled={openDashMenu}
-              toggle={setOpenDashMenu}
-              rounded
-            />
-          </Tippy>
+          <Hamburger toggled={openDashMenu} toggle={setOpenDashMenu} rounded />
         )}
         <Logo style={{ marginRight: "auto" }} />
         {!hideLink && <NavLinks />}
@@ -54,14 +48,7 @@ function Navbar() {
         )}
         {/* <UserMenu /> */}
         {hideLink && (
-          <Tippy content="Nav Menu">
-            <Hamburger
-              label="Nav Menu"
-              toggled={open}
-              toggle={setOpen}
-              rounded
-            />
-          </Tippy>
+          <Hamburger label="Nav Menu" toggled={open} toggle={setOpen} rounded />
         )}
       </Wrapper>
       <Drawer open={open} />

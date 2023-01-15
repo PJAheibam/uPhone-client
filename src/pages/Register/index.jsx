@@ -40,7 +40,7 @@ function Register() {
   const navigate = useNavigate();
   const location = useLocation();
   const [error, setError] = useState(null);
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from || "/";
   const { ref: groupRef, width: groupWidth } = useComponentSize();
   const defaultAccountRef = useRef();
   const { register, loading, user } = useAuth();

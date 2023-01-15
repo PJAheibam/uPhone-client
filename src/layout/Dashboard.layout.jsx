@@ -36,7 +36,9 @@ function DashboardLayout() {
           )}
           {!isLoading && (
             <NavLinks>
-              <Link to="/dashboard">My Products</Link>
+              {!isLoading && data?.role !== "buyer" && (
+                <Link to="/dashboard">My Products</Link>
+              )}
 
               {!isLoading && (
                 <Link to="/dashboard/my-bookings">My Bookings</Link>
