@@ -22,6 +22,7 @@ import { useAuth } from "../../context/AuthContext";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { getAccessToken } from "../../api/getAccessToken";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 function Login() {
   const [error, setError] = useState(null);
@@ -66,6 +67,8 @@ function Login() {
     }
   }
 
+  /************* side effects **************/
+  useScrollToTop();
   // console.info(isSubmitting);
   if (loading) return <Loading />;
 

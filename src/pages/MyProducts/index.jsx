@@ -19,6 +19,7 @@ import { toast } from "react-hot-toast";
 import Portal from "../../services/portal";
 import { usePopper } from "react-popper";
 import { Badge } from "../../components/Badge";
+import useScrollToTop from "../../hooks/useScrollToTop";
 // import axios from "axios";
 
 function MyProducts() {
@@ -92,7 +93,8 @@ function MyProducts() {
     }
   }
 
-  // console.log("data", data);
+  /************* side effects **************/
+  useScrollToTop();
 
   return (
     <Container>

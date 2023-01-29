@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FiPhoneCall } from "react-icons/fi";
 import { MdOutlineEmail } from "react-icons/md";
 import { device } from "../../utils/breakpoints";
+import { Link } from "react-router-dom";
 
 function SupportSection() {
   return (
@@ -10,7 +11,7 @@ function SupportSection() {
       <Heading>WELCOME TO UPHONE SUPPORT. WE'RE HERE TO HELP.</Heading>
       <SubHeading>ALWAYS ON YOUR SIDE WHEN YOU NEED HELP</SubHeading>
       <Cards>
-        <CardContainer>
+        <CardContainer as="a" href="tel:0000123456789">
           <CardIcon>
             <FiPhoneCall />
           </CardIcon>
@@ -21,7 +22,9 @@ function SupportSection() {
             <CardText>0000-123-456789</CardText>
           </CardContent>
         </CardContainer>
-        <CardContainer>
+
+        {/* Email */}
+        <CardContainer as="a" href="mailTo:support@uphone.web.app">
           <CardIcon>
             <MdOutlineEmail />
           </CardIcon>

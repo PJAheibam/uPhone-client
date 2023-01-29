@@ -13,6 +13,7 @@ import { useAuth } from "../../context/AuthContext";
 import { PhotoProvider } from "react-photo-view";
 import ReportModal from "./ReportModal";
 import Oops from "./Oops";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 function Browse() {
   const { user } = useAuth();
@@ -31,6 +32,8 @@ function Browse() {
     },
     // refetchOnMount: true,
   });
+
+  useScrollToTop();
 
   return (
     <Container>

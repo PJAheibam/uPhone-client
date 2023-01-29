@@ -7,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import { Badge } from "../../components/Badge";
 import { Button } from "../../components/Button";
 import PaymentModal from "./PaymentModal";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 function MyBookings() {
   const { user } = useAuth();
@@ -16,6 +17,9 @@ function MyBookings() {
   function handlePayNow(data) {
     setProduct(data);
   }
+
+  /************* side effects **************/
+  useScrollToTop();
 
   return (
     <Container>

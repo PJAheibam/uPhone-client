@@ -21,6 +21,7 @@ import { RiImageAddLine as AddImageIcon } from "react-icons/ri";
 import { uploadImages } from "../../services/uploadImages";
 import { useNavigate } from "react-router-dom";
 import Tippy from "@tippyjs/react";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 const initialValues = {
   productName: "",
@@ -68,7 +69,6 @@ function AddProduct() {
     handleBlur,
     handleChange,
     setFieldValue,
-    setFieldTouched,
     setFieldError,
     isSubmitting,
   } = useFormik({
@@ -152,6 +152,9 @@ function AddProduct() {
       console.error(error);
     }
   }
+
+  // side effects
+  useScrollToTop();
 
   return (
     <>
@@ -363,19 +366,6 @@ function AddProduct() {
         >
           Submit
         </GradientButton>
-        {/* <button
-          type="button"
-          onClick={() => {
-            // console.info(images);
-            // console.info(.current.files);
-            console.info(values);
-            // console.info(errors);
-            // console.info(touched);
-            // console.info(format(date, "PPp"));
-          }}
-        >
-          Check
-        </button> */}
       </Form>
     </>
   );

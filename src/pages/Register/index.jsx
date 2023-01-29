@@ -35,6 +35,7 @@ import { AiOutlineUserAdd as AddProfilePhoto } from "react-icons/ai";
 import { useDropzone } from "react-dropzone";
 import { uploadImage } from "../../services/uploadImage";
 import { getAccessToken } from "../../api/getAccessToken";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 function Register() {
   const navigate = useNavigate();
@@ -151,6 +152,9 @@ function Register() {
       setFieldError("profilePhoto", "We only accept .jpg, .jpeg, .png format");
     }
   }
+
+  /************* side effects **************/
+  useScrollToTop();
 
   useEffect(() => {
     if (!loading) {

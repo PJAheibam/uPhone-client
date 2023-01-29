@@ -15,6 +15,7 @@ import useClickOutside from "../../hooks/useClickOutside";
 import { updateUser } from "../../services/updateUser";
 import { deleteUser } from "../../services/deleteUser";
 import { async } from "@firebase/util";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 function ManageUser() {
   const referenceElement = useRef();
@@ -67,6 +68,9 @@ function ManageUser() {
     setVisible(false);
     refetch();
   }
+
+  /************* side effects **************/
+  useScrollToTop();
 
   return (
     <Container>

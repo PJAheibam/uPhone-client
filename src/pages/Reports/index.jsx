@@ -7,6 +7,7 @@ import { Button } from "../../components/Button";
 import toast from "react-hot-toast";
 import client from "../../api";
 import Skeleton from "react-loading-skeleton";
+import useScrollToTop from "../../hooks/useScrollToTop";
 
 function Reports() {
   const { user } = useAuth();
@@ -29,6 +30,8 @@ function Reports() {
     }
   }
 
+  /************* side effects **************/
+  useScrollToTop();
   // console.info(data);
   return (
     <Container>
