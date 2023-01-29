@@ -2,11 +2,11 @@ export const darkTheme = {
   palette: {
     mode: "dark",
     primary: {
-      hsl: [207, 90, 77],
-      main: "207 90% 77%",
-      light: "207 85% 85%",
-      dark: "207 90% 61%",
-      text: "207 90% 11%",
+      hsl: [154, 66, 38],
+      main: "154 66% 38%",
+      light: "154 85% 45%",
+      dark: "154 66% 35%",
+      text: "154 66% 95%",
     },
     secondary: {
       hsl: [291, 47, 71],

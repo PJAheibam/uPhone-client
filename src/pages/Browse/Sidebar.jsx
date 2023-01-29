@@ -16,7 +16,7 @@ function Sidebar() {
 
   return (
     <Container>
-      <Heading>Category</Heading>
+      <Heading>Brands</Heading>
       <NavLinks>
         {isLoading && (
           <Skeleton
@@ -30,14 +30,14 @@ function Sidebar() {
         )}
 
         {!isLoading && (
-          <Link to={"/category/all"} active={isActive("all")}>
+          <Link to={"/Browse/all"} active={isActive("all")}>
             All
           </Link>
         )}
 
         {data.map((data, i) => (
           <Link
-            to={"/category/" + data._id}
+            to={"/Browse/" + data._id}
             key={data._id}
             active={isActive(data._id)}
           >
@@ -90,6 +90,8 @@ const Link = styled(RrdLink)`
   font-size: 1.15rem;
   padding: 0.5em 1em;
   border-radius: 1em;
+  color: ${(p) =>
+    p.active ? "hsl(var(--primary-main) / 100%)" : "hsl(var(--text-primary))"};
   background-color: ${(p) =>
     p.active
       ? "hsl(var(--primary-main) / 10%)"

@@ -34,6 +34,8 @@ export const HeaderButton = styled(motion.button)`
 export const Header = styled.section`
   display: flex;
   margin-inline: auto;
+  width: 100%;
+  overflow: hidden;
 `;
 
 export const ActiveIndicator = styled(motion.span)`

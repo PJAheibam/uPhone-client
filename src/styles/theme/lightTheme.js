@@ -2,11 +2,11 @@ export const lightTheme = {
   palette: {
     mode: "light",
     primary: {
-      hsl: [210, 79, 46],
-      main: "210 79% 46%",
-      light: "207 90% 61%",
-      dark: "210 80% 43%",
-      text: "210 90% 95%",
+      hsl: [154, 66, 38],
+      main: "154 66% 38%",
+      light: "154 85% 45%",
+      dark: "154 66% 35%",
+      text: "154 66% 95%",
     },
     secondary: {
       hsl: [291, 64, 42],

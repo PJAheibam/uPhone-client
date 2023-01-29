@@ -168,6 +168,7 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
+  border-radius: var(--border-radius-md);
   width: 100%;
   height: 180px;
   object-fit: cover;

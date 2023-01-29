@@ -4,7 +4,7 @@ export const globalLinks = [
     name: "home",
   },
   {
-    path: "/category/all",
+    path: "/browse/all",
     name: "browse",
   },
   // {

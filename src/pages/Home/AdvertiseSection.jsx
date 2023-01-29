@@ -45,7 +45,7 @@ function AdvertiseSection() {
               </Text>
               <Button
                 as={Link}
-                to={`/category/${product.brandId}`}
+                to={`/browse/${product.brandId}`}
                 variant="outlined"
                 style={{ marginTop: "15px" }}
               >

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { GradientButton } from "../Button";
 import Logo from "../Logo";
@@ -14,6 +14,7 @@ import DashDrawer from "./DashDrawer";
 // import Tippy from "@tippyjs/react";
 
 function Navbar() {
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [openDashMenu, setOpenDashMenu] = useState(false);
   const { user } = useAuth();
@@ -40,7 +41,15 @@ function Navbar() {
         {!hideThemeToggler && <ToggleThemeButton />}
         {!user.uid && (
           <AuthButtonGroup>
-            {!hideLogin && <NavLink to="/login"> Login</NavLink>}
+            {!hideLogin && (
+              <NavLink
+                to="/login"
+                isactive={pathname === "/login" ? "active" : undefined}
+              >
+                {" "}
+                Login
+              </NavLink>
+            )}
             <GradientButton as={Link} to="/register" color="primary">
               Register
             </GradientButton>

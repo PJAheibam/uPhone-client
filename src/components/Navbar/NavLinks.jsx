@@ -49,10 +49,14 @@ export const NavLink = styled(Link)`
   text-transform: capitalize;
   font-size: 1.15rem;
   color: ${(p) =>
-    p.isactive ? "hsl(var(--text-primary))" : "hsl(var(--text-secondary))"};
+    p.isactive
+      ? p.theme.palette.mode === "dark"
+        ? "hsl(var(--primary-light))"
+        : "hsl(var(--primary-main))"
+      : "hsl(var(--text-primary))"};
   transition: color 300ms ease;
   &:hover {
-    color: hsl(var(--text-primary));
+    color: hsl(var(--primary-light));
   }
 `;
 

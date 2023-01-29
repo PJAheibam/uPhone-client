@@ -147,6 +147,7 @@ export const GlobalStyles = createGlobalStyle`
 
     /* Resetting default button styles */
     button {
+        font-family: "Poppins", sans-serif;
         cursor: pointer;
         text-transform: capitalize;
         border: none;

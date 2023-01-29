@@ -33,7 +33,7 @@ function HeroSection() {
 export default HeroSection;
 
 const Container = styled.article`
-  width: 100vw;
+  width: 100%;
   overflow-x: hidden;
 `;
 

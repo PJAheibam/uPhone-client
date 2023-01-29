@@ -1,12 +1,12 @@
 import styled, { css } from "styled-components";
 
 const primaryGradient = css`
-  color: hsl(222 76% 98%);
+  color: hsl(154 66% 5%);
   background-image: linear-gradient(
     -45deg,
-    hsl(250, 60%, 59%) 0%,
-    hsl(225, 76%, 67%) 51%,
-    hsl(230, 70%, 59%) 100%
+    hsl(154, 66%, 38%) 0%,
+    hsl(154, 66%, 59%) 51%,
+    hsl(154, 66%, 38%) 100%
   );
 `;
 const errorGradient = css`

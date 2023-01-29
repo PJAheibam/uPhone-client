@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { GradientButton } from "../../../components/Button";
 import { useBrands } from "../../../hooks/useBrands";
 import Items from "./Items";
 import {
@@ -37,6 +39,13 @@ function CategorySection() {
         ))}
       </Header>
       <Items productID={selectedID} />
+      <GradientButton
+        as={Link}
+        to="/browse/all"
+        style={{ width: "fit-content", marginInline: "auto" }}
+      >
+        View More
+      </GradientButton>
     </Container>
   );
 }
