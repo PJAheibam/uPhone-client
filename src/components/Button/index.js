@@ -188,7 +188,7 @@ export const Button = styled.button`
   font-size: 1.15rem;
   padding: 0.25em 0.75em;
   padding-bottom: 0.3em;
-  border-radius: 1em;
+  border-radius: var(--border-radius-md);
   width: fit-content;
   /* font-weight: 600; */
   ${(p) =>

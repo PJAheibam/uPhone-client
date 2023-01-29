@@ -75,7 +75,7 @@ export const GradientButton = styled.button`
   padding: 0.35em 1em;
   padding-bottom: 0.375rem;
   text-transform: capitalize;
-  border-radius: 1em;
+  border-radius: var(--border-radius-md);
   transition: background-position 500ms ease;
   filter: saturate(${(p) => (p.disabled ? 0.15 : 1)});
   opacity: ${(p) => (p.disabled ? 0.45 : 1)};

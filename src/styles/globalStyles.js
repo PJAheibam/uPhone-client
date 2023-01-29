@@ -139,13 +139,13 @@ export const GlobalStyles = createGlobalStyle`
         overflow: overlay;
     }
 
-    // Reseting default anchor default styles
+    // Resetting default anchor default styles
     a {
         color: hsl(var(--text-primary));
         text-decoration: none;
     }
 
-    /* Reseting default button styles */
+    /* Resetting default button styles */
     button {
         cursor: pointer;
         text-transform: capitalize;
@@ -153,7 +153,5 @@ export const GlobalStyles = createGlobalStyle`
         background-color: transparent;
         border-radius: 0;
       }
-    .add-product-images{
-      max-height: clamp(200px, 30vh, 300px);
-    }
+
 `;
