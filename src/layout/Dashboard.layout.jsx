@@ -169,6 +169,8 @@ const Link = styled(RrdLink)`
   font-size: 1.15rem;
   padding: 0.5em 1rem;
   border-radius: 1em;
+  color: ${(p) =>
+    p.isactive ? "hsl(var(--primary-main))" : "hsl(var(--text-primary))"};
   background-color: ${(p) =>
     p.isactive ? "hsl(var(--primary-dark) / 10%)" : "transparent"};
   &:hover {

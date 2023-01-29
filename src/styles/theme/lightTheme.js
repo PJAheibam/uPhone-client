@@ -3,9 +3,9 @@ export const lightTheme = {
     mode: "light",
     primary: {
       hsl: [154, 66, 38],
-      main: "154 66% 38%",
+      main: "154 66% 35%",
       light: "154 85% 45%",
-      dark: "154 66% 35%",
+      dark: "154 66% 30%",
       text: "154 66% 95%",
     },
     secondary: {

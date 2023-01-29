@@ -47,7 +47,7 @@ function AdvertiseSection() {
                 as={Link}
                 to={`/browse/${product.brandId}`}
                 variant="outlined"
-                style={{ marginTop: "15px" }}
+                style={{ marginTop: "15px", fontSize: "1rem" }}
               >
                 View
               </Button>
@@ -76,8 +76,8 @@ const Heading = styled.h1`
 const Item = styled(SwiperSlide)`
   display: flex;
   flex-direction: column;
-  max-width: 300px;
-  min-height: 400px;
+  max-width: 280px;
+  min-height: 380px;
   overflow: hidden;
   border-radius: var(--border-radius-lg);
   background-image: var(--paper-2);

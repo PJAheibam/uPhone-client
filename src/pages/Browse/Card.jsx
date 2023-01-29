@@ -1,7 +1,7 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 import styled, { useTheme } from "styled-components";
-import { GradientButton } from "../../components/Button";
+import { Button, GradientButton } from "../../components/Button";
 import { device } from "../../utils/breakpoints";
 import userIcon from "../../assets/icons/user.png";
 import { useQuery } from "@tanstack/react-query";
@@ -88,14 +88,14 @@ function Card({ data, setProduct, setOpenBookNow, setOpenReport, user }) {
           placement="bottom"
         >
           <Footer>
-            <GradientButton
-              style={{ borderRadius: "0.25rem" }}
+            <BookBtn
+              variant="filled"
               type="button"
               onClick={handleBookNow}
               disabled={seller?.email === user?.email}
             >
               Book
-            </GradientButton>
+            </BookBtn>
 
             <Tippy content="Report This Product">
               <ReportButton
@@ -152,20 +152,6 @@ export function CardSkeleton() {
     </Container>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 200px;
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: var(--border-radius-lg);
-  border: 1px solid hsl(var(--outline-variant) / 70%);
-  background-image: var(--paper-1);
-  @media ${device.sm} {
-    /* max-width: 150px; */
-  }
-`;
 
 const Image = styled.img`
   border-radius: var(--border-radius-md);
@@ -234,6 +220,20 @@ const Footer = styled.div`
   justify-content: space-between;
 `;
 
+const BookBtn = styled(Button)`
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  color: hsl(var(--primary-main));
+  background-color: ${(p) =>
+    p.theme.palette.mode === "dark"
+      ? "hsl(var(--primary-main) / 8%)"
+      : "hsl(var(--primary-main) / 15%)"};
+  :hover {
+    border: none;
+  }
+`;
+
 const Content = styled.div``;
 
 const ReportButton = styled.button`
@@ -245,5 +245,32 @@ const ReportButton = styled.button`
   color: hsl(var(--outline));
   &:hover {
     color: hsl(var(--error-main) / 80%);
+  }
+`;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid hsl(var(--outline-variant) / 70%);
+  background-image: var(--paper-1);
+  transition: border 300ms ease;
+  :hover {
+    border: 1px solid hsl(var(--primary-main));
+  }
+  :hover ${BookBtn} {
+    color: ${(p) =>
+      p.theme.palette.mode === "dark"
+        ? "hsl(var(--bg))"
+        : "hsl(var(--on-primary))"};
+    background-color: ${(p) =>
+      p.theme.palette.mode === "dark"
+        ? "hsl(var(--primary-main))"
+        : "hsl(var(--primary-main))"};
+  }
+  @media ${device.sm} {
+    /* max-width: 150px; */
   }
 `;

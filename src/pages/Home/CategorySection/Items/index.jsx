@@ -8,6 +8,7 @@ import { device } from "../../../../utils/breakpoints";
 import { useWindowSize } from "react-use-size";
 import { useState } from "react";
 import { useEffect } from "react";
+import Oops from "./Oops";
 
 function Items({ productID }) {
   const { user } = useAuth();
@@ -32,6 +33,7 @@ function Items({ productID }) {
 
   /* CONSOLES */
   // console.info(data[0]);
+  if (!isLoading && !data.length) return <Oops />;
 
   return (
     <Container>

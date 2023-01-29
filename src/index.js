@@ -13,6 +13,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "swiper/css/thumbs";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
+import "swiper/css/scrollbar";
 import "react-photo-view/dist/react-photo-view.css";
 import "@stripe/react-stripe-js";
 // import "@stripe/react-stripe-js/common.css";

@@ -153,6 +153,15 @@ export const GlobalStyles = createGlobalStyle`
         border: none;
         background-color: transparent;
         border-radius: 0;
-      }
+    }
+    .swiper-pagination-bullet-active{
+      background-color: hsl(var(--primary-main));
+    }
+    .swiper-button-prev, .swiper-button-next {
+      color: hsl(var(--primary-main));
+    }
+    .swiper-scrollbar.swiper-scrollbar-horizontal {
+      bottom: -8px
+    }
 
 `;
