@@ -60,7 +60,7 @@ function Browse() {
               { id: "all", text: "All" },
               ...brands.map((brand) => ({ id: brand._id, text: brand.name })),
             ]}
-            onclick={(id) => navigate("/category/" + id)}
+            onclick={(id) => navigate("/browse/" + id)}
           />
         </Header>
         <Cards>

@@ -10,28 +10,28 @@ function SupportSection() {
       <Heading>WELCOME TO UPHONE SUPPORT. WE'RE HERE TO HELP.</Heading>
       <SubHeading>ALWAYS ON YOUR SIDE WHEN YOU NEED HELP</SubHeading>
       <Cards>
-        <Card.Container>
-          <Card.Icon>
+        <CardContainer>
+          <CardIcon>
             <FiPhoneCall />
-          </Card.Icon>
-          <Card.Content>
-            <Card.Heading>Wanna talk to us?</Card.Heading>
-            <Card.Title>Call us now</Card.Title>
-            <Card.Text>This Number is Toll Free.</Card.Text>
-            <Card.Text>0000-123-456789</Card.Text>
-          </Card.Content>
-        </Card.Container>
-        <Card.Container>
-          <Card.Icon>
+          </CardIcon>
+          <CardContent>
+            <CardHeading>Wanna talk to us?</CardHeading>
+            <CardTitle>Call us now</CardTitle>
+            <CardText>This Number is Toll Free.</CardText>
+            <CardText>0000-123-456789</CardText>
+          </CardContent>
+        </CardContainer>
+        <CardContainer>
+          <CardIcon>
             <MdOutlineEmail />
-          </Card.Icon>
-          <Card.Content>
-            <Card.Heading>Have any doubts?</Card.Heading>
-            <Card.Title>Email us now</Card.Title>
-            <Card.Text>24/7 Customer Service </Card.Text>
-            <Card.Text>support@uphone.web.app</Card.Text>
-          </Card.Content>
-        </Card.Container>
+          </CardIcon>
+          <CardContent>
+            <CardHeading>Have any doubts?</CardHeading>
+            <CardTitle>Email us now</CardTitle>
+            <CardText>24/7 Customer Service </CardText>
+            <CardText>support@uphone.web.app</CardText>
+          </CardContent>
+        </CardContainer>
       </Cards>
     </Container>
   );
@@ -65,48 +65,57 @@ const Cards = styled.div`
   }
 `;
 
-const Card = {
-  Container: styled.div`
-    padding: 1rem;
-    gap: 1rem;
-    border-radius: var(--border-radius-lg);
-    outline: 1px solid hsl(var(--outline));
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    @media ${device.sm} {
-      gap: 2rem;
-      flex-direction: row;
-      justify-content: flex-start;
-    }
-  `,
-  Icon: styled.div`
-    font-size: 3rem;
-    display: flex;
-  `,
-  Content: styled.div``,
-  Heading: styled.h2`
-    text-transform: uppercase;
-    font-size: clamp(1rem, 4vw, 1.25rem);
-    font-weight: 500;
-    text-align: center;
-    @media ${device.sm} {
-      text-align: left;
-    }
-  `,
-  Title: styled.h1`
-    text-transform: uppercase;
-    text-align: center;
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    @media ${device.sm} {
-      text-align: left;
-    }
-  `,
-  Text: styled.p`
-    text-align: center;
-    @media ${device.sm} {
-      text-align: left;
-    }
-  `,
-};
+const CardIcon = styled.div`
+  font-size: 3rem;
+  display: flex;
+  transition: color 250ms ease;
+`;
+
+const CardContent = styled.div``;
+const CardHeading = styled.h2`
+  text-transform: uppercase;
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  font-weight: 500;
+  text-align: center;
+  @media ${device.sm} {
+    text-align: left;
+  }
+`;
+const CardTitle = styled.h1`
+  text-transform: uppercase;
+  text-align: center;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  transition: color 250ms ease;
+  @media ${device.sm} {
+    text-align: left;
+  }
+`;
+
+const CardText = styled.p`
+  text-align: center;
+  @media ${device.sm} {
+    text-align: left;
+  }
+`;
+
+const CardContainer = styled.div`
+  padding: 1rem;
+  gap: 1rem;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid hsl(var(--outline));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  :hover {
+    border: 1px solid hsl(var(--primary-main));
+  }
+  :hover ${CardTitle}, :hover ${CardIcon} {
+    color: hsl(var(--primary-main));
+  }
+  @media ${device.sm} {
+    gap: 2rem;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+`;

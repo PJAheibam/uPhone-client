@@ -107,6 +107,12 @@ const Input = styled.input`
   border-radius: 1rem;
   background-color: transparent;
   border: 2px solid hsl(var(--outline-variant));
+  transition: border 250ms ease;
+  :focus-visible {
+    border: 2px solid hsl(var(--primary-main));
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
 `;
 
 const Image = styled.img`
