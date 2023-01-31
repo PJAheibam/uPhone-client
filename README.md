@@ -4,7 +4,7 @@
 
 ## INTRODUCTION
 
-uPhone is a resale website. Where you can sell your used mobile phones with ease. You can also buy a used phone at the best price. Here, I have implemented a payment method system which is also working.
+uPhone is a online retailer website. Where you can sell your used mobile phones with ease. You can also buy a used phone at the best price. Here, I have implemented a payment method system which is also working.
 
 ## FEATURES
 
